@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Pirulen";
+  src: url("../../public/font/pirulenrg.otf");
+}
+
+@font-face {
+  font-family: "BaiBold";
+  src: url("../../public/font/BaiJamjuree-Bold.ttf");
+}
+@font-face {
+  font-family: "BaiMedium";
+  src: url("../../public/font/BaiJamjuree-Medium.ttf");
+}
+@font-face {
+  font-family: "BaiLight";
+  src: url("../../public/font/BaiJamjuree-Light.ttf");
+}
+@font-face {
+  font-family: "Orbitron";
+  src: url("../../public/font/Orbitron-SemiBold.ttf");
+}
+@font-face {
+  font-family: "OrbitronMedium";
+  src: url("../../public/font/Orbitron-Medium.ttf");
+}
