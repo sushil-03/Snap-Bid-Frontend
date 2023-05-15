@@ -15,6 +15,8 @@ module.exports = {
       "6xl": "4rem",
     },
     extend: {
+      margin: ["last"],
+
       colors: {
         brand: {},
         // gray: {

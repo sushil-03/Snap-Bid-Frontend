@@ -130,9 +130,9 @@ const index = () => {
           <Button variant="secondary">Explore now</Button>
         </div>
         <div className="flex items-center justify-center gap-10 mt-10 [&>*:nth-child(2)]:mb-32 ">
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
+          <ProductCard isShowBid={true} />
+          <ProductCard isShowBid={true} />
+          <ProductCard isShowBid={true} />
         </div>
       </div>
 

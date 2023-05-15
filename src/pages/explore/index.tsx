@@ -1,4 +1,5 @@
 import Button from "@/components/atoms/Button";
+import Input from "@/components/atoms/Input";
 import ProductCard from "@/components/molecules/ProductCard";
 import React, { useState } from "react";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
@@ -142,7 +143,7 @@ const index = () => {
             <p className="text-4xl font-baibold">Top Gallery</p>
             <p>
               {" "}
-              <input
+              <Input
                 type="text"
                 placeholder="Search product"
                 className="py-2 pl-10 pr-4 border-2 rounded-md outline-none border-black-600 font-baiMedium"
@@ -150,7 +151,6 @@ const index = () => {
             </p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-8 mt-6">
-            <ProductCard></ProductCard>
             <ProductCard></ProductCard>
             <ProductCard></ProductCard>
             <ProductCard></ProductCard>

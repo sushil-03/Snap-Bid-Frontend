@@ -8,7 +8,7 @@ const MainContainer = ({ children }: { children: ReactNode }) => {
   return (
     <Fragment>
       <title>Bid Connect</title>
-      <div className="relative w-11/12 py-4 mx-auto overflow-hidden">
+      <div className="relative w-full pb-4 mx-auto overflow-hidden md:w-11/12 ">
         <Navbar />
         <main>{children}</main>
       </div>

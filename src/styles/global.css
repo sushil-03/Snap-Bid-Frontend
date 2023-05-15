@@ -1,7 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root {
+  --swiper-navigation-size: 16px; /* To edit the size of the arrows */
+  --swiper-navigation-color: rgb(
+    238,
+    68,
+    68
+  ); /* To edit the color of the arrows */
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.swiper-button-prev {
+  color: red;
+}
 @font-face {
   font-family: "Pirulen";
   src: url("../../public/font/pirulenrg.otf");

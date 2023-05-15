@@ -18,12 +18,14 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.14",
     "next": "^13.4.1",
     "next-seo": "^6.0.0",
     "next-sitemap": "^4.0.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.8.0",
+    "swiper": "^9.3.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
