@@ -22,6 +22,9 @@ input[type="number"] {
 .swiper-button-prev {
   color: red;
 }
+.MuiInput-input {
+  backgroundcolor: red;
+}
 @font-face {
   font-family: "Pirulen";
   src: url("../../public/font/pirulenrg.otf");

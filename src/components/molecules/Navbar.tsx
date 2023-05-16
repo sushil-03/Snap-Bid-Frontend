@@ -75,7 +75,7 @@ const Navbar = () => {
             <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black-600 origin-bottom-left after:origin-right"></span>
           </Link>
 
-          <Link href={"/Login"} className="">
+          <Link href={"/sell"} className="">
             <div className="w-full p-2 rounded-md text-whte bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
               <div className="flex items-center justify-between w-full h-full gap-2 px-2 py-1 bg-white rounded-md md:px-4 md:py-2">
                 <span className="hidden text-lg md:block">+</span>
