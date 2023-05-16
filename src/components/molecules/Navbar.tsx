@@ -5,6 +5,7 @@ import Button from "../atoms/Button";
 import { Dialog } from "@headlessui/react";
 import { useState, useEffect } from "react";
 import Input from "../atoms/Input";
+import { IoMdAdd } from "react-icons/io";
 const Navbar = () => {
   const navlist = [
     {
@@ -54,11 +55,15 @@ const Navbar = () => {
         <div>
           <Logo />
         </div>
-        <div className="flex items-center gap-2 text-sm uppercase md:gap-8 sm:gap-4 font-orbitron ">
+        <div className="flex items-center gap-2 text-sm uppercase md:gap-8 sm:gap-4 font-baiMedium ">
           {navlist.map((item, key) => {
             return (
-              <Link href={item.link} key={key} className="group">
-                <div className="py-2 pr-2 text-xs transition duration-300 md:text-base">
+              <Link
+                href={item.link}
+                key={key}
+                className=" group hover:bg-stone-100 rounded-t-xl"
+              >
+                <div className="px-2 py-2 text-xs transition duration-300 md:text-base">
                   {item.name}
                 </div>
                 <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black-600 origin-bottom-left after:origin-right"></span>
@@ -67,7 +72,7 @@ const Navbar = () => {
           })}
           <Link href={"/login"} className="cursor-pointer group">
             <div
-              className="py-2 pr-2 text-xs transition duration-300 md:text-base"
+              className="p-3 py-2 pr-2 text-xs transition duration-300 md:text-base hover:bg-stone-100 rounded-t-xl"
               onClick={() => setIsOpen(true)}
             >
               Login
@@ -78,7 +83,9 @@ const Navbar = () => {
           <Link href={"/sell"} className="">
             <div className="w-full p-2 rounded-md text-whte bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
               <div className="flex items-center justify-between w-full h-full gap-2 px-2 py-1 bg-white rounded-md md:px-4 md:py-2">
-                <span className="hidden text-lg md:block">+</span>
+                <span className="hidden text-lg md:block">
+                  <IoMdAdd className="text-xl font-bold" />
+                </span>
                 <span>Sell</span>
               </div>
             </div>

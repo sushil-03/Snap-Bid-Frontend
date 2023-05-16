@@ -18,31 +18,34 @@ const ProductBiddingDetail = ({
 }) => {
   return (
     <div className="flex flex-col w-2/3 gap-4 p-4 ">
-      <div className="flex w-full gap-6 mt-8">
-        <FormControl fullWidth sx={{ m: 1 }}>
-          <InputLabel htmlFor="outlined-adornment-amount">
-            Starting Bid
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-amount"
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-            label="Starting Bid"
-          />
-        </FormControl>
+      <div className="flex flex-col gap-4 p-4 bg-white rounded-xl">
+        <div className="flex w-full gap-6 ">
+          <FormControl fullWidth sx={{ m: 1 }}>
+            <InputLabel htmlFor="outlined-adornment-amount">
+              Starting Bid
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-amount"
+              startAdornment={
+                <InputAdornment position="start">$</InputAdornment>
+              }
+              label="Starting Bid"
+            />
+          </FormControl>
+        </div>
+        <div className="flex justify-between w-full px-2">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker label={"Starting Date"} views={["day"]} />
+            <TimePicker label={"Starting Time"} />
+          </LocalizationProvider>
+        </div>
+        <div className="flex justify-between px-2">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker label={"Ending Date"} views={["day"]} />
+            <TimePicker label={"Ending Time"} />
+          </LocalizationProvider>
+        </div>
       </div>
-      <div className="flex justify-between w-full px-2">
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker label={"Starting Date"} views={["day"]} />
-          <TimePicker label={"Starting Time"} />
-        </LocalizationProvider>
-      </div>
-      <div className="flex justify-between px-2">
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker label={"Ending Date"} views={["day"]} />
-          <TimePicker label={"Ending Time"} />
-        </LocalizationProvider>
-      </div>
-
       <div className="flex justify-between px-2">
         <Button
           variant="secondary"

@@ -108,123 +108,42 @@ const ProductSellDetail = ({
   const owners = ["1st", "2nd", "3rd"];
   const conditions = ["Antique", "New", "Refurbished", "Used", "Open Box"];
   return (
-    <div className="flex flex-col w-2/3 gap-6 p-4">
-      <div className="flex gap-6 mt-8">
-        <TextField
-          id="outlined-basic"
-          label="Brand"
-          variant="outlined"
-          color="primary"
-          fullWidth
-          style={{ padding: 4 }}
-          className=""
-        />
-        <TextField
-          id="outlined-basic"
-          label="Title"
-          variant="outlined"
-          color="primary"
-          fullWidth
-          style={{ padding: 2, borderRadius: 4 }}
-          className=""
-        />
-      </div>
-      <div>
-        <TextField
-          id="outlined-multiline-static"
-          label="Description"
-          multiline
-          rows={8}
-          fullWidth
-          variant="outlined"
-          color="primary"
-          className=""
-        />
-      </div>
-      <div className="flex w-full gap-6 mt-8 ">
-        <div className="flex-1">
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label" className="">
-              Categories
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={owner}
-              fullWidth
-              label="Categories"
-              onChange={handleChange}
-              className=""
-            >
-              {categories.map((item, key) => {
-                return (
-                  <MenuItem value={item} key={key}>
-                    {item}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
+    <div className="flex flex-col w-3/4 gap-6 p-4">
+      <div className="flex flex-col w-full gap-6 p-3 bg-white rounded-xl">
+        <div className="flex gap-6">
+          <TextField
+            id="outlined-basic"
+            label="Brand"
+            variant="outlined"
+            color="primary"
+            fullWidth
+            style={{ padding: 4 }}
+            className=""
+          />
+          <TextField
+            id="outlined-basic"
+            label="Title"
+            variant="outlined"
+            color="primary"
+            fullWidth
+            style={{ padding: 2, borderRadius: 4 }}
+            className=""
+          />
         </div>
-        <div className="flex-1">
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label" className="">
-              Owner
-            </InputLabel>
-            <Select
-              labelId="owerlabel-id"
-              id="owner-id"
-              value={owner}
-              label="Owner"
-              onChange={handleChange}
-              className=""
-            >
-              {owners.map((item, key) => {
-                return (
-                  <MenuItem value={item} key={key}>
-                    {item}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </div>
-        <div className="flex-1">
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label" className="">
-              Condition
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={owner}
-              label="Condition"
-              onChange={handleChange}
-              className=""
-            >
-              {conditions.map((item, key) => {
-                return (
-                  <MenuItem value={item} key={key}>
-                    {item}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
+        <div>
+          <TextField
+            id="outlined-multiline-static"
+            label="Description"
+            multiline
+            rows={8}
+            fullWidth
+            variant="outlined"
+            color="primary"
+            className=""
+          />
         </div>
       </div>
-
-      <div>
-        <TextField
-          id="outlined-multiline-static"
-          label="Location"
-          fullWidth
-          variant="outlined"
-          color="primary"
-          className=""
-        />
-      </div>
-      <div>
+      <div className="flex flex-col w-full gap-6 p-3 bg-white rounded-xl">
         <div className="w-full ">
           {/* Image div */}
           <p className="py-1 text-gray-600 ">Upload atleast 6 images</p>
@@ -260,7 +179,7 @@ const ProductSellDetail = ({
           {selectedfile.map((data) => {
             const { id, filename, fileimage, datetime, filesize } = data;
             return (
-              <div className="flex gap-4 mt-4 " key={id}>
+              <div className="flex gap-4 mt-2" key={id}>
                 <div className="">
                   <Image
                     src={fileimage}
@@ -291,6 +210,91 @@ const ProductSellDetail = ({
               </div>
             );
           })}
+        </div>
+      </div>
+      <div className="flex flex-col w-full gap-6 p-3 bg-white rounded-xl">
+        <div className="flex w-full gap-6 ">
+          <div className="flex-1">
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label" className="">
+                Categories
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={owner}
+                fullWidth
+                label="Categories"
+                onChange={handleChange}
+                className=""
+              >
+                {categories.map((item, key) => {
+                  return (
+                    <MenuItem value={item} key={key}>
+                      {item}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </div>
+          <div className="flex-1">
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label" className="">
+                Owner
+              </InputLabel>
+              <Select
+                labelId="owerlabel-id"
+                id="owner-id"
+                value={owner}
+                label="Owner"
+                onChange={handleChange}
+                className=""
+              >
+                {owners.map((item, key) => {
+                  return (
+                    <MenuItem value={item} key={key}>
+                      {item}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </div>
+          <div className="flex-1">
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label" className="">
+                Condition
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={owner}
+                label="Condition"
+                onChange={handleChange}
+                className=""
+              >
+                {conditions.map((item, key) => {
+                  return (
+                    <MenuItem value={item} key={key}>
+                      {item}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </div>
+        </div>
+
+        <div>
+          <TextField
+            id="outlined-multiline-static"
+            label="Location"
+            fullWidth
+            variant="outlined"
+            color="primary"
+            className=""
+          />
         </div>
       </div>
 

@@ -145,7 +145,7 @@ const ProductSellerDetail = ({
           variant="secondary"
           className="mb-2 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 hover:ring-transparent"
           onClick={() => {
-            setActiveStep(0);
+            setActiveStep(1);
             window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           }}
         >

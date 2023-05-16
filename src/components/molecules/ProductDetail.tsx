@@ -155,7 +155,7 @@ const ProductDetail = () => {
           Description
         </p>
         <div className="flex items-center justify-between gap-4">
-          <p className="p-4 text-base text-gray-500">
+          <p className="p-4 text-base text-gray-500 font-bai">
             {productDetail.description}
           </p>
         </div>

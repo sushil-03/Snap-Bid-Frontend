@@ -5,7 +5,7 @@ import ProductBiddingDetail from "@/components/molecules/ProductBiddingDetail";
 import ProductSellerDetail from "@/components/molecules/ProductSellerDetail";
 
 const index = () => {
-  const [activeStep, setActiveStep] = useState<number>(2);
+  const [activeStep, setActiveStep] = useState<number>(0);
 
   // images
   const renderComponent = (activeStep: number) => {

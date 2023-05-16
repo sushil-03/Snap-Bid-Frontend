@@ -10,7 +10,7 @@ import { IoStarOutline } from "react-icons/io5";
 
 import ProductDetail from "@/components/molecules/ProductDetail";
 import ProductCarousel from "@/components/molecules/ProductCarousel";
-import ProductBidder from "@/components/molecules/ProductBidder";
+import ProductBidder from "@/components/molecules/BiddingList";
 import Button from "@/components/atoms/Button";
 
 const index = () => {
@@ -171,7 +171,6 @@ const index = () => {
           {showOverview && !isOpen ? (
             <ProductDetail />
           ) : (
-            // <ProductDetail data={productDetail} />
             <ProductBidder data={productDetail.bidder} />
           )}
           {isOpen && (
@@ -180,17 +179,13 @@ const index = () => {
               onClose={() => setIsOpen(false)}
               className="relative z-50 bg-black-100 text-black-600"
             >
-              {/* The backdrop, rendered as a fixed sibling to the panel container */}
               <div
                 className="fixed inset-0 bg-black-900/30"
                 aria-hidden="true"
               />
 
-              {/* Full-screen scrollable container */}
               <div className="fixed inset-0 overflow-y-auto">
-                {/* Container to center the panel */}
                 <div className="flex items-center justify-center min-h-full p-4 ">
-                  {/* The actual dialog panel  */}
                   <Dialog.Panel className="w-full max-w-sm p-4 mx-auto bg-white rounded h-1/4">
                     <Dialog.Title className="text-xl font-baibold">
                       <div className="flex items-center justify-between mx-2">
@@ -252,7 +247,7 @@ const index = () => {
           </div>
 
           <div className="flex items-center justify-between p-4 rounded-xl bg-stone-100">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-lg font-bai">
               <Image
                 src={`/images/profile/${user.profile}`}
                 width={80}

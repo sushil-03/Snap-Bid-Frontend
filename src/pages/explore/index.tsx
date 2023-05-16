@@ -35,14 +35,14 @@ const index = () => {
     <div className="min-h-screen mt-24">
       <div className="flex gap-3">
         {/* Categories */}
-        <div className="flex flex-col w-1/6 gap-2">
+        <div className="flex flex-col w-1/5 gap-2">
           <p className="mt-12 mb-6 text-4xl font-baibold">Filter</p>
           <div className="cursor-pointer ">
             <div
               className="flex items-center justify-between text-2xl"
               onClick={() => showCategory(!category)}
             >
-              <p className=" font-bai">Categories</p>
+              <p className=" font-baiMedium">Categories</p>
               <p>
                 {category ? (
                   <AiOutlineArrowDown className="" />
@@ -56,7 +56,7 @@ const index = () => {
                 categories.map((item, key) => {
                   return (
                     <p
-                      className={` font-OrbitronMedium ${item.class} inline-block font-medium`}
+                      className={` font-baiMedium ${item.class} inline-block font-medium`}
                       key={key}
                     >
                       {item.name}
@@ -71,7 +71,7 @@ const index = () => {
               className="flex items-center justify-between text-2xl"
               onClick={() => showLocation(!location)}
             >
-              <p className=" font-bai">Location</p>
+              <p className=" font-baiMedium">Location</p>
               <p>
                 {location ? (
                   <AiOutlineArrowDown className="" />
@@ -82,7 +82,7 @@ const index = () => {
             </div>
             <div className="flex flex-row flex-wrap gap-3 my-2 ml-4">
               {location && (
-                <div className="flex flex-row items-center justify-start gap-4">
+                <div className="flex flex-row items-center justify-between flex-1 gap-4 font-baiMedium">
                   <input
                     type="text"
                     placeholder="location"
@@ -104,7 +104,7 @@ const index = () => {
               className="flex items-center justify-between text-2xl"
               onClick={() => showRange(!range)}
             >
-              <p className=" font-bai">Price</p>
+              <p className="font-baiMedium">Price</p>
               <p>
                 {range ? (
                   <AiOutlineArrowDown className="" />
@@ -113,7 +113,7 @@ const index = () => {
                 )}
               </p>
             </div>
-            <div className="flex flex-row flex-wrap gap-3 my-2 ml-4">
+            <div className="flex flex-row flex-wrap gap-3 my-2 ml-4 font-baiMedium">
               {range && (
                 <div className="flex items-center gap-3">
                   <input
