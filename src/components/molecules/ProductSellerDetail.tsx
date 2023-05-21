@@ -11,19 +11,22 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import { MuiTelInput } from "mui-tel-input";
 
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import Button from "../atoms/Button";
-const ProductSellerDetail = ({
-  setActiveStep,
-}: {
+import { ProductType } from "@/pages/sell";
+type ProductSellDetailType = {
   setActiveStep: (value: number) => void;
-}) => {
+  setProduct: (value: ProductType) => void;
+};
+
+const ProductSellerDetail: FC<ProductSellDetailType> = ({ setActiveStep }) => {
   const [phone, setPhone] = useState("+91");
   const handleChange = (newValue: string) => {
     console.log(newValue);
 
     setPhone(newValue);
   };
+  const handleSubmit = () => {};
   return (
     <div className="flex flex-col w-3/4 gap-6 px-4 pt-4">
       <div className="flex flex-col gap-6 p-4 bg-white rounded-xl">

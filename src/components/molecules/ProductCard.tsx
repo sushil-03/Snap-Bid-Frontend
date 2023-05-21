@@ -9,7 +9,7 @@ type ProductType = {
 const ProductCard: FC<ProductType> = ({ isShowBid }) => {
   return (
     <Fragment>
-      <div className="relative items-center inline-block w-1/5 mb-10 border-2 h rounded-xl">
+      <div className="relative items-center inline-block lg:w-1/5 sm:w-1/2 w-3/5  mb-10 border-2 h rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         <Link href="/product">
           <div className="relative">
             {/* profile */}
@@ -31,7 +31,7 @@ const ProductCard: FC<ProductType> = ({ isShowBid }) => {
                   <p className="text-sm font-orbitron">200000 eth</p>
                 </div>
                 <div className="px-2 py-5">
-                  <p className="text-xs ">Remaining Time</p>
+                  <p className="text-xs ">Time Left</p>
                   <p className="textxl font-orbitron">2:22:40</p>
                 </div>
               </div>

@@ -1,16 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, FC } from "react";
 import TextField from "@mui/material/TextField";
 import { MdCloudUpload } from "react-icons/md";
 import shortid from "shortid";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Button from "@/components/atoms/Button";
 import Image from "next/image";
+import { ProductType } from "@/pages/sell";
 
 type ImageTypes = {
   id: string;
@@ -21,21 +16,36 @@ type ImageTypes = {
   filesize: string;
 }[];
 
-const ProductSellDetail = ({
-  setActiveStep,
-}: {
+type ProductSellDetailType = {
   setActiveStep: (value: number) => void;
-}) => {
-  const [owner, setOwner] = React.useState("");
-  const handleChange = (event: SelectChangeEvent) => {
-    setOwner(event.target.value as string);
-  };
+  setProduct: (value: ProductType) => void;
+};
 
+const ProductSellDetail: FC<ProductSellDetailType> = ({
+  setActiveStep,
+  setProduct,
+}) => {
+  const initialValues = {
+    brand: "",
+    title: "",
+    description: "",
+    images: [{}],
+    category: "",
+    owner: "",
+    condition: "",
+    location: "",
+  };
+  const [data, setData] = useState(initialValues);
   // images
   const imageRef = useRef<HTMLInputElement>(null);
   const [selectedfile, SetSelectedFile] = useState<ImageTypes>([]);
 
-  const [Files, SetFiles] = useState([]);
+  const handleChange = (value: string, name: string) => {
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
 
   const filesizes = (bytes: number, decimals = 2) => {
     if (bytes === 0) return "0 Bytes";
@@ -75,32 +85,30 @@ const ProductSellDetail = ({
     SetSelectedFile(result);
   };
 
-  // const submitDetail=()=>{
-  //   e.preventDefault();
+  const submitDetail = () => {
+    data.images = selectedfile;
+    console.log("Detailss....");
+    console.log(data);
 
-  //   // form reset on submit
-  //   e.target.reset();
-  //   if (selectedfile.length > 0) {
-  //       for (let index = 0; index < selectedfile.length; index++) {
-  //           SetFiles((preValue)=>{
-  //               return[
-  //                   ...preValue,
-  //                   selectedfile[index]
-  //               ]
-  //           })
-  //       }
-  //       SetSelectedFile([]);
-  //   } else {
-  //       alert('Please select file')
-  //   }
-  // }
+    // setProduct((test: ProductType)=>{
+    //   return {
+    //     ...test,
+    //     brand:data.brand
+    //   }
+    // })
+    //  setProduct(()=>{
+    //   return {
+    //     ...data
+    //   }
+    // })
+  };
   // Data
   const categories = [
     "Car",
     "Properties",
     "Mobile",
     "Bike",
-    "Electroni & Appliances",
+    "Electronic & Appliances",
     "Furniture",
     "Fashion",
     "Art",
@@ -108,7 +116,7 @@ const ProductSellDetail = ({
   const owners = ["1st", "2nd", "3rd"];
   const conditions = ["Antique", "New", "Refurbished", "Used", "Open Box"];
   return (
-    <div className="flex flex-col w-3/4 gap-6 p-4">
+    <div className="flex flex-col w-full gap-6 p-4 md:w-3/4">
       <div className="flex flex-col w-full gap-6 p-3 bg-white rounded-xl">
         <div className="flex gap-6">
           <TextField
@@ -118,7 +126,8 @@ const ProductSellDetail = ({
             color="primary"
             fullWidth
             style={{ padding: 4 }}
-            className=""
+            onChange={(e) => handleChange(e.target.value, "brand")}
+            value={data.brand}
           />
           <TextField
             id="outlined-basic"
@@ -127,7 +136,8 @@ const ProductSellDetail = ({
             color="primary"
             fullWidth
             style={{ padding: 2, borderRadius: 4 }}
-            className=""
+            value={data.title}
+            onChange={(e) => handleChange(e.target.value, "title")}
           />
         </div>
         <div>
@@ -137,9 +147,11 @@ const ProductSellDetail = ({
             multiline
             rows={8}
             fullWidth
+            value={data.description}
             variant="outlined"
             color="primary"
             className=""
+            onChange={(e) => handleChange(e.target.value, "description")}
           />
         </div>
       </div>
@@ -222,10 +234,10 @@ const ProductSellDetail = ({
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={owner}
+                value={data.category}
                 fullWidth
                 label="Categories"
-                onChange={handleChange}
+                onChange={(e) => handleChange(e.target.value, "category")}
                 className=""
               >
                 {categories.map((item, key) => {
@@ -246,9 +258,9 @@ const ProductSellDetail = ({
               <Select
                 labelId="owerlabel-id"
                 id="owner-id"
-                value={owner}
+                value={data.owner}
                 label="Owner"
-                onChange={handleChange}
+                onChange={(e) => handleChange(e.target.value, "owner")}
                 className=""
               >
                 {owners.map((item, key) => {
@@ -269,9 +281,9 @@ const ProductSellDetail = ({
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={owner}
+                value={data.condition}
                 label="Condition"
-                onChange={handleChange}
+                onChange={(e) => handleChange(e.target.value, "condition")}
                 className=""
               >
                 {conditions.map((item, key) => {
@@ -291,6 +303,8 @@ const ProductSellDetail = ({
             id="outlined-multiline-static"
             label="Location"
             fullWidth
+            value={data.location}
+            onChange={(e) => handleChange(e.target.value, "location")}
             variant="outlined"
             color="primary"
             className=""
@@ -303,6 +317,7 @@ const ProductSellDetail = ({
           variant="secondary"
           className="mb-2 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 hover:ring-transparent"
           onClick={() => {
+            submitDetail();
             setActiveStep(1);
             window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           }}

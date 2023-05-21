@@ -102,9 +102,11 @@ const ProductDetail = () => {
     ],
   };
   return (
-    <div className="flex flex-col items-center justify-start flex-1 gap-8">
-      <div className="w-full p-4 rounded-xl bg-stone-100">
-        <p className="text-5xl font-baibold">{productDetail.name}</p>
+    <div className="flex flex-col items-center justify-start flex-1 gap-8 ">
+      <div className="w-11/12 p-2 mx-auto md:p-4 shadow-3xl rounded-xl bg-stone-100 ">
+        <p className="px-2 text-3xl sm:px-0 lg:text-5xl font-baibold">
+          {productDetail.name}
+        </p>
         <p className="px-2 text-gray-600">Exclusive</p>
         <div className="flex gap-2 my-4 text-gray-600 uppercase">
           <p className="px-2 border-r border-gray-300">
@@ -113,44 +115,48 @@ const ProductDetail = () => {
           <p>{productDetail.category}</p>
         </div>
       </div>
-      <div className="w-full p-4 rounded-xl bg-stone-100">
+      <div className="w-11/12 p-2 mx-auto md:p-4 shadow-3xl rounded-xl bg-stone-100">
         <p className="pb-2 text-2xl font-bold text-gray-600 border-b-2 border-gray-500 font-bai">
           Overview
         </p>
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center justify-center gap-4 p-4">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+          <div className="flex items-center justify-center gap-2 p-2 md:gap-4 md:p-4 ">
             <div>
               <CgProfile size={30} />
             </div>
             <div>
               <p className="text-sm text-gray-600">Owner</p>
-              <p className="text-2xl font-baibold">{productDetail.owner}</p>
+              <p className="text-lg md:text-2xl font-baibold">
+                {productDetail.owner}
+              </p>
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-4 p-4">
+          <div className="flex items-center justify-center gap-2 p-2 md:gap-4 md:p-4">
             <div>
               <ImLocation size={30} />
             </div>
             <div>
               <p className="text-sm text-gray-600">Location</p>
-              <p className="text-2xl font-baibold">{productDetail.location}</p>
+              <p className="text-lg md:text-2xl font-baibold">
+                {productDetail.location}
+              </p>
             </div>
           </div>
-          <div className="flex items-center justify-center gap-4 p-4">
+          <div className="flex items-center justify-center gap-2 p-2 md:gap-4 md:p-4">
             <div>
               <BsFillCalendarDateFill size={30} />
             </div>
             <div>
               <p className="text-sm text-gray-600">Posting date</p>
-              <p className="text-2xl font-baibold">
+              <p className="text-lg md:text-2xl font-baibold">
                 {productDetail.postingDate}
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-full p-4 rounded-xl bg-stone-100">
+      <div className="w-11/12 p-2 mx-auto mb-4 md:p-4 rounded-xl bg-stone-100 shadow-3xl">
         <p className="pb-2 text-2xl font-bold text-gray-600 border-b-2 border-gray-500 font-bai">
           Description
         </p>

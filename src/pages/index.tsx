@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Button from "@/components/atoms/Button";
 import ProductCard from "@/components/molecules/ProductCard";
+import Link from "next/link";
 const index = () => {
   const categories = [
     {
@@ -94,7 +95,7 @@ const index = () => {
             </p>
             <p>Shop, Unleash.</p>
           </div>
-          <p className="w-2/3 text-base text-gray-400 font-OrbitronMedium ">
+          <p className="w-2/3 text-lg leading-snug text-gray-400 uppercase font-baiMedium ">
             Welcome to BidConnect, your premier online bidding destination.
             Explore a world of exciting auctions and exclusive deals on a wide
             range of products.
@@ -127,7 +128,9 @@ const index = () => {
             </span>{" "}
             Bid
           </div>
-          <Button variant="secondary">Explore now</Button>
+          <Link href="/explore">
+            <Button variant="secondary">Explore now</Button>
+          </Link>
         </div>
         <div className="flex items-center justify-center gap-10 mt-10 [&>*:nth-child(2)]:mb-32 ">
           <ProductCard isShowBid={true} />

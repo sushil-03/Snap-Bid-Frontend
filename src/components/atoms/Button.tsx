@@ -20,7 +20,7 @@ const Button: FC<ButtonProps> = ({
   const getVariant = () => {
     switch (variant) {
       case "primary": {
-        return "border-2 border-black-600 rounded-md md:px-6 px-3 py-2";
+        return "border-2 border-black-600 rounded-md md:px-6 px-3 py-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)]";
       }
       case "secondary": {
         return "rounded-full bg-red-500 text-white py-4 px-12 text-lg";
@@ -53,8 +53,8 @@ const Button: FC<ButtonProps> = ({
   return (
     <div>
       <button
-        {...buttonProps}
         className={`${getVariant()} ${getAnimation()}  ${fullStyleWidth}  font-baiMedium shadow-red-100 shadow ease-in-out transition-all ${className} `}
+        {...buttonProps}
       >
         {children}
       </button>
