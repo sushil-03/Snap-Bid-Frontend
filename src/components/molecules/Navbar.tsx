@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
 import Button from "../atoms/Button";
-import { Dialog } from "@headlessui/react";
 import { useState, useEffect } from "react";
 import { IoMdAdd } from "react-icons/io";
 const Navbar = () => {
@@ -46,7 +45,7 @@ const Navbar = () => {
   return (
     <Fragment>
       <div
-        className={`fixed z-30 flex items-center justify-between sm:px-4 px-2 pl-2 pt-4 pb-6 lg:mx-2 md:mx-4  mt-4 overflow-hidden rounded-md md:w-11/12 mx-auto md:rounded-full md:px-10 backdrop-blur-2xl transition-all ease-in-out duration-600 ${
+        className={`fixed z-50 flex items-center justify-between sm:px-4 px-2 pl-2 pt-4 pb-6  transform -translate-x-1/2  left-1/2   mt-4 overflow-hidden rounded-md w-11/12 mx-auto md:rounded-full  backdrop-blur-2xl transition-all ease-in-out duration-600 ${
           visible ? "top-0" : "-top-36"
         } `}
       >
@@ -57,7 +56,7 @@ const Navbar = () => {
               <Link
                 href={item.link}
                 key={key}
-                className=" group hover:text-red-600 rounded-t-xl"
+                className="z-40 group hover:text-red-600 rounded-t-xl"
               >
                 <div className="px-2 py-2 text-xs transition duration-300 md:text-base">
                   {item.name}

@@ -3,29 +3,6 @@ import { CgProfile } from "react-icons/cg";
 import { ImLocation } from "react-icons/im";
 import { BsFillCalendarDateFill } from "react-icons/bs";
 
-// type ProductDetailType = {
-//   name: string;
-//   category: string;
-//   startingBid: string;
-//   currBid: string;
-//   owner: string;
-//   location: string;
-//   postingDate: string;
-//   remainingTime: string;
-//   description: string;
-//   images: {
-//     url: string;
-//   }[];
-//   condition: string;
-//   bidder: {
-//     profile: string;
-//     link: string;
-//     userName: string;
-//     email: string;
-//     price: string;
-//   }[];
-// } ;
-
 const ProductDetail = () => {
   const productDetail = {
     name: "Msg Title",

@@ -154,7 +154,7 @@ const index = () => {
               className="mx-2"
             />{" "}
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-2 mx-4 mt-6 md:gap-8 sm:gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 mx-4 mt-6 md:gap-8">
             <ProductCard></ProductCard>
             <ProductCard></ProductCard>
             <ProductCard></ProductCard>

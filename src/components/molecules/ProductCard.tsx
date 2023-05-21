@@ -9,7 +9,7 @@ type ProductType = {
 const ProductCard: FC<ProductType> = ({ isShowBid }) => {
   return (
     <Fragment>
-      <div className="relative items-center inline-block lg:w-1/5 sm:w-1/2 w-3/5  mb-10 border-2 h rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+      <div className="relative items-center inline-block xl:w-1/5  lg:w-1/3 md:w-1/3 sm:w-1/3 w-2/5  min-w-max mb-10  rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         <Link href="/product">
           <div className="relative">
             {/* profile */}
@@ -21,7 +21,7 @@ const ProductCard: FC<ProductType> = ({ isShowBid }) => {
               className="absolute top-3 right-4"
             />
             {/* Product Image */}
-            <div className="flex items-center w-full h-64">
+            <div className="flex items-center w-full h-72">
               <Image src="/images/iphone.png" alt="" fill className="-z-10" />
             </div>
             <div className="absolute w-11/12 ml-3 bottom-2">

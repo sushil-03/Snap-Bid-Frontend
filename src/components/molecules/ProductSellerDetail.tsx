@@ -1,34 +1,27 @@
-import {
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
+import { FormControl, TextField } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import { MuiTelInput } from "mui-tel-input";
 
-import React, { useState, FC } from "react";
+import React, { FC } from "react";
 import Button from "../atoms/Button";
 import { ProductType } from "@/pages/sell";
+import { Dayjs } from "dayjs";
 type ProductSellDetailType = {
+  product: Partial<ProductType>;
   setActiveStep: (value: number) => void;
-  setProduct: (value: ProductType) => void;
+  handleChange: (name: string | Dayjs, value: string) => void;
 };
 
-const ProductSellerDetail: FC<ProductSellDetailType> = ({ setActiveStep }) => {
-  const [phone, setPhone] = useState("+91");
-  const handleChange = (newValue: string) => {
-    console.log(newValue);
-
-    setPhone(newValue);
-  };
-  const handleSubmit = () => {};
+const ProductSellerDetail: FC<ProductSellDetailType> = ({
+  product: data,
+  setActiveStep,
+  handleChange,
+}) => {
   return (
-    <div className="flex flex-col w-3/4 gap-6 px-4 pt-4">
+    <div className="flex flex-col w-full gap-6 px-4 pt-4 md:w-3/4">
       <div className="flex flex-col gap-6 p-4 bg-white rounded-xl">
         <div className="flex w-full gap-6 ">
           <TextField
@@ -37,10 +30,16 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({ setActiveStep }) => {
             variant="outlined"
             color="primary"
             fullWidth
+            value={data.sellerName}
             style={{ padding: 2 }}
+            onChange={(e) => handleChange(e.target.value, "sellerName")}
             className=""
           />
-          <MuiTelInput fullWidth value={phone} onChange={handleChange} />
+          <MuiTelInput
+            fullWidth
+            value={data.sellerPhone}
+            onChange={(newVal) => handleChange(newVal, "sellerPhone")}
+          />
         </div>
         <div className="flex w-full gap-6 ">
           <TextField
@@ -50,7 +49,8 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({ setActiveStep }) => {
             color="primary"
             fullWidth
             style={{ padding: 2 }}
-            className=""
+            value={data.sellerEmail}
+            onChange={(e) => handleChange(e.target.value, "sellerEmail")}
           />
           <TextField
             id="outlined-basic"
@@ -59,7 +59,8 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({ setActiveStep }) => {
             color="primary"
             fullWidth
             style={{ padding: 2 }}
-            className=""
+            value={data.sellerCity}
+            onChange={(e) => handleChange(e.target.value, "sellerCity")}
           />
         </div>
         <div className="flex w-full gap-6">
@@ -70,7 +71,8 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({ setActiveStep }) => {
             color="primary"
             fullWidth
             style={{ padding: 2 }}
-            className=""
+            value={data.sellerState}
+            onChange={(e) => handleChange(e.target.value, "sellerState")}
           />
           <TextField
             id="outlined-basic"
@@ -79,7 +81,8 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({ setActiveStep }) => {
             color="primary"
             fullWidth
             style={{ padding: 2 }}
-            className=""
+            value={data.sellerZip}
+            onChange={(e) => handleChange(e.target.value, "sellerZip")}
           />
         </div>
       </div>
@@ -94,6 +97,8 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({ setActiveStep }) => {
               aria-labelledby="demo-form-control-label-placement"
               name="position"
               defaultValue="top"
+              value={data.paymentInfo}
+              onChange={(e) => handleChange(e.target.value, "paymentInfo")}
             >
               <FormControlLabel
                 label="Online Payment"
@@ -127,6 +132,8 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({ setActiveStep }) => {
               aria-labelledby="demo-form-control-label-placement"
               name="position"
               defaultValue="top"
+              value={data.shippingInfo}
+              onChange={(e) => handleChange(e.target.value, "shippingInfo")}
             >
               <FormControlLabel
                 label="Self Pickup"

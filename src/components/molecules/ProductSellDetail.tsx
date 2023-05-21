@@ -5,47 +5,23 @@ import shortid from "shortid";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Button from "@/components/atoms/Button";
 import Image from "next/image";
-import { ProductType } from "@/pages/sell";
-
-type ImageTypes = {
-  id: string;
-  filename: string;
-  filetype: string;
-  fileimage: string;
-  datetime: string;
-  filesize: string;
-}[];
+import { ProductImageType, ProductType } from "@/pages/sell";
 
 type ProductSellDetailType = {
+  product: Partial<ProductType>;
   setActiveStep: (value: number) => void;
-  setProduct: (value: ProductType) => void;
+  handleChange: (name: string, value: string) => void;
+  handleImageChange: (data: ProductImageType) => void;
 };
 
 const ProductSellDetail: FC<ProductSellDetailType> = ({
+  product: data,
   setActiveStep,
-  setProduct,
+  handleChange,
+  handleImageChange,
 }) => {
-  const initialValues = {
-    brand: "",
-    title: "",
-    description: "",
-    images: [{}],
-    category: "",
-    owner: "",
-    condition: "",
-    location: "",
-  };
-  const [data, setData] = useState(initialValues);
-  // images
   const imageRef = useRef<HTMLInputElement>(null);
-  const [selectedfile, SetSelectedFile] = useState<ImageTypes>([]);
-
-  const handleChange = (value: string, name: string) => {
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
+  const [selectedfile, SetSelectedFile] = useState<ProductImageType[]>([]);
 
   const filesizes = (bytes: number, decimals = 2) => {
     if (bytes === 0) return "0 Bytes";
@@ -75,6 +51,14 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
             },
           ];
         });
+        handleImageChange({
+          id: shortid.generate(),
+          filename: e.target.files[i].name,
+          filetype: e.target.files[i].type,
+          fileimage: reader.result as string,
+          datetime: e.target.files[i].lastModifiedDate.toLocaleString("en-IN"),
+          filesize: filesizes(e.target.files[i].size),
+        });
       };
       reader.readAsDataURL(file);
     }
@@ -85,23 +69,6 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
     SetSelectedFile(result);
   };
 
-  const submitDetail = () => {
-    data.images = selectedfile;
-    console.log("Detailss....");
-    console.log(data);
-
-    // setProduct((test: ProductType)=>{
-    //   return {
-    //     ...test,
-    //     brand:data.brand
-    //   }
-    // })
-    //  setProduct(()=>{
-    //   return {
-    //     ...data
-    //   }
-    // })
-  };
   // Data
   const categories = [
     "Car",
@@ -317,7 +284,6 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
           variant="secondary"
           className="mb-2 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 hover:ring-transparent"
           onClick={() => {
-            submitDetail();
             setActiveStep(1);
             window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           }}

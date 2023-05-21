@@ -21,7 +21,7 @@ const MainContainer = ({ children }: { children: ReactNode }) => {
     <Fragment>
       <ThemeProvider theme={theme}>
         <title>Bid Connect</title>
-        <div className="relative w-full pb-4 mx-auto overflow-hidden md:w-11/12 ">
+        <div className="relative w-full pb-4 mx-auto overflow-hidden ">
           <Navbar />
           <main>{children}</main>
         </div>

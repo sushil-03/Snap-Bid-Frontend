@@ -149,7 +149,7 @@ const index = () => {
       </div>
       <div className="flex justify-start mt-8 md:gap-6">
         <div className="w-full">
-          <div className="flex gap-2 p-4 lg:gap-8 md:gap-4">
+          <div className="flex gap-2 p-4 my-4 lg:gap-8 md:gap-4">
             <p
               onClick={() => setShow(true)}
               className="p-1 transition-colors duration-500 ease-in-out border-2 cursor-pointer md:p-3 border-black-600 hover:bg-black-100 hover:text-white font-baiMedium"
@@ -235,7 +235,7 @@ const index = () => {
           )}
         </div>
 
-        <div className="flex flex-col w-4/5 gap-4 mt-20 sm:w-2/5 md:gap-8 ">
+        <div className="flex flex-col w-4/5 gap-8 mt-24 sm:mt-28 sm:w-2/5 ">
           <div className="p-4 mx-4 rounded-xl bg-stone-100 shadow-3xl">
             <p className="text-sm sm:text-lg">Time left</p>
             <p className="text-xl lg:text-4xl md:text-2xl font-baibold">

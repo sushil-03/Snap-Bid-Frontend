@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Button from "@/components/atoms/Button";
 import { Formik, Form } from "formik";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { RiLockPasswordLine, RiCharacterRecognitionFill } from "react-icons/ri";
 import { ImMail3 } from "react-icons/im";
 import { AiFillPhone } from "react-icons/ai";
+import { CgGhostCharacter } from "react-icons/cg";
 type LoginType = {
   email: string;
   password: string;
@@ -39,17 +40,17 @@ const index = () => {
     console.log("Register Called", values);
   };
   return (
-    <div className="h-full ">
+    <div className="h-full">
       <div className="mt-52"></div>
-      <div className="flex items-center justify-between lg:w-4/5 p-8 mx-auto w-full m-10  border-2 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-xl font-baiMedium">
-        <div className="relative hidden w-1/4 h-40 sm:inline-block md:w-1/2 md:h-96">
+      <div className="flex items-center justify-between lg:w-4/5 p-8 mx-auto w-11/12 m-10  border-2 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-xl font-baiMedium">
+        <div className="relative hidden w-1/4 h-40 mx-4 sm:inline-block md:w-1/2 md:h-96">
           <Image src={`/images/test.jpg`} fill alt="image"></Image>
         </div>
         {login ? (
           <Formik initialValues={loginInitialValues} onSubmit={loginHandler}>
             {(formik) => {
               return (
-                <Form className="w-2/5">
+                <Form className="w-full sm:w-3/5 md:w-2/5">
                   <div className="flex flex-col flex-1 gap-6 p-8 rounded-md">
                     <p className="text-4xl text-center text-transparent bg-gradient-to-r from-violet-600 to-orange-600 bg-clip-text font-baibold">
                       Welcome Back
@@ -139,7 +140,13 @@ const index = () => {
                             placeholder="First Name"
                             name="firstName"
                             fullWidth
-                            className="p-2 pl-1"
+                            icon={
+                              <RiCharacterRecognitionFill
+                                size={23}
+                                className="text-violet-800"
+                              />
+                            }
+                            className="p-1"
                             type="text"
                           />
                         </div>
@@ -150,6 +157,12 @@ const index = () => {
                           <Input
                             {...formik.getFieldProps("lastName")}
                             placeholder="Last Name"
+                            icon={
+                              <CgGhostCharacter
+                                size={23}
+                                className="text-violet-800"
+                              />
+                            }
                             name="lastName"
                             fullWidth
                             className="pl-1"
@@ -173,7 +186,7 @@ const index = () => {
                             placeholder="@mail"
                             fullWidth
                             name="email"
-                            className="px-2 py-4 pl-4 "
+                            className=""
                             type="text"
                           />
                         </div>
@@ -192,7 +205,7 @@ const index = () => {
                             placeholder="Phone Numebr"
                             fullWidth
                             name="PhoneNo"
-                            className="px-2 py-4 pl-4 "
+                            className=""
                             type="text"
                           />
                         </div>
@@ -213,7 +226,7 @@ const index = () => {
                           name="password"
                           type="password"
                           fullWidth
-                          className="px-2 py-4 pl-4 "
+                          className=""
                         />
                       </div>
                     </div>

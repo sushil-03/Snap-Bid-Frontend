@@ -1,10 +1,8 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import Button from "../atoms/Button";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
-import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
-
 import {
   FormControl,
   InputAdornment,
@@ -14,37 +12,24 @@ import {
 import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 import { ProductType } from "@/pages/sell";
 
+type ProductBidType = Pick<
+  ProductType,
+  "startingBid" | "startingDate" | "startingTime" | "endingDate" | "endingTime"
+>;
+
 type ProductSellDetailType = {
+  product: ProductBidType;
   setActiveStep: (value: number) => void;
-  setProduct: (value: ProductType) => void;
+  handleChange: (name: string | Dayjs, value: string) => void;
 };
-type ProductBidType = {
-  startingBid: string;
-  startingDate: Dayjs | null;
-  startingTime: Dayjs | null;
-  endingDate: Dayjs | null;
-};
+
 const ProductBiddingDetail: FC<ProductSellDetailType> = ({
+  product: data,
   setActiveStep,
-  setProduct,
+  handleChange,
 }) => {
-  const initialValues = {
-    startingBid: "",
-    startingDate: dayjs(new Date()),
-    startingTime: dayjs(new Date()),
-    endingDate: dayjs(new Date()),
-  };
-  const handleChange = (value: string, name: string) => {
-    setData({
-      ...data,
-      [name]: value,
-    });
-    console.log(data);
-  };
-  const [data, setData] = useState<ProductBidType>(initialValues);
-  const handleSubmit = () => {};
   return (
-    <div className="flex flex-col w-2/3 gap-4 p-4 ">
+    <div className="flex flex-col w-full gap-4 p-4 md:w-2/3 ">
       <div className="flex flex-col gap-4 p-4 bg-white rounded-xl">
         <div className="flex w-full gap-6 ">
           <FormControl fullWidth sx={{ m: 1 }}>
@@ -68,13 +53,11 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
             <DatePicker
               label={"Starting Date"}
               views={["day"]}
-              value={data.startingDate}
-              defaultValue={dayjs(new Date())}
-              // onChange={(newValue) => handleChange(newValue, "startingDate")}
+              value={data.startingDate!}
               onChange={(newValue) => {
                 if (!newValue) return;
                 console.log("TEST", newValue?.toISOString().split("T")[0]);
-                // handleChange(newValue.toISOString().split("T")[0],"startingDate")
+                handleChange(newValue, "startingDate");
               }}
               minDate={dayjs(new Date())}
             />
@@ -82,21 +65,32 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
             <TimePicker
               label={"Starting Time"}
               value={data.startingTime}
-              defaultValue={dayjs(new Date())}
-              disablePast
               onChange={(newValue) => {
-                console.log(
-                  "STTTime",
-                  newValue?.toDate().toString().split(" ")[4]
-                );
+                if (!newValue) return;
+                handleChange(newValue, "startingTime");
               }}
             />
           </LocalizationProvider>
         </div>
         <div className="flex justify-between px-2">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker label={"Ending Date"} views={["day"]} />
-            <TimePicker label={"Ending Time"} />
+            <DatePicker
+              label={"Ending Date"}
+              views={["day"]}
+              value={data.endingDate}
+              onChange={(newValue) => {
+                if (!newValue) return;
+                handleChange(newValue, "endingDate");
+              }}
+            />
+            <TimePicker
+              label={"Ending Time"}
+              value={data.endingTime}
+              onChange={(newValue) => {
+                if (!newValue) return;
+                handleChange(newValue, "endingTime");
+              }}
+            />
           </LocalizationProvider>
         </div>
       </div>

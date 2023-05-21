@@ -85,17 +85,17 @@ const index = () => {
     },
   ];
   return (
-    <div className="w-full h-full overflow-hidden">
-      <div className="flex items-center h-screen ">
-        <div className=" border-black-900">
+    <div className="w-11/12 h-full mx-auto mt-32 overflow-hidden sm:mt-0">
+      <div className="flex flex-col items-center min-h-screen gap-4 md:flex-row">
+        <div className="">
           <p className="font-piru">Digital Bid _____</p>
-          <div className="pt-10 pb-6 text-6xl font-extrabold font-piru">
+          <div className="pt-10 pb-0 text-3xl font-extrabold md:pb-6 md:text-6xl sm:text-4xl font-piru">
             <p className="leading-tight whitespace-nowrap ">
               Discover, Bid, Win{" "}
             </p>
             <p>Shop, Unleash.</p>
           </div>
-          <p className="w-2/3 text-lg leading-snug text-gray-400 uppercase font-baiMedium ">
+          <p className="w-3/4 text-sm leading-snug text-gray-400 sm:w-2/3 uppercse md:text-lg font-baiMedium ">
             Welcome to BidConnect, your premier online bidding destination.
             Explore a world of exciting auctions and exclusive deals on a wide
             range of products.
@@ -112,9 +112,9 @@ const index = () => {
       </div>
 
       {/* Second Screen */}
-      <div className="mt-8 mb-16 ">
+      <div className="mt-8 mb-16 md:mt-0 ">
         <div className="text-center ">
-          <div className="mb-8 text-5xl leading-tight font-baibold">
+          <div className="mb-8 text-2xl leading-tight md:text-5xl sm:text-3xl font-baibold">
             <h1>Collect and Sell your</h1>
             <span className="relative text-red-500 ">
               awesome
@@ -132,7 +132,7 @@ const index = () => {
             <Button variant="secondary">Explore now</Button>
           </Link>
         </div>
-        <div className="flex items-center justify-center gap-10 mt-10 [&>*:nth-child(2)]:mb-32 ">
+        <div className="flex items-center justify-center md:gap-10 gap-8 mt-10 [&>*:nth-child(2)]:mb-32  ">
           <ProductCard isShowBid={true} />
           <ProductCard isShowBid={true} />
           <ProductCard isShowBid={true} />
@@ -140,13 +140,13 @@ const index = () => {
       </div>
 
       {/* Third Screen */}
-      <div className="p-8 my-16 ">
+      <div className="p-4 my-16 sm:p-8 ">
         <div className="text-center ">
           <div className="mb-8 text-3xl leading-tight font-baibold">
             <h1>Explore by Category</h1>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center w-1/2 gap-4 mx-auto mt-10">
+        <div className="flex flex-wrap items-center justify-center w-5/6 gap-4 mx-auto mt-10 sm:w-1/2">
           {categories.map((item, key) => {
             return (
               <span key={key} className={`${item.class} px-6 py-2 rounded-md`}>
@@ -157,18 +157,18 @@ const index = () => {
         </div>
       </div>
       {/* Fourth Screen */}
-      <div className="my-12 ">
+      <div className="py-4 my-12">
         <div className="text-center ">
           <div className="mb-8 text-3xl leading-tight font-baibold">
             <h1>How it works?</h1>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-6 mx-auto mt-10">
+        <div className="flex flex-col items-center justify-center gap-6 mx-auto mt-10 md:flex-row">
           {workData.map((item, key) => {
             return (
               <div
                 key={key}
-                className="flex flex-col w-1/5 gap-4 p-8 text-white rounded-2xl bg-black-600"
+                className="flex flex-col w-4/5 gap-4 p-8 text-white md:w-1/5 rounded-2xl bg-black-600"
               >
                 <div className="flex items-center gap-6">
                   <Image
