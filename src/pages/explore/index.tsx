@@ -151,7 +151,7 @@ const index = () => {
                 handleSearch(e.target.value);
               }}
               placeholder="Search product"
-              className="mx-2"
+              className="mx-2 border-2 border-violet-800"
             />{" "}
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4 mx-4 mt-6 md:gap-8">

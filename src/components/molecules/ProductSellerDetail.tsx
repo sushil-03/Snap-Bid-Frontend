@@ -7,13 +7,7 @@ import { MuiTelInput } from "mui-tel-input";
 
 import React, { FC } from "react";
 import Button from "../atoms/Button";
-import { ProductType } from "@/pages/sell";
-import { Dayjs } from "dayjs";
-type ProductSellDetailType = {
-  product: Partial<ProductType>;
-  setActiveStep: (value: number) => void;
-  handleChange: (name: string | Dayjs, value: string) => void;
-};
+import { ProductSellDetailType } from "@/endpoints/product";
 
 const ProductSellerDetail: FC<ProductSellDetailType> = ({
   product: data,

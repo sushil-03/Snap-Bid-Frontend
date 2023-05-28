@@ -50,3 +50,15 @@ input[type="number"] {
   font-family: "OrbitronMedium";
   src: url("../../public/font/Orbitron-Medium.ttf");
 }
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+  }
+}
+
+.circle {
+  @apply w-4 h-4 mx-1 mt-2 bg-red-600 rounded-full;
+}

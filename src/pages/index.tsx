@@ -85,7 +85,7 @@ const index = () => {
     },
   ];
   return (
-    <div className="w-11/12 h-full mx-auto mt-32 overflow-hidden sm:mt-0">
+    <div className="w-11/12 h-full mx-auto mt-32 overflow-hidden md:mt-2">
       <div className="flex flex-col items-center min-h-screen gap-4 md:flex-row">
         <div className="">
           <p className="font-piru">Digital Bid _____</p>

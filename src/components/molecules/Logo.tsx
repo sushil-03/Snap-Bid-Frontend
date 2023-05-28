@@ -1,10 +1,9 @@
 import React from "react";
+import Image from "next/image";
 
 const Logo = () => {
   return (
-    <div className="text-xl font-bold text-transparent uppercase lg:text-4xl sm:text-2xl font-baibold bg-gradient-to-r from-red-500 via-violet-600 to-orange-500 bg-clip-text">
-      Bid Connect
-    </div>
+    <Image src="/images/mynewlogo.png" height={200} width={200} alt="logo" />
   );
 };
 

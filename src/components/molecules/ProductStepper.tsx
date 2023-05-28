@@ -88,10 +88,7 @@ export default function CustomizedSteppers({
       >
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel StepIconComponent={QontoStepIcon}>
-              {label}
-              {/* <span className="text-white">{label}</span> */}
-            </StepLabel>
+            <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>

@@ -4,6 +4,8 @@ import { ReactNode, FC } from "react";
 import Navbar from "../molecules/Navbar";
 import Footer from "../molecules/Footer";
 import { ThemeProvider, createTheme } from "@mui/material";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const MainContainer = ({ children }: { children: ReactNode }) => {
   const theme = createTheme({
@@ -17,6 +19,7 @@ const MainContainer = ({ children }: { children: ReactNode }) => {
       },
     },
   });
+
   return (
     <Fragment>
       <ThemeProvider theme={theme}>
@@ -26,6 +29,18 @@ const MainContainer = ({ children }: { children: ReactNode }) => {
           <main>{children}</main>
         </div>
         <Footer />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
       </ThemeProvider>
     </Fragment>
   );

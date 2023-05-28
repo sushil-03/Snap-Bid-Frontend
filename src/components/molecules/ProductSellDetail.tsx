@@ -5,7 +5,7 @@ import shortid from "shortid";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Button from "@/components/atoms/Button";
 import Image from "next/image";
-import { ProductImageType, ProductType } from "@/pages/sell";
+import { ProductType, ProductImageType } from "@/endpoints/product";
 
 type ProductSellDetailType = {
   product: Partial<ProductType>;
@@ -79,9 +79,17 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
     "Furniture",
     "Fashion",
     "Art",
+    "Other",
   ];
   const owners = ["1st", "2nd", "3rd"];
-  const conditions = ["Antique", "New", "Refurbished", "Used", "Open Box"];
+  const conditions = [
+    "Antique",
+    "New",
+    "Refurbished",
+    "Used",
+    "Open Box",
+    "Old",
+  ];
   return (
     <div className="flex flex-col w-full gap-6 p-4 md:w-3/4">
       <div className="flex flex-col w-full gap-6 p-3 bg-white rounded-xl">

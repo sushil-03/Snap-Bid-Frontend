@@ -4,56 +4,14 @@ import ProductSellDetail from "@/components/molecules/ProductSellDetail";
 import ProductBiddingDetail from "@/components/molecules/ProductBiddingDetail";
 import ProductSellerDetail from "@/components/molecules/ProductSellerDetail";
 import dayjs, { Dayjs } from "dayjs";
-
-export type ProductImageType = {
-  id: string;
-  filename: string;
-  filetype: string;
-  fileimage: string;
-  datetime: string;
-  filesize: string;
-};
-
-export type ProductType = {
-  brand: string;
-  title: string;
-  description: string;
-  images: ProductImageType[];
-  category:
-    | "Car"
-    | "Properties"
-    | "Mobile"
-    | "Bike"
-    | "Electronic & Appliances"
-    | "Furniture"
-    | "Fashion"
-    | "Art"
-    | "bike"
-    | "other";
-  owner: "1st" | "2nd" | "3rd";
-  condition: "Antique" | "New" | "Old" | "Refurbished" | "Used" | "Open Box";
-  location: string;
-  startingBid: Number;
-  startingDate: Dayjs;
-  endingDate: Dayjs;
-  startingTime: Dayjs;
-  endingTime: Dayjs;
-  sellerName: string;
-  sellerPhone: string;
-  sellerEmail: string;
-  sellerCity: string;
-  sellerState: string;
-  sellerZip: string;
-  paymentInfo: "online" | "COD" | "POS";
-  shippingInfo: "self" | "arrange";
-};
+import { ProductType, ProductImageType } from "@/endpoints/product";
 
 const initialValues: ProductType = {
   brand: "",
   title: "",
   description: "",
   images: [],
-  category: "other",
+  category: "Other",
   owner: "3rd",
   condition: "Old",
   location: "",
@@ -63,7 +21,7 @@ const initialValues: ProductType = {
   startingTime: dayjs(new Date()),
   endingTime: dayjs(new Date()),
   sellerName: "",
-  sellerPhone: "",
+  sellerPhone: "+91",
   sellerCity: "",
   sellerEmail: "",
   sellerState: "",
