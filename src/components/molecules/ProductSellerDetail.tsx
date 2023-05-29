@@ -9,14 +9,16 @@ import React, { FC } from "react";
 import Button from "../atoms/Button";
 import { ProductSellDetailType } from "@/endpoints/product";
 
+import { useCreateProduct } from "@/hooks/mutation/useAddProduct";
 const ProductSellerDetail: FC<ProductSellDetailType> = ({
   product: data,
   setActiveStep,
   handleChange,
+  handleSubmit,
 }) => {
   return (
     <div className="flex flex-col w-full gap-6 px-4 pt-4 md:w-3/4">
-      <div className="flex flex-col gap-6 p-4 bg-white rounded-xl">
+      {/* <div className="flex flex-col gap-6 p-4 bg-white rounded-xl">
         <div className="flex w-full gap-6 ">
           <TextField
             id="outlined-basic"
@@ -79,7 +81,7 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({
             onChange={(e) => handleChange(e.target.value, "sellerZip")}
           />
         </div>
-      </div>
+      </div> */}
       <div className="flex flex-col gap-6 p-4 bg-white rounded-xl">
         <div className="flex w-full gap-6 ">
           <FormControl>
@@ -159,7 +161,7 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({
           variant="secondary"
           className="mb-2 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 hover:ring-transparent"
           onClick={() => {
-            setActiveStep(2);
+            handleSubmit();
             window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           }}
         >

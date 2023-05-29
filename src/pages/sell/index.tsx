@@ -3,30 +3,30 @@ import React, { useState } from "react";
 import ProductSellDetail from "@/components/molecules/ProductSellDetail";
 import ProductBiddingDetail from "@/components/molecules/ProductBiddingDetail";
 import ProductSellerDetail from "@/components/molecules/ProductSellerDetail";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import { ProductType, ProductImageType } from "@/endpoints/product";
+import { useCreateProduct } from "@/hooks/mutation/useAddProduct";
 
 const initialValues: ProductType = {
-  brand: "",
-  title: "",
-  description: "",
+  brand: "tesla",
+  title: "carrrrrrr",
+  description: "this is description",
   images: [],
   category: "Other",
   owner: "3rd",
   condition: "Old",
-  location: "",
-  startingBid: 0,
-  startingDate: dayjs(new Date()),
-  endingDate: dayjs(new Date()),
-  startingTime: dayjs(new Date()),
-  endingTime: dayjs(new Date()),
-  sellerName: "",
-  sellerPhone: "+91",
-  sellerCity: "",
-  sellerEmail: "",
-  sellerState: "",
-  sellerZip: "",
-  paymentInfo: "online",
+  location: "Dehradun",
+  startingBid: 2000,
+  // startingDate:new Date(),
+  // endingDate: new Date(),
+  // startingTime: new Date(),
+  // endingTime: new Date(),
+  startingDate: "",
+  endingDate: "",
+  startingTime: "",
+  endingTime: "",
+  paymentInfo: "Online",
+
   shippingInfo: "self",
 };
 
@@ -36,7 +36,7 @@ const index = () => {
   // images
   const [product, setProduct] = useState<ProductType>(initialValues);
 
-  const handleChange = (value: string | Dayjs, name: string) => {
+  const handleChange = (value: string | Dayjs | Date, name: string) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
       [name]: value,
@@ -51,7 +51,22 @@ const index = () => {
   };
 
   console.log("___PRODUCT", product);
+  const { mutate: proposeCreateProduct, isLoading } = useCreateProduct();
+  const handleSubmit = () => {
+    console.log("_____MY PRODUCT", product);
+    console.log("_____MY TEST", product.startingTime);
+    // product.startingTime = product.startingTime.toISOString();
+    console.log("Test __", product.startingDate);
 
+    proposeCreateProduct(product, {
+      onSuccess(result) {
+        console.log("Evevrthing went right ", result);
+      },
+      onError(error) {
+        console.log("SOmething went wrong ", error);
+      },
+    });
+  };
   const renderComponent = (activeStep: number) => {
     if (activeStep == 0) {
       return (
@@ -76,6 +91,7 @@ const index = () => {
         product={product}
         setActiveStep={setActiveStep}
         handleChange={handleChange}
+        handleSubmit={handleSubmit}
       />
     );
   };

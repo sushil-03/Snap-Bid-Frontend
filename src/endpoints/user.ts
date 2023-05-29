@@ -21,6 +21,7 @@ export const getLogin = async (data: LoginType) => {
     data,
   })
   console.log(res);
+  localStorage.setItem('bidToken', res.token)
   return res;
 
 }

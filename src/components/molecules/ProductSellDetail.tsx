@@ -23,15 +23,6 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
   const imageRef = useRef<HTMLInputElement>(null);
   const [selectedfile, SetSelectedFile] = useState<ProductImageType[]>([]);
 
-  const filesizes = (bytes: number, decimals = 2) => {
-    if (bytes === 0) return "0 Bytes";
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
-  };
-
   const InputChange = (e: any) => {
     for (let i = 0; i < e.target.files.length; i++) {
       let reader = new FileReader();
@@ -43,21 +34,14 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
             {
               id: shortid.generate(),
               filename: e.target.files[i].name,
-              filetype: e.target.files[i].type,
               fileimage: reader.result as string,
-              datetime:
-                e.target.files[i].lastModifiedDate.toLocaleString("en-IN"),
-              filesize: filesizes(e.target.files[i].size),
             },
           ];
         });
         handleImageChange({
           id: shortid.generate(),
           filename: e.target.files[i].name,
-          filetype: e.target.files[i].type,
           fileimage: reader.result as string,
-          datetime: e.target.files[i].lastModifiedDate.toLocaleString("en-IN"),
-          filesize: filesizes(e.target.files[i].size),
         });
       };
       reader.readAsDataURL(file);
@@ -164,7 +148,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
         </div>
         <div className="grid grid-cols-2 ">
           {selectedfile.map((data) => {
-            const { id, filename, fileimage, datetime, filesize } = data;
+            const { id, filename, fileimage } = data;
             return (
               <div className="flex gap-4 mt-2" key={id}>
                 <div className="">
@@ -179,10 +163,6 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
                 <div className="file-detail">
                   <p className="font-semibold text-gray-600 font-baiMedium ">
                     {filename}
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    <span>Size : {filesize}</span>
-                    <span className="ml-2">Modified Time : {datetime}</span>
                   </p>
                   <div className="file-actions">
                     <button

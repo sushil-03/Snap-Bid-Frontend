@@ -10,8 +10,7 @@ import {
   OutlinedInput,
 } from "@mui/material";
 import { DatePicker, TimePicker } from "@mui/x-date-pickers";
-import { ProductType } from "@/pages/sell";
-
+import { ProductType } from "@/endpoints/product";
 type ProductBidType = Pick<
   ProductType,
   "startingBid" | "startingDate" | "startingTime" | "endingDate" | "endingTime"
@@ -20,7 +19,7 @@ type ProductBidType = Pick<
 type ProductSellDetailType = {
   product: ProductBidType;
   setActiveStep: (value: number) => void;
-  handleChange: (name: string | Dayjs, value: string) => void;
+  handleChange: (name: string | Date | Dayjs, value: string) => void;
 };
 
 const ProductBiddingDetail: FC<ProductSellDetailType> = ({
@@ -53,21 +52,25 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
             <DatePicker
               label={"Starting Date"}
               views={["day"]}
-              value={data.startingDate!}
+              format="DD/MM/YYYY"
+              value={dayjs(data.startingDate!)}
               onChange={(newValue) => {
                 if (!newValue) return;
-                console.log("TEST", newValue?.toISOString().split("T")[0]);
-                handleChange(newValue, "startingDate");
+                handleChange(newValue.toISOString(), "startingDate");
               }}
               minDate={dayjs(new Date())}
             />
 
             <TimePicker
               label={"Starting Time"}
-              value={data.startingTime}
+              value={dayjs(data.startingTime!)}
               onChange={(newValue) => {
                 if (!newValue) return;
-                handleChange(newValue, "startingTime");
+
+                let time = newValue.toISOString();
+                console.log(time);
+
+                handleChange(time, "startingTime");
               }}
             />
           </LocalizationProvider>
@@ -77,18 +80,23 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
             <DatePicker
               label={"Ending Date"}
               views={["day"]}
-              value={data.endingDate}
+              value={dayjs(data.endingDate)}
+              // defaultValue={}
+              format="DD/MM/YYYY"
               onChange={(newValue) => {
                 if (!newValue) return;
-                handleChange(newValue, "endingDate");
+                handleChange(newValue.toISOString(), "endingDate");
               }}
+              minDate={dayjs(data.startingDate)}
             />
             <TimePicker
               label={"Ending Time"}
-              value={data.endingTime}
+              value={dayjs(data.endingTime)}
               onChange={(newValue) => {
                 if (!newValue) return;
-                handleChange(newValue, "endingTime");
+                console.log("Ending TImmme");
+
+                handleChange(newValue.toISOString(), "endingTime");
               }}
             />
           </LocalizationProvider>

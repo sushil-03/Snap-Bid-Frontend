@@ -3,10 +3,7 @@ import { Dayjs } from "dayjs";
 export type ProductImageType = {
   id: string;
   filename: string;
-  filetype: string;
   fileimage: string;
-  datetime: string;
-  filesize: string;
 };
 export type ProductType = {
   brand: string;
@@ -28,27 +25,28 @@ export type ProductType = {
   condition: "Antique" | "New" | "Old" | "Refurbished" | "Used" | "Open Box";
   location: string;
   startingBid: Number;
-  startingDate: Dayjs;
-  endingDate: Dayjs;
-  startingTime: Dayjs;
-  endingTime: Dayjs;
-  sellerName: string;
-  sellerPhone: string;
-  sellerEmail: string;
-  sellerCity: string;
-  sellerState: string;
-  sellerZip: string;
-  paymentInfo: "online" | "COD" | "POS";
+  startingDate: "";
+  endingDate: "";
+  startingTime: "";
+  endingTime: "";
+  paymentInfo: "Online" | "COD" | "POS";
   shippingInfo: "self" | "arrange";
 };
 export type ProductSellDetailType = {
   product: Partial<ProductType>;
   setActiveStep: (value: number) => void;
+  handleSubmit: () => void;
   handleChange: (name: string | Dayjs, value: string) => void;
 };
 export const createProduct = async (data: ProductType) => {
-  console.log('Data comes in create Product');
-  return {}
+  console.log('Data comes in create Product', data);
+  const res = await api.AXIOS({
+    url: '/bid',
+    method: 'post',
+    data
+  })
+
+  return res;
 }
 export const placeBid = () => {
 

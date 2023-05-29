@@ -12,6 +12,7 @@ import ProductDetail from "@/components/molecules/ProductDetail";
 import ProductCarousel from "@/components/molecules/ProductCarousel";
 import ProductBidder from "@/components/molecules/BiddingList";
 import Button from "@/components/atoms/Button";
+import Link from "next/link";
 
 const index = () => {
   const [showOverview, setShow] = useState(true);
@@ -143,7 +144,7 @@ const index = () => {
   const [isOpen, setIsOpen] = useState(false);
   const placeBid = () => {};
   return (
-    <div className="min-h-screen mt-32 bg--100">
+    <div className="min-h-screen mt-32 ">
       <div className="">
         <ProductCarousel data={productDetail.images} />
       </div>
@@ -250,7 +251,10 @@ const index = () => {
             </p>
           </div>
 
-          <div className="flex items-center justify-between p-1 mx-4 rounded-xl bg-stone-100 shadow-3xl">
+          <Link
+            href="/"
+            className="flex items-center justify-between p-1 mx-4 transition-all duration-500 ease-in-out shadow-xl rounded-xl bg-stone-100 hover:shadow-3xl"
+          >
             <div className="flex items-center text-base sm:gap-2 sm:text-lg font-bai">
               <Image
                 src={`/images/profile/${user.profile}`}
@@ -261,7 +265,7 @@ const index = () => {
               <p>{user.name}</p>
             </div>
             <AiOutlineArrowRight size={30} className="hidden sm:block" />
-          </div>
+          </Link>
         </div>
       </div>
     </div>
