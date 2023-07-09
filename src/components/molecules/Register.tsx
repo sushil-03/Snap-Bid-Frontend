@@ -15,8 +15,12 @@ import { TbBuildingEstate } from "react-icons/tb";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSelectedUser } from "@/hooks/state/useAppState";
+import { DecodedType } from "./Login";
+import jwtDecode from "jwt-decode";
+import Cookies from "universal-cookie";
 const Register = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
   const router = useRouter();
+  const cookie = new Cookies();
   const [, setUser] = useSelectedUser();
   const registerInitialValues = {
     email: "sushil33@gmail.com",
@@ -34,8 +38,18 @@ const Register = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
     console.log("Register Called", values);
     proposeRegister(values, {
       onSuccess(result) {
+        console.log("My result ", result);
+
+        const decoded: DecodedType = jwtDecode(result.token);
+        setUser({
+          name: result.user.firstname,
+          _id: result.user._id,
+          token: result.token,
+        });
+        cookie.set("authorization", result, {
+          expires: new Date(decoded.exp * 1000),
+        });
         toast.success("User register successfully ");
-        setUser(result.useId);
         router.push("/explore");
       },
       onError(error) {
@@ -63,7 +77,7 @@ const Register = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
       {(formik) => {
         return (
           <Form>
-            <div className="flex flex-col w-full gap-6 p-8 mx-4 rounded-md ">
+            <div className="flex flex-col w-full gap-6 mx-4 rounded-md sm:p-8 ">
               <div className="flex flex-col gap-4 ">
                 <p className="text-4xl text-center text-transparent bg-gradient-to-r from-violet-600 to-orange-600 bg-clip-text font-baibold">
                   Welcome to our Battleground!
@@ -116,7 +130,7 @@ const Register = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
                     />
                   </div>
                 </div>
-                <div className="flex justify-around gap-4">
+                {/* <div className="flex justify-around gap-4">
                   <div className="flex flex-col flex-1">
                     <label htmlFor="country" className="text-violet-600">
                       Country
@@ -186,7 +200,7 @@ const Register = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
                       type="text"
                     />
                   </div>
-                </div>
+                </div> */}
                 <div className="flex justify-around gap-4">
                   <div className="flex flex-col flex-1">
                     <label htmlFor="email" className="text-violet-600">
@@ -208,7 +222,7 @@ const Register = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
                       type="text"
                     />
                   </div>
-                  <div className="flex flex-col flex-1">
+                  {/* <div className="flex flex-col flex-1">
                     <label htmlFor="contact" className="text-violet-600">
                       Contact
                     </label>
@@ -227,7 +241,7 @@ const Register = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
                       } `}
                       type="string"
                     />
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="flex flex-col ">
@@ -280,3 +294,6 @@ const Register = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
 };
 
 export default Register;
+function jwt(token: any): DecodedType {
+  throw new Error("Function not implemented.");
+}

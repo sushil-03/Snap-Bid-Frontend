@@ -26,7 +26,7 @@ const Button: FC<ButtonProps> = ({
         return "rounded-full bg-red-500 text-white py-4 px-12 text-lg";
       }
       case "tertiary": {
-        return "";
+        return "rounded-full text-white  py-4 px-12 text-lg";
       }
       default: {
         return "";

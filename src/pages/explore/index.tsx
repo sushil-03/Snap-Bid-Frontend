@@ -1,13 +1,18 @@
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
+import Loader from "@/components/molecules/Loader";
 import ProductCard from "@/components/molecules/ProductCard";
+import { getProducts } from "@/hooks/query/getProduct";
 import React, { useEffect, useState } from "react";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { RiSearchLine } from "react-icons/ri";
 const index = () => {
+  const { data, isLoading } = getProducts();
   const [category, showCategory] = useState(false);
   const [location, showLocation] = useState(false);
   const [range, showRange] = useState(false);
+  console.log("Explore data", data);
+
   const categories = [
     {
       name: "Avatar",
@@ -33,6 +38,10 @@ const index = () => {
   ];
   useEffect(() => {}, []);
   const handleSearch = (query: string) => {};
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (!data) return <></>;
   return (
     <div className="min-h-screen mt-24">
       <div className="flex flex-col sm:flex-row">
@@ -155,27 +164,17 @@ const index = () => {
               className="mx-0 border-2 sm:mx-2 border-violet-800"
             />{" "}
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 mx-4 mt-6 md:gap-8">
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
+          <div className="flex flex-wrap items-center justify-center flex-grow gap-4 mt-6 md:gap-8 lg:gap-12">
+            {data &&
+              data.products.map((item: any, key: number) => {
+                return (
+                  <ProductCard
+                    key={key}
+                    productData={item}
+                    classname="w-5/6 sm:w-1/2 lg:w-1/3 md:w-1/2 xl:w-1/4"
+                  />
+                );
+              })}
           </div>
         </div>
       </div>

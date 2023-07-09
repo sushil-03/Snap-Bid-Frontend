@@ -1,5 +1,14 @@
 import { atom, useAtom } from "jotai";
-const userAtom = atom("")
+type UserType = {
+  name: string,
+  _id: string,
+  token: string,
+}
+const userAtom = atom<UserType>({
+  name: "",
+  _id: "",
+  token: ""
+})
 export const useSelectedUser = () => {
   return useAtom(userAtom)
 }

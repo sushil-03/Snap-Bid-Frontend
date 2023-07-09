@@ -8,6 +8,7 @@ import UserProfile from "@/components/molecules/UserProfile";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { useSelectedUser } from "@/hooks/state/useAppState";
+import Cookies from "universal-cookie";
 const details = [
   {
     name: "My Profile",
@@ -23,6 +24,7 @@ const details = [
   },
 ];
 const index = () => {
+  const cookie = new Cookies();
   const [, setUser] = useSelectedUser();
   const [active, setActive] = useState(1);
   const router = useRouter();
@@ -58,7 +60,13 @@ const index = () => {
             <span
               className={`p-4 rounded-md cursor-pointer text-red-600`}
               onClick={() => {
-                setUser("");
+                setUser({
+                  name: "",
+                  _id: "",
+                  token: "",
+                });
+                cookie.remove("authorization");
+
                 toast.success("User Logout Successfully");
                 router.push("/");
               }}

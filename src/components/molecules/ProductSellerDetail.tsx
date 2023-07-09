@@ -99,18 +99,18 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({
               <FormControlLabel
                 label="Online Payment"
                 control={<Radio />}
-                value="Online"
+                value="Online Payment"
                 className="p-3"
               />
               <FormControlLabel
                 label="Cash on Delivery"
                 control={<Radio />}
-                value="COD"
+                value="Cash on Delivery"
               />
               <FormControlLabel
                 label="POS on Delivery"
                 control={<Radio />}
-                value="POS"
+                value="POS on Delivery"
                 // label="End"
               />
             </RadioGroup>

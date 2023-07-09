@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Fragment } from "react";
-import { ReactNode, FC } from "react";
+import { ReactNode } from "react";
 import Navbar from "../molecules/Navbar";
 import Footer from "../molecules/Footer";
 import { ThemeProvider, createTheme } from "@mui/material";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import { useSelectedUser } from "@/hooks/state/useAppState";
 
 const MainContainer = ({ children }: { children: ReactNode }) => {
-  const [, setUser] = useSelectedUser();
   const theme = createTheme({
     palette: {
       primary: {
@@ -21,12 +19,7 @@ const MainContainer = ({ children }: { children: ReactNode }) => {
       },
     },
   });
-  useEffect(() => {
-    let token = localStorage.getItem("bidToken");
-    if (token != null) {
-      setUser(token);
-    }
-  }, []);
+
   return (
     <Fragment>
       <ThemeProvider theme={theme}>

@@ -56,7 +56,7 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
               value={dayjs(data.startingDate!)}
               onChange={(newValue) => {
                 if (!newValue) return;
-                handleChange(newValue.toISOString(), "startingDate");
+                handleChange(newValue, "startingDate");
               }}
               minDate={dayjs(new Date())}
             />
@@ -67,10 +67,10 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
               onChange={(newValue) => {
                 if (!newValue) return;
 
-                let time = newValue.toISOString();
-                console.log(time);
+                // let time = newValue.toISOString();
+                // console.log(time);
 
-                handleChange(time, "startingTime");
+                handleChange(newValue, "startingTime");
               }}
             />
           </LocalizationProvider>
@@ -85,7 +85,7 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
               format="DD/MM/YYYY"
               onChange={(newValue) => {
                 if (!newValue) return;
-                handleChange(newValue.toISOString(), "endingDate");
+                handleChange(newValue, "endingDate");
               }}
               minDate={dayjs(data.startingDate)}
             />
@@ -96,7 +96,7 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
                 if (!newValue) return;
                 console.log("Ending TImmme");
 
-                handleChange(newValue.toISOString(), "endingTime");
+                handleChange(newValue, "endingTime");
               }}
             />
           </LocalizationProvider>

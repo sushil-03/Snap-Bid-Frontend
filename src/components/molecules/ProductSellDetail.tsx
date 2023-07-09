@@ -21,7 +21,9 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
   handleImageChange,
 }) => {
   const imageRef = useRef<HTMLInputElement>(null);
-  const [selectedfile, SetSelectedFile] = useState<ProductImageType[]>([]);
+  const [selectedfile, SetSelectedFile] = useState<ProductImageType[]>(
+    data.images || []
+  );
 
   const InputChange = (e: any) => {
     for (let i = 0; i < e.target.files.length; i++) {
@@ -32,14 +34,14 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
           return [
             ...preValue,
             {
-              id: shortid.generate(),
+              _id: shortid.generate(),
               filename: e.target.files[i].name,
               fileimage: reader.result as string,
             },
           ];
         });
         handleImageChange({
-          id: shortid.generate(),
+          _id: shortid.generate(),
           filename: e.target.files[i].name,
           fileimage: reader.result as string,
         });
@@ -49,8 +51,9 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
   };
 
   const DeleteSelectFile = (id: string) => {
-    const result = selectedfile.filter((data) => data.id !== id);
+    const result = selectedfile.filter((data) => data._id !== id);
     SetSelectedFile(result);
+    data.images = result;
   };
 
   // Data
@@ -75,9 +78,9 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
     "Old",
   ];
   return (
-    <div className="flex flex-col w-full gap-6 p-4 md:w-3/4">
-      <div className="flex flex-col w-full gap-6 p-3 bg-white rounded-xl">
-        <div className="flex gap-6">
+    <div className="flex flex-col w-full gap-6 p-4 ">
+      <div className="flex flex-row w-full gap-6 p-6 bg-white rounded-xl">
+        <div className="flex flex-col flex-1 gap-6">
           <TextField
             id="outlined-basic"
             label="Brand"
@@ -99,22 +102,21 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
             onChange={(e) => handleChange(e.target.value, "title")}
           />
         </div>
-        <div>
+        <div className="flex-1">
           <TextField
             id="outlined-multiline-static"
             label="Description"
             multiline
-            rows={8}
+            rows={5}
             fullWidth
             value={data.description}
             variant="outlined"
             color="primary"
-            className=""
             onChange={(e) => handleChange(e.target.value, "description")}
           />
         </div>
       </div>
-      <div className="flex flex-col w-full gap-6 p-3 bg-white rounded-xl">
+      <div className="flex flex-col w-full gap-6 p-6 bg-white rounded-xl">
         <div className="w-full ">
           {/* Image div */}
           <p className="py-1 text-gray-600 ">Upload atleast 6 images</p>
@@ -148,9 +150,9 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
         </div>
         <div className="grid grid-cols-2 ">
           {selectedfile.map((data) => {
-            const { id, filename, fileimage } = data;
+            const { _id, filename, fileimage } = data;
             return (
-              <div className="flex gap-4 mt-2" key={id}>
+              <div className="flex gap-4 mt-2" key={_id}>
                 <div className="">
                   <Image
                     src={fileimage}
@@ -168,7 +170,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
                     <button
                       type="button"
                       className="text-sm text-gray-600 underline font-baiMedium"
-                      onClick={() => DeleteSelectFile(id)}
+                      onClick={() => DeleteSelectFile(_id)}
                     >
                       Delete
                     </button>
@@ -179,7 +181,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
           })}
         </div>
       </div>
-      <div className="flex flex-col w-full gap-6 p-3 bg-white rounded-xl">
+      <div className="flex flex-col w-full gap-6 p-6 bg-white rounded-xl">
         <div className="flex w-full gap-6 ">
           <div className="flex-1">
             <FormControl fullWidth>

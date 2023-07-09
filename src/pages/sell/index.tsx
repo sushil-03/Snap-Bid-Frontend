@@ -6,6 +6,9 @@ import ProductSellerDetail from "@/components/molecules/ProductSellerDetail";
 import { Dayjs } from "dayjs";
 import { ProductType, ProductImageType } from "@/endpoints/product";
 import { useCreateProduct } from "@/hooks/mutation/useAddProduct";
+import Loader from "@/components/molecules/Loader";
+import { useSelectedUser } from "@/hooks/state/useAppState";
+import { toast } from "react-toastify";
 
 const initialValues: ProductType = {
   brand: "tesla",
@@ -17,22 +20,17 @@ const initialValues: ProductType = {
   condition: "Old",
   location: "Dehradun",
   startingBid: 2000,
-  // startingDate:new Date(),
-  // endingDate: new Date(),
-  // startingTime: new Date(),
-  // endingTime: new Date(),
   startingDate: "",
   endingDate: "",
   startingTime: "",
   endingTime: "",
-  paymentInfo: "Online",
-
+  paymentInfo: "POS on Delivery",
   shippingInfo: "self",
 };
 
 const index = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
-
+  const [user] = useSelectedUser();
   // images
   const [product, setProduct] = useState<ProductType>(initialValues);
 
@@ -50,14 +48,14 @@ const index = () => {
     }));
   };
 
-  console.log("___PRODUCT", product);
   const { mutate: proposeCreateProduct, isLoading } = useCreateProduct();
   const handleSubmit = () => {
-    console.log("_____MY PRODUCT", product);
-    console.log("_____MY TEST", product.startingTime);
-    // product.startingTime = product.startingTime.toISOString();
-    console.log("Test __", product.startingDate);
-
+    if (user.name === "") {
+      toast.error("Please login to continue");
+      return;
+    } else {
+      console.log("user", user);
+    }
     proposeCreateProduct(product, {
       onSuccess(result) {
         console.log("Evevrthing went right ", result);
@@ -95,10 +93,10 @@ const index = () => {
       />
     );
   };
-
+  if (isLoading) return <Loader />;
   return (
     <div className="w-full h-full min-h-screen mt-32">
-      <div className="flex flex-col w-full gap-2 p-4 px-2 pb-16 m-6 mx-auto mt-24 sm:px-10 xl:w-4/6 bg-stone-100 rounded-xl shadow-3xl">
+      <div className="flex flex-col w-full gap-2 p-4 px-2 pb-16 m-6 mx-auto mt-24 bg-gray-100 sm:px-10 xl:w-4/6 rounded-xl shadow-3xl">
         <ProductStepper activeStep={activeStep} />
         {renderComponent(activeStep)}
       </div>

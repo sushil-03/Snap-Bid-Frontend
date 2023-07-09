@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { ImLocation } from "react-icons/im";
 import { BsFillCalendarDateFill } from "react-icons/bs";
 
-const ProductDetail = () => {
+const ProductDetail = ({ data }: any) => {
   const productDetail = {
     name: "Msg Title",
     category: "Electric",
@@ -82,14 +82,12 @@ const ProductDetail = () => {
     <div className="flex flex-col items-center justify-start flex-1 gap-8 ">
       <div className="w-11/12 p-2 mx-auto md:p-4 shadow-3xl rounded-xl bg-stone-100 ">
         <p className="px-2 text-3xl sm:px-0 lg:text-5xl font-baibold">
-          {productDetail.name}
+          {data.title}
         </p>
         <p className="px-2 text-gray-600">Exclusive</p>
         <div className="flex gap-2 my-4 text-gray-600 uppercase">
-          <p className="px-2 border-r border-gray-300">
-            {productDetail.condition}
-          </p>
-          <p>{productDetail.category}</p>
+          <p className="px-2 border-r border-gray-300">{data.condition}</p>
+          <p>{data.category}</p>
         </div>
       </div>
       <div className="w-11/12 p-2 mx-auto md:p-4 shadow-3xl rounded-xl bg-stone-100">
@@ -103,9 +101,7 @@ const ProductDetail = () => {
             </div>
             <div>
               <p className="text-sm text-gray-600">Owner</p>
-              <p className="text-lg md:text-2xl font-baibold">
-                {productDetail.owner}
-              </p>
+              <p className="text-lg md:text-2xl font-baibold">{data.owner}</p>
             </div>
           </div>
 
@@ -116,7 +112,7 @@ const ProductDetail = () => {
             <div>
               <p className="text-sm text-gray-600">Location</p>
               <p className="text-lg md:text-2xl font-baibold">
-                {productDetail.location}
+                {data.location}
               </p>
             </div>
           </div>
@@ -127,7 +123,7 @@ const ProductDetail = () => {
             <div>
               <p className="text-sm text-gray-600">Posting date</p>
               <p className="text-lg md:text-2xl font-baibold">
-                {productDetail.postingDate}
+                {new Date(data.createdAt).toDateString().slice(4)}
               </p>
             </div>
           </div>
@@ -139,7 +135,7 @@ const ProductDetail = () => {
         </p>
         <div className="flex items-center justify-between gap-4">
           <p className="p-4 text-base text-gray-500 font-bai">
-            {productDetail.description}
+            {data.description}
           </p>
         </div>
       </div>

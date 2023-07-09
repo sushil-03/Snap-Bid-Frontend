@@ -14,26 +14,25 @@ export type RegisterType = {
   pincode: string;
 };
 export const getLogin = async (data: LoginType) => {
-  console.log('DATA COMES HERE', data);
+  // const [, setUser] = useSelectedUser()
   const res = await api.AXIOS({
-    url: '/auth/login',
+    url: '/api/v1/login',
     method: 'post',
     data,
   })
-  console.log(res);
-  localStorage.setItem('bidToken', res.token)
   return res;
 
 }
 export const getRegister = async (data: RegisterType) => {
-
   const res = await api.AXIOS({
-    url: '/auth/signup',
-    method: 'PUT',
+    url: '/api/v1/register',
+    method: 'post',
     data
   })
-
   return res;
+}
+const setToken = (token: string) => {
+
 }
 export const getLogout = async () => {
   // return await api.AXIOS({

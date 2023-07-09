@@ -24,7 +24,7 @@ const Input: FC<InputProps> = ({
         {icon}
       </span>
       <input
-        className={`${fullWidthStyle} py-4 pl-14 pr-4 border-2   rounded-md outline-none ring-violet-600 border-gray-400 font-baiMedium hover:shadow-[inset_-8px_-4px_20px_#46464620] hover:ring-2 transition-all ease-in-out duration-500 ${className}`}
+        className={`${fullWidthStyle} py-4 pl-14 pr-4 border-2   rounded-md outline-none ring-violet-600 border-gray-400 font-mono hover:shadow-[inset_-8px_-4px_20px_#46464620] hover:ring-2 transition-all ease-in-out duration-500 ${className}`}
         {...inputProps}
       />
     </div>

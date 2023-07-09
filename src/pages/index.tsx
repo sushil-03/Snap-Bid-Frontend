@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Button from "@/components/atoms/Button";
 import ProductCard from "@/components/molecules/ProductCard";
 import Link from "next/link";
+import { useEffect } from "react";
+import { getProducts } from "@/hooks/query/getProduct";
 const index = () => {
+  const products = getProducts();
+  console.log("ALL PRODUCTS  ", products.data);
   const categories = [
     {
       name: "Avatar",
@@ -84,6 +88,14 @@ const index = () => {
         "List your products, set prices, and attract potential buyers through our platform",
     },
   ];
+  const productData = {
+    _id: "60f9b0b0e6b3a5b4b4b0b4b0",
+    image: "/images/iphone.png",
+    startingBid: 10000,
+    timeleft: "2:22:40",
+    title: "Iphone 12",
+    totalBid: "1000",
+  };
   return (
     <div className="w-11/12 h-full mx-auto mt-32 overflow-hidden md:mt-2">
       <div className="flex flex-col items-center min-h-screen gap-4 md:flex-row">
@@ -133,9 +145,21 @@ const index = () => {
           </Link>
         </div>
         <div className="flex items-center justify-center md:gap-10 gap-8 mt-10 [&>*:nth-child(2)]:mb-32  ">
-          <ProductCard isShowBid={true} />
-          <ProductCard isShowBid={true} />
-          <ProductCard isShowBid={true} />
+          <ProductCard
+            isShowBid={true}
+            productData={products?.data?.products[0]}
+            classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
+          />
+          <ProductCard
+            isShowBid={true}
+            productData={products?.data?.products[1]}
+            classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
+          />{" "}
+          <ProductCard
+            isShowBid={true}
+            productData={products?.data?.products[2]}
+            classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
+          />
         </div>
       </div>
 

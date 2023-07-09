@@ -1,12 +1,11 @@
 import { useQuery } from "react-query";
-import { getAllProduct } from "@/endpoints/product";
+import { getSingleProduct } from "@/endpoints/product";
 
-export const getProducts = () => {
-  return useQuery('products', getAllProduct, {
+export const getProductByID = (id: string) => {
+  return useQuery(['products', id], () => getSingleProduct(id), {
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchInterval: 1000 * 60 * 5, // 5 minutes
     enabled: true,
     refetchOnMount: false
-
   });
 }

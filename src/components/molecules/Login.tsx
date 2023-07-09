@@ -12,12 +12,21 @@ import Loader from "./Loader";
 import { toast } from "react-toastify";
 import { useSelectedUser } from "@/hooks/state/useAppState";
 
+import Cookies from "universal-cookie";
+import jwt from "jwt-decode";
+export type DecodedType = {
+  exp: number;
+  iat: number;
+  id: string;
+};
+
 const Login = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
   const [, setUser] = useSelectedUser();
   const router = useRouter();
+  const cookie = new Cookies();
   const loginInitialValues = {
-    email: "sushil@gmail.com",
-    password: "sushil@gmail.com",
+    email: "sushil121@gmail.com",
+    password: "sushil121@gmail.com",
     // email: "",
     // password: "",
   };
@@ -25,13 +34,23 @@ const Login = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
     email: Yup.string().email().required("Required"),
     password: Yup.string().required("Required"),
   });
+
   const { mutate: proposeLogin, isLoading: isLoginLoading } = useLogin();
+
   const loginHandler = (values: LoginType) => {
     console.log("Login called", values);
     proposeLogin(values, {
       onSuccess(result) {
-        toast.success("User logged in");
-        setUser(result.userId);
+        toast.success("User logged in ");
+        setUser({
+          name: result.user.firstname,
+          _id: result.user._id,
+          token: result.token,
+        });
+        const decoded: DecodedType = jwt(result.token);
+        cookie.set("authorization", result, {
+          expires: new Date(decoded.exp * 1000),
+        });
         router.push("/explore");
       },
       onError(errors) {
@@ -49,8 +68,8 @@ const Login = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
     >
       {(formik) => {
         return (
-          <Form className="w-full pb-10 sm:w-3/5 md:w-2/5">
-            <div className="flex flex-col flex-1 gap-6 p-8 rounded-md">
+          <Form className="w-full sm:w-3/5 md:w-2/5">
+            <div className="flex flex-col flex-1 gap-6 rounded-md md:p-16 lg:p-24">
               <p className="text-4xl text-center text-transparent bg-gradient-to-r from-violet-600 to-orange-600 bg-clip-text font-baibold">
                 Welcome Back
               </p>
@@ -104,7 +123,13 @@ const Login = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
                   className={`mb-2 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 disabled:bg-gray-400 disabled:hover:ring-transparent `}
                   disabled={isLoginLoading}
                 >
-                  {isLoginLoading ? <Loader /> : "Log in"}
+                  {isLoginLoading ? (
+                    <div className="absolute inset-0 bottom-0 w-screen h-screen pt-20 bg-violet-600">
+                      <Loader />
+                    </div>
+                  ) : (
+                    "Log in"
+                  )}
                 </Button>
                 <span className="text-sm">Don't have a account </span>
                 <span

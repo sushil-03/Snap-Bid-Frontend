@@ -1,7 +1,8 @@
 import { api } from "./axios"
 import { Dayjs } from "dayjs";
+import Cookies from "universal-cookie";
 export type ProductImageType = {
-  id: string;
+  _id: string;
   filename: string;
   fileimage: string;
 };
@@ -29,8 +30,9 @@ export type ProductType = {
   endingDate: "";
   startingTime: "";
   endingTime: "";
-  paymentInfo: "Online" | "COD" | "POS";
+  paymentInfo: "Online Payment" | "Cash on Delivery" | "POS on Delivery";
   shippingInfo: "self" | "arrange";
+
 };
 export type ProductSellDetailType = {
   product: Partial<ProductType>;
@@ -38,25 +40,57 @@ export type ProductSellDetailType = {
   handleSubmit: () => void;
   handleChange: (name: string | Dayjs, value: string) => void;
 };
+
+
+export type BidType = {
+  amount: number;
+  productId: string;
+}
 export const createProduct = async (data: ProductType) => {
+  const cookie = new Cookies()
+  const user = cookie.get('authorization')
+
   console.log('Data comes in create Product', data);
   const res = await api.AXIOS({
-    url: '/bid',
+    url: '/api/v1/create',
     method: 'post',
-    data
+    headers: {
+      token: user.token
+    },
+    data,
   })
 
   return res;
 }
-export const placeBid = () => {
-
+export const placeBid = async (data: BidType) => {
+  const cookie = new Cookies()
+  const user = cookie.get('authorization')
+  const res = await api.AXIOS({
+    url: '/api/v1/bid',
+    method: 'post',
+    headers: {
+      token: user.token
+    },
+    data,
+  })
+  return res;
 }
-export const getAllProduct = () => {
+export const getAllProduct = async () => {
+  const res = await api.AXIOS({
+    url: '/api/v1/products',
+    method: 'get',
+  })
 
+  return res;
 }
-export const getProductDetail = () => {
+export const getSingleProduct = async (id: string) => {
+  const res = await api.AXIOS({
+    url: `/api/v1/product/${id}`,
+    method: 'get',
+  })
+  return res;
+}
 
-}
 export const getTopProduct = () => {
 
 }

@@ -4,9 +4,10 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation, Autoplay } from "swiper";
 export type ProductCarouselType = {
-  data: { url: string }[];
+  data: { filename: string; fileimage: string }[];
 };
 const ProductCarousel: FC<ProductCarouselType> = ({ data }) => {
+  if (!data) return <div></div>;
   return (
     <Swiper
       effect={"coverflow"}
@@ -38,7 +39,7 @@ const ProductCarousel: FC<ProductCarouselType> = ({ data }) => {
           <SwiperSlide key={_key}>
             <div className="relative h-00px]" key={_key}>
               <Image
-                src={`/images/${_item.url}`}
+                src={`${_item.fileimage}`}
                 alt="Image"
                 width={500}
                 height={500}

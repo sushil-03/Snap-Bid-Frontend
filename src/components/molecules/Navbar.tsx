@@ -1,14 +1,15 @@
 import React, { Fragment } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
-import Button from "../atoms/Button";
 import { useState, useEffect } from "react";
 import { IoMdAdd } from "react-icons/io";
 import Image from "next/image";
 import { useSelectedUser } from "@/hooks/state/useAppState";
-import { toast } from "react-toastify";
+import Cookies from "universal-cookie";
 const Navbar = () => {
+  const cookie = new Cookies();
   const [user, setUser] = useSelectedUser();
+
   const navlist = [
     {
       name: "Home",
@@ -35,6 +36,14 @@ const Navbar = () => {
   const [visible, setVisible] = useState<boolean>(true);
 
   useEffect(() => {
+    const response = cookie.get("authorization");
+    if (response) {
+      setUser({
+        name: response.user.firstname,
+        _id: response.user._id,
+        token: response.token,
+      });
+    }
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
       setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
@@ -45,10 +54,7 @@ const Navbar = () => {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
-  const handleLogout = () => {
-    setUser("");
-    toast.success("User Logout Successfully");
-  };
+
   return (
     <Fragment>
       <div
@@ -74,7 +80,7 @@ const Navbar = () => {
               </Link>
             );
           })}
-          {user ? (
+          {user.name !== "" ? (
             <div className="flex items-center gap-1 text-sm uppercase md:gap-8 sm:gap-4 font-baiMedium">
               <Link href={"/profile"} className="w-40">
                 <label
@@ -88,7 +94,7 @@ const Navbar = () => {
                       width={50}
                       alt="profile"
                     />
-                    <span>John Doe</span>
+                    <span>{user.name}</span>
                   </div>
                 </label>
               </Link>
