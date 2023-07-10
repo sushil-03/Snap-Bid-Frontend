@@ -31,18 +31,10 @@ export const getRegister = async (data: RegisterType) => {
   })
   return res;
 }
-const setToken = (token: string) => {
-
-}
-export const getLogout = async () => {
-  // return await api.AXIOS({
-  //   url:'',
-  //   method:"post"
-  // })
-}
-export const getLoadUser = async () => {
-  // return await api.AXIOS({
-  //   url:'',
-  //   method:"post"
-  // })
+export const getSingleUser = async (id: string) => {
+  const res = await api.AXIOS({
+    url: `/api/v1/user/${id}`,
+    method: 'get',
+  })
+  return res;
 }

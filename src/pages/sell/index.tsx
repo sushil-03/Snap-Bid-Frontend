@@ -9,6 +9,7 @@ import { useCreateProduct } from "@/hooks/mutation/useAddProduct";
 import Loader from "@/components/molecules/Loader";
 import { useSelectedUser } from "@/hooks/state/useAppState";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 const initialValues: ProductType = {
   brand: "tesla",
@@ -26,9 +27,27 @@ const initialValues: ProductType = {
   endingTime: "",
   paymentInfo: "POS on Delivery",
   shippingInfo: "self",
+  starting: new Date(),
+  ending: new Date(),
 };
 
 const index = () => {
+  const router = useRouter();
+  const helper = (time: Date, date: Date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    // Extract the time components from the reference time
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    const seconds = time.getSeconds();
+
+    // Create a new date by combining the extracted date and time components
+    const newDate = new Date(year, month, day, hours, minutes, seconds);
+    return newDate;
+  };
+
   const [activeStep, setActiveStep] = useState<number>(0);
   const [user] = useSelectedUser();
   // images
@@ -49,6 +68,7 @@ const index = () => {
   };
 
   const { mutate: proposeCreateProduct, isLoading } = useCreateProduct();
+
   const handleSubmit = () => {
     if (user.name === "") {
       toast.error("Please login to continue");
@@ -56,9 +76,20 @@ const index = () => {
     } else {
       console.log("user", user);
     }
+    product.starting = helper(
+      new Date(product.startingTime),
+      new Date(product.startingDate)
+    );
+    product.ending = helper(
+      new Date(product.endingTime),
+      new Date(product.endingDate)
+    );
+    console.log("____PRODUCT", product);
+
     proposeCreateProduct(product, {
       onSuccess(result) {
         console.log("Evevrthing went right ", result);
+        router.push("/explore");
       },
       onError(error) {
         console.log("SOmething went wrong ", error);

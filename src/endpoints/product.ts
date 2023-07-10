@@ -29,6 +29,8 @@ export type ProductType = {
   startingDate: "";
   endingDate: "";
   startingTime: "";
+  starting: Date,
+  ending: Date,
   endingTime: "";
   paymentInfo: "Online Payment" | "Cash on Delivery" | "POS on Delivery";
   shippingInfo: "self" | "arrange";
@@ -91,6 +93,19 @@ export const getSingleProduct = async (id: string) => {
   return res;
 }
 
+export const bidPayment = async (data: BidType) => {
+  const cookie = new Cookies()
+  const user = cookie.get('authorization')
+  const res = await api.AXIOS({
+    url: '/api/v1/product/pay',
+    method: 'post',
+    headers: {
+      token: user.token
+    },
+    data,
+  })
+  return res;
+}
 export const getTopProduct = () => {
 
 }

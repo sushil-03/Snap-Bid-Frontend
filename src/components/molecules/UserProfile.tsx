@@ -2,7 +2,9 @@ import { Rating } from "@mui/material";
 import React from "react";
 import { CiEdit } from "react-icons/ci";
 import Image from "next/image";
-const MyProfile = () => {
+const MyProfile = ({ data }: any) => {
+  console.log("mininniiiiii", data);
+
   return (
     <div className="flex-1 px-4 md:px-8 ">
       <p className="my-4 text-lg">My Profile</p>
@@ -16,7 +18,11 @@ const MyProfile = () => {
               alt="image"
             />
             <div className="flex flex-col font-baiLight">
-              <span className="font-baiMedium">Sushil Rawat</span>
+              {/* <span className="font-baiMedium">
+                {data.firstname}
+                {data.lastname}
+              </span> */}
+              <span className="font-baiMedium">{`${data.firstname} ${data.lastname}`}</span>
               <span className="text-sm">User</span>
               <span className="text-sm">
                 <Rating
@@ -39,19 +45,19 @@ const MyProfile = () => {
           <div className="grid grid-cols-2 grid-rows-2 gap-4 font-baiMedium">
             <div>
               <p className="text-sm text-gray-400">First Name</p>
-              <p>Sushil</p>
+              <p>{data.firstname}</p>
             </div>
             <div>
               <p className="text-sm text-gray-400">Last Name</p>
-              <p>Sushil</p>
+              <p>{data.lastname}</p>
             </div>
             <div>
               <p className="text-sm text-gray-400">Email</p>
-              <p>Sushil</p>
+              <p>{data.email}</p>
             </div>
             <div>
               <p className="text-sm text-gray-400">Phone Number</p>
-              <p>Sushil</p>
+              <p>{data.contact}</p>
             </div>
           </div>
 
@@ -65,15 +71,15 @@ const MyProfile = () => {
           <div className="grid grid-cols-3 grid-rows-1 gap-4 font-baiMedium">
             <div>
               <p className="text-sm text-gray-400">Country</p>
-              <p>India</p>
+              <p className="uppercase">{data.country}</p>
             </div>
             <div>
               <p className="text-sm text-gray-400">City/State</p>
-              <p>Sushil</p>
+              <p>{data.state}</p>
             </div>
             <div>
               <p className="text-sm text-gray-400">Pin Code</p>
-              <p>Sushil</p>
+              <p>{data.pincode}</p>
             </div>
           </div>
 

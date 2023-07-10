@@ -46,7 +46,7 @@ const index = () => {
     <div className="min-h-screen mt-24">
       <div className="flex flex-col sm:flex-row">
         {/* Categories */}
-        <div className="flex flex-col w-full gap-2 mx-4 sm:w-1/5">
+        {/* <div className="flex flex-col w-full gap-2 mx-4 sm:w-1/5">
           <p className="mt-12 mb-6 text-4xl font-baibold">Filter</p>
           <div className="flex flex-row justify-center gap-8 sm:flex-col">
             <div className="flex-col cursor-pointer sm:flex-row">
@@ -149,11 +149,13 @@ const index = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Product */}
         <div className="flex-1 mx-2 mt-12 mb-6">
           <div className="flex flex-row items-center justify-between">
-            <p className="text-2xl md:text-4xl font-baibold">Top Gallery</p>
+            <p className="pl-4 text-2xl md:text-4xl font-baibold">
+              Top Gallery
+            </p>
             <Input
               icon={<RiSearchLine size={24} className="ml-2 text-violet-600" />}
               type="text"
@@ -171,7 +173,7 @@ const index = () => {
                   <ProductCard
                     key={key}
                     productData={item}
-                    classname="w-5/6 sm:w-1/2 lg:w-1/3 md:w-1/2 xl:w-1/4"
+                    classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
                   />
                 );
               })}

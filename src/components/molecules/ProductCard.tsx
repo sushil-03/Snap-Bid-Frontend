@@ -14,6 +14,11 @@ type CurrProductType = {
     timeleft: string;
     title: string;
     totalBid: string;
+    status: string;
+    allBidder: {
+      bidder: string;
+      bidAmount: number;
+    }[];
   } & Partial<ProductType>;
 };
 
@@ -22,60 +27,59 @@ const ProductCard: FC<CurrProductType> = ({
   classname,
   productData,
 }) => {
-  const helper = (time: Date, date: Date) => {
-    const year = date.getUTCFullYear();
-    const month = date.getUTCMonth();
-    const day = date.getUTCDate();
-
-    // Extract the time components from the reference time
-    const hours = time.getUTCHours();
-    const minutes = time.getUTCMinutes();
-    const seconds = time.getUTCSeconds();
-
-    // Create a new date by combining the extracted date and time components
-    const newDate = new Date(
-      Date.UTC(year, month, day, hours, minutes, seconds)
-    );
-    return newDate;
-  };
   const formatDuration = (timeDifferenceMs: number) => {
     const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeDifferenceMs / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((timeDifferenceMs / (1000 * 60)) % 60);
+    const second = Math.floor((timeDifferenceMs / 1000) % 60);
 
-    const formattedTimeDifference = `${days}d :${hours
+    let formattedTimeDifference = `${days
       .toString()
-      .padStart(2, "0")}h:${minutes.toString().padStart(2, "0")}m`;
+      .padStart(2, "0")}d : ${hours.toString().padStart(2, "0")}h : ${minutes
+      .toString()
+      .padStart(2, "0")}m`;
+    if (days === 0) {
+      formattedTimeDifference =
+        formattedTimeDifference.slice(6) +
+        " : " +
+        second.toString().padStart(2, "0") +
+        "s";
+    }
+
     return formattedTimeDifference;
   };
 
   if (!productData) return <div></div>;
   const getTime = () => {
-    const startingTime = new Date(productData.startingTime!);
-    const endingTime = new Date(productData.endingTime!);
-    const startingDate = new Date(productData.startingDate!);
-    const endingDate = new Date(productData.endingDate!);
+    const now = Date.now();
+    const start = new Date(productData.starting!);
+    const end = new Date(productData.ending!);
+    console.log("start", start.getTime());
 
-    const now = new Date(Date.now());
-    const start = helper(startingTime, startingDate);
-    const end = helper(endingTime, endingDate);
-    if (now.getTime() > end.getTime()) {
+    console.log("now", now);
+    console.log("end", end.getTime());
+
+    if (now > end.getTime()) {
       return (
         <>
-          <p className="text-xl text-red-300 font-orbitron ">Expired</p>
+          <p className="text-xl text-red-400 font-orbitron ">
+            {productData.status}
+          </p>
         </>
       );
     }
-    if (now.getTime() < start.getTime()) {
+    if (now < start.getTime()) {
       return (
         <>
           <p className="text-xs ">Start on</p>
-          <p className="textxl font-orbitron">{start.toDateString()}</p>
+          <p className="textxl font-orbitron">
+            {formatDuration(start.getTime() - now)}
+          </p>
         </>
       );
     }
 
-    const result = end.getTime() - now.getTime();
+    const result = end.getTime() - now;
     console.log("result", result);
     const remainingTime = formatDuration(result);
 
@@ -147,7 +151,9 @@ const ProductCard: FC<CurrProductType> = ({
                   <p className="text-xs text-gray-500 font-orbitron">
                     Total Bidders
                   </p>
-                  <p className="text-xs">{productData.totalBid} users</p>
+                  <p className="text-xs">
+                    {productData.allBidder.length} users
+                  </p>
                 </div>
                 <div></div>
               </div>

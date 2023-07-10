@@ -9,7 +9,10 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { useSelectedUser } from "@/hooks/state/useAppState";
 import Cookies from "universal-cookie";
-const details = [
+import { getSingleUser } from "@/endpoints/user";
+import { getUserById } from "@/hooks/query/getUserById";
+import Loader from "@/components/molecules/Loader";
+const ProfileDetails = [
   {
     name: "My Profile",
     id: 1,
@@ -23,28 +26,33 @@ const details = [
     id: 3,
   },
 ];
-const index = () => {
+const ProfileDetail = () => {
   const cookie = new Cookies();
-  const [, setUser] = useSelectedUser();
+  const [user, setUser] = useSelectedUser();
+  const { data, isLoading } = getUserById(user._id);
+
   const [active, setActive] = useState(1);
   const router = useRouter();
   const renderComponent = () => {
     if (active == 1) {
-      return <UserProfile />;
+      return <UserProfile data={data.user} />;
     } else if (active == 2) {
-      return <UserBidding />;
+      return <UserBidding data={data.user} />;
     } else if (active == 3) {
     }
     return <></>;
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <div className="min-h-screen pt-32 bg-stone-100 ">
       <div className="w-11/12 p-6 mx-auto rounded-md ">
         <p className="mb-4 text-2xl font-baiMedium">Account Settings</p>
         <div className="flex flex-col gap-0 bg-white rounded-md sm:gap-4 md:gap-8 sm:flex-row ">
           <div className="flex flex-col gap-2 p-3 pr-2 m-3 text-gray-500 border-b-2 sm:border-r-2 md:pr-6 ">
-            {details.map((item) => {
+            {ProfileDetails.map((item) => {
               return (
                 <span
                   className={`p-4 rounded-md cursor-pointer ${
@@ -81,4 +89,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default ProfileDetail;

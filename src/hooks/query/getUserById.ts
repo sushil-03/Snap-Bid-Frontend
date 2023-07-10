@@ -1,12 +1,11 @@
+import { getSingleUser } from "@/endpoints/user";
 import { useQuery } from "react-query";
-import { getAllProduct } from "@/endpoints/product";
 
-export const getProducts = () => {
-  return useQuery('products', getAllProduct, {
+export const getUserById = (id: string) => {
+  return useQuery(['user', id], () => getSingleUser(id), {
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchInterval: 1000 * 60 * 5, // 5 minutes
     enabled: true,
-    refetchOnWindowFocus: true,
     refetchOnMount: false
 
   });

@@ -82,10 +82,10 @@ const Navbar = () => {
           })}
           {user.name !== "" ? (
             <div className="flex items-center gap-1 text-sm uppercase md:gap-8 sm:gap-4 font-baiMedium">
-              <Link href={"/profile"} className="w-40">
+              <Link href={`/profile/${user._id}`} className="w-40">
                 <label
                   htmlFor="profile2"
-                  className="flex items-center justify-between px-2 border-2 border-red-400 rounded-md cursor-pointer profile-dropdown hover:bg-red-50"
+                  className="flex items-center justify-between px-2 bg-white border-2 border-red-400 rounded-md cursor-pointer profile-dropdown hover:bg-red-50"
                 >
                   <div className="flex items-center flex-1 ">
                     <Image

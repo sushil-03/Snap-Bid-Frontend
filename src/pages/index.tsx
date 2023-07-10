@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Button from "@/components/atoms/Button";
 import ProductCard from "@/components/molecules/ProductCard";
 import Link from "next/link";
-import { useEffect } from "react";
 import { getProducts } from "@/hooks/query/getProduct";
 const index = () => {
   const products = getProducts();
@@ -88,14 +87,7 @@ const index = () => {
         "List your products, set prices, and attract potential buyers through our platform",
     },
   ];
-  const productData = {
-    _id: "60f9b0b0e6b3a5b4b4b0b4b0",
-    image: "/images/iphone.png",
-    startingBid: 10000,
-    timeleft: "2:22:40",
-    title: "Iphone 12",
-    totalBid: "1000",
-  };
+
   return (
     <div className="w-11/12 h-full mx-auto mt-32 overflow-hidden md:mt-2">
       <div className="flex flex-col items-center min-h-screen gap-4 md:flex-row">

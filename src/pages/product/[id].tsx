@@ -10,7 +10,7 @@ import { IoStarOutline } from "react-icons/io5";
 
 import ProductDetail from "@/components/molecules/ProductDetail";
 import ProductCarousel from "@/components/molecules/ProductCarousel";
-import ProductBidder from "@/components/molecules/BiddingList";
+import ProductBidder from "@/components/molecules/ProductBidder";
 import Button from "@/components/atoms/Button";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -27,125 +27,7 @@ const index = () => {
   const [bidAmount, setBid] = useState<string>("");
   const [isOpen, setIsOpen] = useState(false);
   const { mutate: proposeBid, isLoading: isBidLoading } = useBid();
-  const productDetail = {
-    name: "Msg Title",
-    category: "Electric",
-    startingBid: "44333",
-    currBid: "993333",
-    owner: "2nd",
-    location: "Raipur Dehradun",
-    postingDate: "21-APR-23",
-    remainingTime: "32:32:90",
-    description:
-      "I am selling my MG ZS EV bought on July 2022 since I am moving abroad. 2 free services left. Currently under 19000 km driven. If you want to drive an electric car, this is the car you would need. Excellent condition. I have also done a ceramic coating, topped up at 18500 km and one more free topup left.",
-    images: [
-      {
-        url: "ipad.jpeg",
-      },
-      { url: "iphone.png" },
-      { url: "iphone.png" },
-      { url: "iphone.png" },
-      { url: "iphone.png" },
-      {
-        url: "ipad.jpeg",
-      },
-      { url: "lap.png" },
-    ],
-    condition: "Refurbished",
-    bidder: [
-      {
-        profile: "p1.png",
-        link: "/",
-        userName: "anony",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p2.png",
-        link: "/",
-        userName: "anony",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-      {
-        profile: "p3.png",
-        userName: "anony",
-        link: "/",
-        email: "sds@gmail.com",
-        price: "449",
-      },
-    ],
-  };
+
   const placeBid = () => {
     if (user.name === "") {
       toast.error("Please login to place bid");
@@ -176,23 +58,6 @@ const index = () => {
   if (isLoading) {
     return <Loader />;
   }
-
-  const helper = (time: Date, date: Date) => {
-    const year = date.getUTCFullYear();
-    const month = date.getUTCMonth();
-    const day = date.getUTCDate();
-
-    // Extract the time components from the reference time
-    const hours = time.getUTCHours();
-    const minutes = time.getUTCMinutes();
-    const seconds = time.getUTCSeconds();
-
-    // Create a new date by combining the extracted date and time components
-    const newDate = new Date(
-      Date.UTC(year, month, day, hours, minutes, seconds)
-    );
-    return newDate;
-  };
   const formatDuration = (timeDifferenceMs: number) => {
     const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeDifferenceMs / (1000 * 60 * 60)) % 24);
@@ -216,31 +81,35 @@ const index = () => {
   };
 
   const getTime = () => {
-    const startingTime = new Date(data.product.startingTime!);
-    const endingTime = new Date(data.product.endingTime!);
-    const startingDate = new Date(data.product.startingDate!);
-    const endingDate = new Date(data.product.endingDate!);
-
     const now = new Date(Date.now());
-    const start = helper(startingTime, startingDate);
-    const end = helper(endingTime, endingDate);
+    const start = new Date(data.product.starting);
+    const end = new Date(data.product.ending);
     if (now.getTime() > end.getTime()) {
       return (
-        <>
-          <p className="text-lg lg:text-2xl md:text-xl font-baibold">Expired</p>
-        </>
+        <div>
+          <p className="text-sm sm:text-lg">Status</p>
+          <p
+            className={`text-lg lg:text-2xl md:text-xl font-baibold ${
+              data.product.status === "Completed"
+                ? "text-[#0B6623]"
+                : data.product.status === "Expired"
+                ? "text-red-600"
+                : ""
+            }`}
+          >
+            {data.product.status}
+          </p>
+        </div>
       );
     }
     if (now.getTime() < start.getTime()) {
       return (
-        <>
+        <div>
           <p className="text-sm sm:text-lg">Start on</p>
-
-          <div className="text-lg lg:text-2xl md:text-xl font-baibold">
-            <p>{start.toDateString()}</p>
-            <p>{start.toTimeString().slice(0, 8)}</p>
+          <div className="text-xl lg:text-4xl md:text-2xl font-baibold">
+            <p> {formatDuration(start.getTime() - now.getTime())}</p>
           </div>
-        </>
+        </div>
       );
     }
 
@@ -259,12 +128,13 @@ const index = () => {
     );
   };
 
+  // if(!data.product){}
   return (
     <div className="min-h-screen mt-32 ">
       <div className="">
         <ProductCarousel data={data.product?.images} />
       </div>
-      <div className="flex justify-start mt-8 md:gap-6">
+      <div className="flex flex-col justify-start pb-8 mx-auto mt-8 sm:flex-row sm:w-full ">
         <div className="w-full">
           <div className="flex gap-2 p-4 my-4 lg:gap-8 md:gap-4">
             <p
@@ -279,17 +149,26 @@ const index = () => {
             >
               Bidding
             </p>
-            <p
-              onClick={() => setIsOpen(true)}
-              className="p-1 transition-colors duration-500 ease-in-out border-2 cursor-pointer md:p-3 border-black-600 hover:bg-black-100 hover:text-white font-baiMedium"
-            >
-              Place Bid
-            </p>
+            {data.product.status === "Active" ? (
+              <p
+                onClick={() => setIsOpen(true)}
+                className="p-1 transition-colors duration-500 ease-in-out border-2 cursor-pointer md:p-3 border-black-600 hover:bg-black-100 hover:text-white font-baiMedium"
+              >
+                Place Bid
+              </p>
+            ) : (
+              <p className="p-1 transition-colors duration-500 ease-in-out border-2 cursor-pointer md:p-3 border-black-600 hover:bg-black-100 hover:text-white font-baiMedium">
+                {" "}
+                {data.product.status === "Pending"
+                  ? "Not Started"
+                  : "Auction End"}
+              </p>
+            )}
           </div>
           {showOverview && !isOpen ? (
             <ProductDetail data={data.product} />
           ) : (
-            <ProductBidder data={data.product.allBidder} />
+            <ProductBidder product={data.product} />
           )}
           {isOpen && (
             <Dialog
@@ -352,12 +231,12 @@ const index = () => {
           )}
         </div>
 
-        <div className="flex flex-col w-4/5 gap-8 mt-24 sm:mt-28 sm:w-2/5 ">
-          <div className="p-4 mx-4 rounded-xl bg-stone-100 shadow-3xl">
+        <div className="flex flex-row flex-wrap w-11/12 gap-4 mx-auto mt-6 mr-4 sm:mx-0 sm:gap-8 sm:flex-col sm:mt-28 sm:w-2/5">
+          <div className="flex-1 p-4 mx-0 sm:flex-initial sm:mx-4 rounded-xl bg-stone-100 shadow-3xl whitespace-nowrap">
             {getTime()}
           </div>
 
-          <div className="p-4 mx-4 rounded-xl bg-stone-100 shadow-3xl">
+          <div className="flex-1 p-4 mx-0 sm:flex-initial sm:mx-4 rounded-xl bg-stone-100 shadow-3xl">
             <p className="text-sm sm:text-lg">Current Bid</p>
             <p className="text-xl lg:text-4xl md:text-2xl font-baibold">
               ${data.product.maxBid}
@@ -367,9 +246,9 @@ const index = () => {
           <Link
             href={`/profile/${data.product.createdBy._id}`}
             // href={"/"}
-            className="flex items-center justify-between p-1 mx-4 transition-all duration-500 ease-in-out shadow-xl rounded-xl bg-stone-100 hover:shadow-3xl"
+            className="flex items-center justify-between p-1 mx-0 transition-all duration-500 ease-in-out shadow-xl sm:mx-4 rounded-xl bg-stone-100 hover:shadow-3xl"
           >
-            <div className="flex items-center text-base sm:gap-2 sm:text-lg font-bai">
+            <div className="flex items-center pr-12 text-base sm:gap-2 sm:text-lg font-bai">
               <Image
                 src={`/images/profile/p1.png`}
                 width={80}
@@ -380,6 +259,25 @@ const index = () => {
             </div>
             <AiOutlineArrowRight size={30} className="hidden sm:block" />
           </Link>
+          {data.product.status === "Completed" && (
+            <Link href={`/profile/${data.product.bidwinner._id}`}>
+              <div className="flex-1 p-4 mx-4 sm:flex-initial rounded-xl bg-stone-100 shadow-3xl">
+                <p className="text-sm sm:text-lg">Winner</p>
+                <p className="flex justify-between text-xl lg:text-4xl md:text-2xl font-baibold">
+                  {data.product.bidwinner.firstname}
+                  <AiOutlineArrowRight size={30} className="hidden sm:block" />
+                </p>
+              </div>
+            </Link>
+          )}
+          {data.product.status === "Expired" && (
+            <div className="flex-1 p-4 mx-4 sm:flex-initial rounded-xl bg-stone-100 shadow-3xl">
+              <p className="text-xl md:text-2xl font-baibold">
+                Bid ended without a winner{" "}
+              </p>
+              <p className="py-3 text-sm sm:text-lg">Contact the owner</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserBidding = () => {
+const UserBidding = ({ data: any }) => {
   return (
     <div className="flex-1 px-8 ">
       <p className="my-4 text-lg">Bidding Info</p>
