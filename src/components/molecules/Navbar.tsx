@@ -93,7 +93,7 @@ const Navbar = () => {
                 >
                   <div className="flex items-center flex-1 ">
                     <Image
-                      src="/images/profile/p1.png "
+                      src="/images/profile/p1.png"
                       height={50}
                       width={50}
                       alt="profile"
