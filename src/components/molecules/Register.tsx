@@ -20,14 +20,14 @@ const Register = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
   const cookie = new Cookies();
   const [, setUser] = useSelectedUser();
   const registerInitialValues = {
-    email: "sushil33@gmail.com",
-    firstname: "Sushil",
-    lastname: "rawat",
-    contact: "9185343434",
-    password: "sushil@gmail.com",
-    country: "India",
-    state: "Uk",
-    pincode: "123456",
+    email: "",
+    firstname: "",
+    lastname: "",
+    contact: "",
+    password: "",
+    country: "",
+    state: "",
+    pincode: "",
   };
   const { mutate: proposeRegister, isLoading } = useRegister();
 

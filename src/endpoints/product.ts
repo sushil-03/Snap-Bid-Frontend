@@ -21,7 +21,7 @@ export type ProductType = {
   | "Fashion"
   | "Art"
   | "bike"
-  | "Other";
+  | "Others";
   owner: "1st" | "2nd" | "3rd";
   condition: "Antique" | "New" | "Old" | "Refurbished" | "Used" | "Open Box";
   location: string;

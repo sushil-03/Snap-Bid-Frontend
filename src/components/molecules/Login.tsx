@@ -25,10 +25,8 @@ const Login = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
   const router = useRouter();
   const cookie = new Cookies();
   const loginInitialValues = {
-    email: "sushil121@gmail.com",
-    password: "sushil121@gmail.com",
-    // email: "",
-    // password: "",
+    email: "",
+    password: "",
   };
   const loginValidationSchema = Yup.object({
     email: Yup.string().email().required("Required"),
@@ -69,7 +67,7 @@ const Login = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
     >
       {(formik) => {
         return (
-          <Form className="w-full px-0 border-4 sm:px-8 md:w-2/5 md:px-0 border-black-100">
+          <Form className="w-full px-0 sm:px-8 md:w-2/5 md:px-0 ">
             <div className="flex flex-col flex-1 gap-6 rounded-md xl:p-8 ">
               <p className="text-2xl text-center text-transparent md:text-4xl bg-gradient-to-r from-violet-600 to-orange-600 bg-clip-text font-baibold">
                 Welcome Back
