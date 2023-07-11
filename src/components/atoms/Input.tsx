@@ -20,11 +20,12 @@ const Input: FC<InputProps> = ({
   const fullWidthStyle = fullWidth ? "w-full" : "";
   return (
     <div className="relative">
-      <span className="absolute pr-2 border-r-2 left-3 top-5 border-violet-700">
-        {icon}
-      </span>
+      {/* <span className="absolute h-full pr-2 border-r-2 left-3 md:top-5 top-4 border-violet-700"> */}
+      <div className="absolute top-0 bottom-0 h-full pr-2 border-r-2 left-3 border-violet-700">
+        <p className="my-3 align-middle md:my-5 item-center">{icon}</p>
+      </div>
       <input
-        className={`${fullWidthStyle} py-4 pl-14 pr-4 border-2   rounded-md outline-none ring-violet-600 border-gray-400 font-mono hover:shadow-[inset_-8px_-4px_20px_#46464620] hover:ring-2 transition-all ease-in-out duration-500 ${className}`}
+        className={`${fullWidthStyle} md:py-4 py-3 md:pl-14 pl-12 md:text-base text-sm pr-4 border-2   rounded-md outline-none ring-violet-600 border-gray-400 font-mono hover:shadow-[inset_-8px_-4px_20px_#46464620] hover:ring-2 transition-all ease-in-out duration-500 ${className} `}
         {...inputProps}
       />
     </div>

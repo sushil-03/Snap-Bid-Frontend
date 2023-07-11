@@ -16,9 +16,10 @@ export type ProductBidderType = {
     price: string;
   }[];
 };
+import { BidType } from "@/endpoints/product";
 const ProductBidder = ({ product }: any) => {
   const [user] = useSelectedUser();
-  const router = useRouter();
+
   const { mutate: proposePayment, isLoading } = usePayBid();
   function showRank(key: number) {
     if (key === 0) {
@@ -62,7 +63,7 @@ const ProductBidder = ({ product }: any) => {
     return formattedTimeDifference;
   };
   const handlePay = (amount: number) => {
-    const data = {
+    const data: BidType = {
       productId: product._id,
       amount,
     };
@@ -113,7 +114,7 @@ const ProductBidder = ({ product }: any) => {
             <div
               className={`flex items-center justify-between px-0 py-4 mx-4 mt-4  rounded-md md:py-6 md:px-2 ${
                 user._id.toString() === item.bidder._id.toString()
-                  ? " bg-[#028A0F]/80"
+                  ? " bg-blue-400"
                   : "bg-white"
               }
                 ${item.paymentInfo.status === "Completed" ? " bg-red-300" : ""}
@@ -165,13 +166,13 @@ const ProductBidder = ({ product }: any) => {
                 ) : (
                   <Button
                     variant="tertiary"
-                    className={`right-0 px-6 py-0 bg-red-500 absolut xl:px-8 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 hover:bg-blue-600 shadow-black-700 shadow-sm`}
+                    className={`right-0 px-6 py-0 bg-sky-300 absolut xl:px-8 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 hover:bg-blue-700 shadow-black-700 shadow-md transition-colors ease-in-out duration-700`}
                     // disabled={}
                     disabled={
                       item.paymentInfo.status !== "Pending" ||
                       user._id !== item.bidder._id
                     }
-                    onClick={() => handlePay(item.amount)}
+                    onClick={() => handlePay(item.bidAmount)}
                   >
                     Pay
                   </Button>

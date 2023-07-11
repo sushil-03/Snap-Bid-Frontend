@@ -34,7 +34,6 @@ const Navbar = () => {
   ];
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState<boolean>(true);
-
   useEffect(() => {
     const response = cookie.get("authorization");
     if (response) {
@@ -44,6 +43,8 @@ const Navbar = () => {
         token: response.token,
       });
     }
+  }, []);
+  useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
       setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
@@ -82,19 +83,23 @@ const Navbar = () => {
           })}
           {user.name !== "" ? (
             <div className="flex items-center gap-1 text-sm uppercase md:gap-8 sm:gap-4 font-baiMedium">
-              <Link href={`/profile/${user._id}`} className="w-40">
+              <Link
+                href={`/profile/${user._id}`}
+                className="w-20 md:w-40 sm:w-32"
+              >
                 <label
                   htmlFor="profile2"
                   className="flex items-center justify-between px-2 bg-white border-2 border-red-400 rounded-md cursor-pointer profile-dropdown hover:bg-red-50"
                 >
                   <div className="flex items-center flex-1 ">
                     <Image
-                      src="/images/profile/p1.png"
+                      src="/images/profile/p1.png "
                       height={50}
                       width={50}
                       alt="profile"
+                      className="hidden sm:block"
                     />
-                    <span>{user.name}</span>
+                    <span className="p-2 sm:p-0">{user.name}</span>
                   </div>
                 </label>
               </Link>
@@ -121,12 +126,6 @@ const Navbar = () => {
               </div>
             </div>
           </Link>
-          {/* <Button
-            variant="primary"
-            className="hidden sm:block whitespace-nowrap"
-          >
-            Contact Us
-          </Button> */}
         </div>
       </div>
     </Fragment>
@@ -134,12 +133,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-{
-  /* <button onClick={handleLogout} className="cursor-pointer group">
-                <div className="p-3 py-2 pr-2 text-xs transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
-                  Logout
-                </div>
-                <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></span>
-              </button> */
-}

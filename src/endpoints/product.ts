@@ -67,6 +67,7 @@ export const createProduct = async (data: ProductType) => {
 export const placeBid = async (data: BidType) => {
   const cookie = new Cookies()
   const user = cookie.get('authorization')
+
   const res = await api.AXIOS({
     url: '/api/v1/bid',
     method: 'post',
@@ -77,9 +78,9 @@ export const placeBid = async (data: BidType) => {
   })
   return res;
 }
-export const getAllProduct = async () => {
+export const getAllProduct = async (query: string) => {
   const res = await api.AXIOS({
-    url: '/api/v1/products',
+    url: `/api/v1/products?category=${query}`,
     method: 'get',
   })
 
@@ -96,6 +97,8 @@ export const getSingleProduct = async (id: string) => {
 export const bidPayment = async (data: BidType) => {
   const cookie = new Cookies()
   const user = cookie.get('authorization')
+
+  console.log('Data comes in  bid paymentxxz', data);
   const res = await api.AXIOS({
     url: '/api/v1/product/pay',
     method: 'post',

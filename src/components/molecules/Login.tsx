@@ -50,6 +50,7 @@ const Login = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
         const decoded: DecodedType = jwt(result.token);
         cookie.set("authorization", result, {
           expires: new Date(decoded.exp * 1000),
+          path: "/",
         });
         router.push("/explore");
       },
@@ -68,9 +69,9 @@ const Login = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
     >
       {(formik) => {
         return (
-          <Form className="w-full sm:w-3/5 md:w-2/5">
-            <div className="flex flex-col flex-1 gap-6 rounded-md md:p-16 lg:p-24">
-              <p className="text-4xl text-center text-transparent bg-gradient-to-r from-violet-600 to-orange-600 bg-clip-text font-baibold">
+          <Form className="w-full px-0 border-4 sm:px-8 md:w-2/5 md:px-0 border-black-100">
+            <div className="flex flex-col flex-1 gap-6 rounded-md xl:p-8 ">
+              <p className="text-2xl text-center text-transparent md:text-4xl bg-gradient-to-r from-violet-600 to-orange-600 bg-clip-text font-baibold">
                 Welcome Back
               </p>
               <div className="flex flex-col gap-4 ">

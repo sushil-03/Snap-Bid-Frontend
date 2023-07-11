@@ -16,12 +16,6 @@ const Loader = ({ height = "500px", width = "500px" }) => {
         />
       </Player>
     </div>
-    // <div className="flex justify-center">
-
-    //   <span className="circle animate-loader"></span>
-    //   <span className="circle animate-loader animation-delay-200"></span>
-    //   <span className="circle animate-loader animation-delay-400"></span>
-    // </div>
   );
 };
 

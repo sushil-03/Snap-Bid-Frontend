@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
-
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
@@ -19,6 +18,7 @@ import { getProductByID } from "@/hooks/query/getSingleProduct";
 import { useSelectedUser } from "@/hooks/state/useAppState";
 import { toast } from "react-toastify";
 import { useBid } from "@/hooks/mutation/usePlaceBid";
+
 const index = () => {
   const [user] = useSelectedUser();
   const router = useRouter();
@@ -84,7 +84,40 @@ const index = () => {
     const now = new Date(Date.now());
     const start = new Date(data.product.starting);
     const end = new Date(data.product.ending);
-    if (now.getTime() > end.getTime()) {
+    const result = end.getTime() - now.getTime();
+    console.log("result", result);
+    const remainingTime = formatDuration(result);
+
+    if (data.product.status === "Active") {
+      return (
+        <>
+          <p className="text-sm sm:text-lg">Time left</p>
+          <p className="text-xl lg:text-4xl md:text-2xl font-baibold">
+            {remainingTime}
+          </p>
+        </>
+      );
+    } else if (data.product.status === "Pending") {
+      return (
+        <div>
+          <p className="text-sm sm:text-lg">Start on</p>
+          <div className="text-xl lg:text-4xl md:text-2xl font-baibold">
+            <p> {formatDuration(start.getTime() - now.getTime())}</p>
+          </div>
+        </div>
+      );
+    } else if (data.product.status === "Expired") {
+      return (
+        <div>
+          <p className="text-sm text-red-600 sm:text-lg">Expired on</p>
+          <div className="text-xl lg:text-3xl md:text-2xl font-baibold">
+            <p> {end.toDateString()}</p>
+            <p>{end.toTimeString().slice(0, 8)}</p>
+            {/* <p> {formatDuration(end)</p> */}
+          </div>
+        </div>
+      );
+    } else {
       return (
         <div>
           <p className="text-sm sm:text-lg">Status</p>
@@ -102,33 +135,50 @@ const index = () => {
         </div>
       );
     }
-    if (now.getTime() < start.getTime()) {
-      return (
-        <div>
-          <p className="text-sm sm:text-lg">Start on</p>
-          <div className="text-xl lg:text-4xl md:text-2xl font-baibold">
-            <p> {formatDuration(start.getTime() - now.getTime())}</p>
-          </div>
-        </div>
-      );
-    }
 
-    const result = end.getTime() - now.getTime();
-    console.log("result", result);
-    const remainingTime = formatDuration(result);
+    // // if (now.getTime() > end.getTime()) {
+    // //   return (
+    // //     <div>
+    // //       <p className="text-sm sm:text-lg">Status</p>
+    // //       <p
+    // //         className={`text-lg lg:text-2xl md:text-xl font-baibold ${
+    // //           data.product.status === "Completed"
+    // //             ? "text-[#0B6623]"
+    // //             : data.product.status === "Expired"
+    // //             ? "text-red-600"
+    // //             : ""
+    // //         }`}
+    // //       >
+    // //         {data.product.status}
+    // //       </p>
+    // //     </div>
+    // //   );
+    // // }
+    // // if (now.getTime() < start.getTime()) {
+    // //   return (
+    // //     <div>
+    // //       <p className="text-sm sm:text-lg">Start on</p>
+    // //       <div className="text-xl lg:text-4xl md:text-2xl font-baibold">
+    // //         <p> {formatDuration(start.getTime() - now.getTime())}</p>
+    // //       </div>
+    // //     </div>
+    // //   );
+    // // }
 
-    // return remainingTime;
-    return (
-      <>
-        <p className="text-sm sm:text-lg">Time left</p>
-        <p className="text-xl lg:text-4xl md:text-2xl font-baibold">
-          {remainingTime}
-        </p>
-      </>
-    );
+    // // return remainingTime;
+    // return (
+    //   <>
+    //     <p className="text-sm sm:text-lg">Times left</p>
+    //     <p className="text-xl lg:text-4xl md:text-2xl font-baibold">
+    //       {remainingTime}
+    //     </p>
+    //   </>
+    // );
   };
 
-  // if(!data.product){}
+  if (!data || !data.product) {
+    return <div>Nothing to see</div>;
+  }
   return (
     <div className="min-h-screen mt-32 ">
       <div className="">
@@ -206,8 +256,9 @@ const index = () => {
                         <Button
                           variant="secondary"
                           fullWidth
-                          className="px-3 py-1 my-2 rounded-md shadow-md py0 hover:ring-0"
+                          className="px-3 py-1 my-2 rounded-md shadow-md py0 hover:ring-0 disabled:bg-gray-400 disabled:hover:ring-0"
                           onClick={placeBid}
+                          disabled={isBidLoading}
                         >
                           Place Bid
                         </Button>
@@ -245,7 +296,6 @@ const index = () => {
 
           <Link
             href={`/profile/${data.product.createdBy._id}`}
-            // href={"/"}
             className="flex items-center justify-between p-1 mx-0 transition-all duration-500 ease-in-out shadow-xl sm:mx-4 rounded-xl bg-stone-100 hover:shadow-3xl"
           >
             <div className="flex items-center pr-12 text-base sm:gap-2 sm:text-lg font-bai">

@@ -7,9 +7,6 @@ const Footer = () => {
       <div className="flex items-center justify-center gap-3 md:gap-16 sm:gap-8 ">
         <div className="">
           <Logo />
-          {/* <div className="text-xl font-bold text-transparent uppercase lg:text-4xl sm:text-2xl font-baibold bg-gradient-to-r from-red-500 via-violet-600 to-orange-500 bg-clip-text">
-            Bid Connect
-          </div> */}
         </div>
         <div className="flex gap-4 sm:gap-6">
           <p>About</p>

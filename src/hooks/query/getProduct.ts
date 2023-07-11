@@ -1,8 +1,8 @@
 import { useQuery } from "react-query";
 import { getAllProduct } from "@/endpoints/product";
 
-export const getProducts = () => {
-  return useQuery('products', getAllProduct, {
+export const getProducts = (query: string | "") => {
+  return useQuery(['products', query], () => getAllProduct(query), {
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchInterval: 1000 * 60 * 5, // 5 minutes
     enabled: true,

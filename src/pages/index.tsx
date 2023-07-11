@@ -5,7 +5,7 @@ import ProductCard from "@/components/molecules/ProductCard";
 import Link from "next/link";
 import { getProducts } from "@/hooks/query/getProduct";
 const index = () => {
-  const products = getProducts();
+  const products = getProducts("");
   console.log("ALL PRODUCTS  ", products.data);
   const categories = [
     {
@@ -25,39 +25,19 @@ const index = () => {
       class: "bg-green-400 text-green-600",
     },
     {
-      name: "House",
-      class: "bg-green-400 text-green-600",
+      name: "Robot",
+      class: "bg-violet-400 text-violet-600",
     },
     {
-      name: "House",
-      class: "bg-green-400 text-green-600",
+      name: "Electronics",
+      class: "bg-red-400 text-red-600",
     },
     {
-      name: "House",
-      class: "bg-green-400 text-green-600",
+      name: "Bike",
+      class: "bg-violet-400 text-violet-600",
     },
     {
-      name: "House",
-      class: "bg-green-400 text-green-600",
-    },
-    {
-      name: "House",
-      class: "bg-green-400 text-green-600",
-    },
-    {
-      name: "House",
-      class: "bg-green-400 text-green-600",
-    },
-    {
-      name: "House",
-      class: "bg-green-400 text-green-600",
-    },
-    {
-      name: "House",
-      class: "bg-green-400 text-green-600",
-    },
-    {
-      name: "House",
+      name: "Antique",
       class: "bg-green-400 text-green-600",
     },
   ];
@@ -90,10 +70,10 @@ const index = () => {
 
   return (
     <div className="w-11/12 h-full mx-auto mt-32 overflow-hidden md:mt-2">
-      <div className="flex flex-col items-center min-h-screen gap-4 md:flex-row">
-        <div className="">
+      <div className="flex flex-col items-center h-full gap-4 sm:min-h-screen md:flex-row">
+        <div className="pt-24 sm:mt-0">
           <p className="font-piru">Digital Bid _____</p>
-          <div className="pt-10 pb-0 text-3xl font-extrabold md:pb-6 md:text-6xl sm:text-4xl font-piru">
+          <div className="pt-10 pb-0 text-2xl font-extrabold md:pb-6 2xl:text-6xl xl:text-5xl md:text-4xl sm:text-3xl font-piru">
             <p className="leading-tight whitespace-nowrap ">
               Discover, Bid, Win{" "}
             </p>
@@ -136,7 +116,7 @@ const index = () => {
             <Button variant="secondary">Explore now</Button>
           </Link>
         </div>
-        <div className="flex items-center justify-center md:gap-10 gap-8 mt-10 [&>*:nth-child(2)]:mb-32  ">
+        <div className="flex items-center justify-center md:gap-10 gap-8 mt-10 [&>*:nth-child(2)]:mb-32 overflow-x-scroll ">
           <ProductCard
             isShowBid={true}
             productData={products?.data?.products[0]}

@@ -85,7 +85,27 @@ const index = () => {
       new Date(product.endingDate)
     );
     console.log("____PRODUCT", product);
-
+    Object.values(product).every((value) => {
+      if (value === "") {
+        toast.error("Please fill all the fields");
+        return false;
+      }
+      return true;
+    });
+    if (product.images.length < 5) {
+      toast.error("Please upload atleast 5  image");
+      return;
+    }
+    if (new Date(product.starting).getTime() < new Date().getTime()) {
+      toast.error("Starting time should be greater than current time");
+      return;
+    }
+    if (
+      new Date(product.ending).getTime() < new Date(product.starting).getTime()
+    ) {
+      toast.error("Ending time should be greater than starting time");
+      return;
+    }
     proposeCreateProduct(product, {
       onSuccess(result) {
         console.log("Evevrthing went right ", result);

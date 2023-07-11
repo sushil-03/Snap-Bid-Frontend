@@ -4,7 +4,7 @@ import Image from "next/image";
 import Button from "../atoms/Button";
 import Link from "next/link";
 import { ProductType } from "@/endpoints/product";
-type CurrProductType = {
+export type CurrProductType = {
   isShowBid?: Boolean;
   classname?: string;
 
@@ -62,7 +62,13 @@ const ProductCard: FC<CurrProductType> = ({
     if (now > end.getTime()) {
       return (
         <>
-          <p className="text-xl text-red-400 font-orbitron ">
+          <p
+            className={`text-lg ${
+              productData.status === "Expired"
+                ? "text-red-600"
+                : "text-green-600"
+            }  font-obitron font-OrbitronMedium`}
+          >
             {productData.status}
           </p>
         </>
@@ -94,7 +100,7 @@ const ProductCard: FC<CurrProductType> = ({
   return (
     <Fragment>
       <div
-        className={` relative items-center inline-block  mb-10  rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.)] z-40 overflow-hidden ${classname}`}
+        className={` relative items-center inline-block  mb-10  rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.)] z-20 overflow-hidden ${classname}`}
       >
         <div className="relative overflow-hidden">
           <Link href={`/product/${productData._id}`}>
