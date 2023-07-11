@@ -13,7 +13,7 @@
         "endOfLine": "auto"
       }
     ],
-    "avoidEscape": false
+    "avoidEscape": 0
   },
   "overrides": [
     // Configuration for TypeScript files

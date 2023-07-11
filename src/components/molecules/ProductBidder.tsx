@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import Image from "next/image";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import Button from "../atoms/Button";
@@ -6,7 +6,6 @@ import { useSelectedUser } from "@/hooks/state/useAppState";
 import { usePayBid } from "@/hooks/mutation/usePayBid";
 import Loader from "./Loader";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
 export type ProductBidderType = {
   data: {
     profile: string;
