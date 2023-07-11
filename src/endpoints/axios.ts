@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import type { AxiosRequestConfig } from "axios";
+import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: "https://snapbid-backend.onrender.com",
@@ -6,7 +7,7 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: false,
-})
+});
 
 axiosInstance.interceptors.request.use(async function (config) {
   return config;
@@ -31,6 +32,6 @@ axiosInstance.interceptors.response.use(
 );
 export const AXIOS = async (config: AxiosRequestConfig) => {
   const getRes = await axiosInstance(config);
-  return getRes.data
-}
-export const api = { AXIOS }
+  return getRes.data;
+};
+export const api = { AXIOS };

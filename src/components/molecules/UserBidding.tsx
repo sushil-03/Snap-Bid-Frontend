@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormHelperText,
-} from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import React, { useState } from "react";
 import ProductCard from "./ProductCard";
 import { Controls, Player } from "@lottiefiles/react-lottie-player";

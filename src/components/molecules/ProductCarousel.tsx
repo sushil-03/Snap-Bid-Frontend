@@ -1,20 +1,21 @@
-import React, { FC } from "react";
-
 import Image from "next/image";
+import type { FC } from "react";
+import React from "react";
+import { Autoplay, EffectCoverflow, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Navigation, Autoplay } from "swiper";
+
 export type ProductCarouselType = {
   data: { filename: string; fileimage: string }[];
 };
 const ProductCarousel: FC<ProductCarouselType> = ({ data }) => {
-  if (!data) return <div></div>;
+  if (!data) return <div />;
   return (
     <Swiper
-      effect={"coverflow"}
-      grabCursor={true}
+      effect="coverflow"
+      grabCursor
       defaultChecked
-      centeredSlides={true}
-      loop={true}
+      centeredSlides
+      loop
       centerInsufficientSlides
       slidesPerView={3}
       coverflowEffect={{
@@ -37,7 +38,7 @@ const ProductCarousel: FC<ProductCarouselType> = ({ data }) => {
       {data.map((_item, _key) => {
         return (
           <SwiperSlide key={_key}>
-            <div className="relative h-00px]" key={_key}>
+            <div className="h-00px] relative" key={_key}>
               <Image
                 src={`${_item.fileimage}`}
                 alt="Image"
@@ -50,9 +51,9 @@ const ProductCarousel: FC<ProductCarouselType> = ({ data }) => {
         );
       })}
       <div className="slider-controler">
-        <div className="swiper-button-prev slider-arrow"></div>
-        <div className=" swiper-button-next slider-arrow"></div>
-        <div className="swiper-pagination"></div>
+        <div className="swiper-button-prev slider-arrow" />
+        <div className=" swiper-button-next slider-arrow" />
+        <div className="swiper-pagination" />
       </div>{" "}
     </Swiper>
   );

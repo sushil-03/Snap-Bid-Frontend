@@ -1,16 +1,15 @@
 import Button from "@/components/atoms/Button";
-import Input from "@/components/atoms/Input";
 import Loader from "@/components/molecules/Loader";
 import ProductCard from "@/components/molecules/ProductCard";
 import { getProducts } from "@/hooks/query/getProduct";
 import React, { useState } from "react";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
-import { RiSearchLine } from "react-icons/ri";
 import { PiPaperPlaneRightDuotone } from "react-icons/pi";
+// import Input from "@/components/atoms/Input";
+// import { RiSearchLine } from "react-icons/ri";
 
 const index = () => {
   const [category, showCategory] = useState(false);
-  const [cate, setCategory] = useState("");
   const { data, isLoading } = getProducts("");
   const [filter, showFilter] = useState(false);
   const [location, showLocation] = useState(false);
@@ -42,13 +41,13 @@ const index = () => {
     },
   ];
 
-  const handleSearch = (query: string) => {};
   if (isLoading) {
     return <Loader />;
   }
-  const searchByCategory = (category: string) => {
-    // queryClient.fetchQuery("products", () => getAllProduct(category));
-  };
+  // const handleSearch = (query: string) => {};
+  // const searchByCategory = (category: string) => {
+  //   // queryClient.fetchQuery("products", () => getAllProduct(category));
+  // };
   if (!data) return <></>;
   return (
     <div className="min-h-screen mt-24">
@@ -100,7 +99,9 @@ const index = () => {
                       <p
                         className={` font-baiMedium ${item.class} inline-block font-medium`}
                         key={key}
-                        onClick={() => searchByCategory(item.name)}
+                        onClick={() => {
+                          console.log("On Progress");
+                        }}
                       >
                         {item.name}
                       </p>

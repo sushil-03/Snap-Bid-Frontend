@@ -86,12 +86,7 @@ const index = () => {
           </p>
         </div>
         <div className="">
-          <Image
-            src={"/images/home.jpg"}
-            alt="Home"
-            width={1000}
-            height={500}
-          ></Image>
+          <Image src="/images/home.jpg" alt="Home" width={1000} height={500} />
         </div>
       </div>
 

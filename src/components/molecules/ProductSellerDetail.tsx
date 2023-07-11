@@ -1,15 +1,15 @@
-import { FormControl, TextField } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
+import { FormControl } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import { MuiTelInput } from "mui-tel-input";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import type { FC } from "react";
+import React from "react";
 
-import React, { FC } from "react";
+import type { ProductSellDetailType } from "@/endpoints/product";
+
 import Button from "../atoms/Button";
-import { ProductSellDetailType } from "@/endpoints/product";
 
-import { useCreateProduct } from "@/hooks/mutation/useAddProduct";
 const ProductSellerDetail: FC<ProductSellDetailType> = ({
   product: data,
   setActiveStep,
@@ -149,7 +149,7 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({
       <div className="flex justify-between px-2">
         <Button
           variant="secondary"
-          className="mb-2 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 hover:ring-transparent"
+          className="mb-2 rounded-md bg-violet-800 ring-violet-800 hover:bg-violet-600 hover:ring-transparent"
           onClick={() => {
             setActiveStep(1);
             window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -159,7 +159,7 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({
         </Button>{" "}
         <Button
           variant="secondary"
-          className="mb-2 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 hover:ring-transparent"
+          className="mb-2 rounded-md bg-violet-800 ring-violet-800 hover:bg-violet-600 hover:ring-transparent"
           onClick={() => {
             handleSubmit();
             window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
