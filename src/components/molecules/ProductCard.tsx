@@ -81,8 +81,8 @@ const ProductCard: FC<CurrProductType> = ({
     if (now < startStamp) {
       return (
         <>
-          <p className="text-xs text-gray-500">Start on</p>
-          <p className="textxl font-orbitron whitespace-nowrap">
+          <p className="text-xs text-gray-600 sm:text-sm">Start on</p>
+          <p className="text-sm sm:text-base font-orbitron whitespace-nowrap">
             {formatDuration(startStamp - now)}
           </p>
         </>
@@ -96,8 +96,8 @@ const ProductCard: FC<CurrProductType> = ({
     // return remainingTime;
     return (
       <>
-        <p className="text-xs text-gray-500">Time Left</p>
-        <p className="textxl font-orbitron">{remainingTime}</p>
+        <p className="text-xs text-gray-600 sm:text-sm">Time Left</p>
+        <p className="text-sm sm:text-base font-orbitron">{remainingTime}</p>
       </>
     );
   };
@@ -181,8 +181,8 @@ const ProductCard: FC<CurrProductType> = ({
               <div className="absolute w-11/12 ml-3 text-white/90 -bottom-5">
                 <div className="flex items-center justify-between overflow-hidden rounded-xl backdrop-blur-3xl backdrop-brightness00 backdrop-brightness-150 font-bai">
                   <div className="px-2 py-5">
-                    <p className="text-xs text-gray-500">Max Bid</p>
-                    <p className="text-sm font-orbitron whitespace-nowrap">
+                    <p className="text-xs text-gray-600 sm:text-sm">Max Bid</p>
+                    <p className="ttext-sm sm:text-base font-orbitron whitespace-nowrap">
                       {productData.maxBid} $
                     </p>
                   </div>

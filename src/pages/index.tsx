@@ -4,43 +4,11 @@ import Button from "@/components/atoms/Button";
 import ProductCard from "@/components/molecules/ProductCard";
 import Link from "next/link";
 import { getProducts } from "@/hooks/query/getProduct";
+import { categories } from "@/utils/constant";
+import { useRouter } from "next/router";
 const index = () => {
   const products = getProducts("");
-  console.log("ALL PRODUCTS  ", products.data);
-  const categories = [
-    {
-      name: "Avatar",
-      class: "bg-yellow-400 text-yellow-600",
-    },
-    {
-      name: "Car",
-      class: "bg-yellow-400 text-yellow-600",
-    },
-    {
-      name: "Book",
-      class: "bg-red-400 text-red-600",
-    },
-    {
-      name: "House",
-      class: "bg-green-400 text-green-600",
-    },
-    {
-      name: "Robot",
-      class: "bg-violet-400 text-violet-600",
-    },
-    {
-      name: "Electronics",
-      class: "bg-red-400 text-red-600",
-    },
-    {
-      name: "Bike",
-      class: "bg-violet-400 text-violet-600",
-    },
-    {
-      name: "Antique",
-      class: "bg-green-400 text-green-600",
-    },
-  ];
+  const router = useRouter();
   const workData = [
     {
       name: "Explore Auction",
@@ -115,7 +83,7 @@ const index = () => {
           <ProductCard
             isShowBid={true}
             productData={products?.data?.products[0]}
-            classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
+            classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max h-1/2"
           />
           <ProductCard
             isShowBid={true}
@@ -137,10 +105,16 @@ const index = () => {
             <h1>Explore by Category</h1>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center w-5/6 gap-4 mx-auto mt-10 sm:w-1/2">
+        <div className="flex flex-wrap items-center justify-center w-11/12 gap-4 mx-auto mt-10 lg:w-1/2 md:2/3">
           {categories.map((item, key) => {
             return (
-              <span key={key} className={`${item.class} px-6 py-2 rounded-md`}>
+              <span
+                key={key}
+                className={`${item.class} px-6 py-2 rounded-md cursor-pointer`}
+                onClick={() => {
+                  router.push(`/explore?cate=${item.name}`);
+                }}
+              >
                 {item.name}
               </span>
             );
@@ -159,7 +133,7 @@ const index = () => {
             return (
               <div
                 key={key}
-                className="flex flex-col w-4/5 gap-4 p-8 text-white md:w-1/5 rounded-2xl bg-black-600"
+                className="flex flex-col w-4/5 gap-4 p-5 text-white sm:p-8 md:w-1/5 rounded-2xl bg-black-600"
               >
                 <div className="flex items-center gap-6">
                   <Image

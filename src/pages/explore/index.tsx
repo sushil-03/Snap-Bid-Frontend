@@ -2,44 +2,38 @@ import Button from "@/components/atoms/Button";
 import Loader from "@/components/molecules/Loader";
 import ProductCard from "@/components/molecules/ProductCard";
 import { getProducts } from "@/hooks/query/getProduct";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { FC, useState } from "react";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { PiPaperPlaneRightDuotone } from "react-icons/pi";
+import { categories } from "@/utils/constant";
+import { Controls, Player } from "@lottiefiles/react-lottie-player";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 // import Input from "@/components/atoms/Input";
 // import { RiSearchLine } from "react-icons/ri";
-
+// type FilterType={
+//   category?: string |"";
+//   status?: string|"";
+// }
 const index = () => {
-  const [category, showCategory] = useState(false);
-  const { data, isLoading } = getProducts("");
+  const [isCategory, showCategory] = useState(false);
+  const router = useRouter();
+  console.log(router.query);
+  const category = router.query.cate as string;
+  // const [isStatus, showStatus] = useState(false);
+  // const status = router.query.status as string;
+  const { data, isLoading } = getProducts((category as string) || "");
   const [filter, showFilter] = useState(false);
   const [location, showLocation] = useState(false);
-  const [range, showRange] = useState(false);
-  const categories = [
-    {
-      name: "Avatar",
-      class: " text-yellow-600",
-    },
-    {
-      name: "Car",
-      class: " text-yellow-600",
-    },
-    {
-      name: "Book",
-      class: "text-red-600",
-    },
-    {
-      name: "House",
-      class: "text-green-600",
-    },
-    {
-      name: "Properties",
-      class: "text-red-600",
-    },
-    {
-      name: "Other",
-      class: " text-green-600",
-    },
-  ];
+  // const [range, showRange] = useState(false);
 
   if (isLoading) {
     return (
@@ -49,8 +43,13 @@ const index = () => {
     );
   }
   // const handleSearch = (query: string) => {};
-  // const searchByCategory = (category: string) => {
-  //   // queryClient.fetchQuery("products", () => getAllProduct(category));
+  const searchByCategory = (category: string) => {
+    showFilter(false);
+    router.push(`/explore?cate=${category}`);
+  };
+  // const searchByFilter:FC<FilterType> = ({category="", status=""}) => {
+  // showFilter(false);
+  // router.push(`/explore?cate=${category}?status=${status}`);
   // };
 
   if (!data) return <></>;
@@ -86,32 +85,56 @@ const index = () => {
             <div className="flex-col cursor-pointer sm:flex-row">
               <div
                 className="flex items-center justify-between px-4 text-xl sm:text-2xl"
-                onClick={() => showCategory(!category)}
+                onClick={() => showCategory(!isCategory)}
               >
                 <p className=" font-baiMedium">Categories</p>
                 <p>
-                  {category ? (
+                  {isCategory ? (
                     <AiOutlineArrowDown className="" />
                   ) : (
                     <AiOutlineArrowUp className="" />
                   )}
                 </p>
               </div>
-              <div className="flex flex-row flex-wrap gap-3 px-4 mx-10 my-2 ml-4">
-                {category &&
-                  categories.map((item, key) => {
-                    return (
-                      <p
-                        className={` font-baiMedium ${item.class} inline-block font-medium`}
-                        key={key}
-                        onClick={() => {
-                          console.log("On Progress");
+              <div className="">
+                {isCategory && (
+                  <div className="flex flex-row flex-wrap gap-3 px-4 mx-10 my-2 ml-4">
+                    <FormControl sx={{ m: 1 }} className="w-80 ">
+                      <InputLabel id="demo-simple-select-helper-label">
+                        Category
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-helper-label"
+                        id="demo-simple-select-helper"
+                        value={category}
+                        label="Product"
+                        onChange={(e) => {
+                          // searchByFilter({category:e.target.value});
+                          searchByCategory(e.target.value as string);
                         }}
                       >
-                        {item.name}
-                      </p>
-                    );
-                  })}
+                        <MenuItem
+                          value=""
+                          // key={}
+                          // className={` font-baiMedium ${item.class} inline-block font-medium p-2 rounded-sm`}
+                        >
+                          All
+                        </MenuItem>
+                        {categories.map((item, key) => {
+                          return (
+                            <MenuItem
+                              value={item.name}
+                              // className={` font-baiMedium ${item.class} inline-block font-medium p-2 rounded-sm`}
+                              key={key}
+                            >
+                              {item.name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                  </div>
+                )}
               </div>
             </div>
             <div className="px-4 cursor-pointer">
@@ -147,7 +170,59 @@ const index = () => {
                 )}
               </div>
             </div>
-            <div className="px-4 cursor-pointer">
+
+            {/* <div className="px-4 cursor-pointer">
+              <hr className="hidden sm:block" />
+              <div
+                className="flex items-center justify-between text-xl sm:text-2xl"
+                onClick={() => showStatus(!isStatus)}
+              >
+                <p className="font-baiMedium">Status</p>
+                <p>
+                  {isStatus ? (
+                    <AiOutlineArrowDown className="" />
+                  ) : (
+                    <AiOutlineArrowUp className="" />
+                  )}
+                </p>
+              </div>
+              <div className="flex flex-row flex-wrap w-full gap-3 my-2 ml-4 font-baiMedium">
+                {isStatus && (
+                  <div className="flex items-center justify-between w-full gap-6 md:gap-3">
+                    <FormControl>
+                      <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        defaultValue="All"
+                        name="radio-buttons-group"
+                      >
+                        <FormControlLabel
+                          value="pending"
+                          control={<Radio />}
+                          label="Pending"
+                        />
+                        <FormControlLabel
+                          value="active"
+                          control={<Radio />}
+                          label="Active"
+                        />
+                        <FormControlLabel
+                          value="trasaction"
+                          control={<Radio />}
+                          label="Transaction"
+                        />
+                        <FormControlLabel
+                          value="expired"
+                          control={<Radio />}
+                          label="Expired"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  </div>
+                )}
+              </div>
+            </div> */}
+
+            {/* <div className="px-4 cursor-pointer">
               <hr className="hidden my-2 sm:block" />
               <div
                 className="flex items-center justify-between text-xl sm:text-2xl"
@@ -184,7 +259,7 @@ const index = () => {
                   </div>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* Product */}
@@ -213,6 +288,24 @@ const index = () => {
                   />
                 );
               })}
+            {data && (!data.product || data.product.length == 0) && (
+              <div>
+                <Player
+                  autoplay
+                  loop
+                  src="https://assets6.lottiefiles.com/packages/lf20_m9JXjh.json "
+                  style={{ height: "300px", width: "300px", scale: 4 }}
+                >
+                  <Controls
+                    visible={false}
+                    buttons={["play", "repeat", "frame", "debug"]}
+                  />
+                </Player>
+                <p className="text-3xl text-center font-OrbitronMedium">
+                  No Product
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

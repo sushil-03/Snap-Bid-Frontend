@@ -6,6 +6,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Button from "@/components/atoms/Button";
 import Image from "next/image";
 import { ProductType, ProductImageType } from "@/endpoints/product";
+import { categories } from "@/utils/constant";
 
 type ProductSellDetailType = {
   product: Partial<ProductType>;
@@ -57,17 +58,18 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
   };
 
   // Data
-  const categories = [
-    "Car",
-    "Properties",
-    "Mobile",
-    "Bike",
-    "Electronic & Appliances",
-    "Furniture",
-    "Fashion",
-    "Art",
-    "Others",
-  ];
+
+  // const categories = [
+  //   "Car",
+  //   "Properties",
+  //   "Mobile",
+  //   "Bike",
+  //   "Electronic & Appliances",
+  //   "Furniture",
+  //   "Fashion",
+  //   "Art",
+  //   "Others",
+  // ];
   const owners = ["1st", "2nd", "3rd"];
   const conditions = [
     "Antique",
@@ -199,8 +201,8 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
               >
                 {categories.map((item, key) => {
                   return (
-                    <MenuItem value={item} key={key}>
-                      {item}
+                    <MenuItem value={item.name} key={key}>
+                      {item.name}
                     </MenuItem>
                   );
                 })}

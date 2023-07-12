@@ -22,7 +22,7 @@ const ProductCarousel: FC<ProductCarouselType> = ({ data }) => {
         rotate: 10,
         stretch: 0,
         depth: 100,
-        modifier: 2.5,
+        modifier: 1.5,
       }}
       autoplay={{
         delay: 2500,
@@ -38,10 +38,11 @@ const ProductCarousel: FC<ProductCarouselType> = ({ data }) => {
       {data.map((_item, _key) => {
         return (
           <SwiperSlide key={_key}>
-            <div className="h-00px] relative" key={_key}>
+            <div className="relative " key={_key}>
               <Image
                 src={`${_item.fileimage}`}
                 alt="Image"
+                // fill
                 width={500}
                 height={500}
                 className="bg-transparent rounded-md n"

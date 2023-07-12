@@ -12,15 +12,14 @@ export type ProductType = {
   description: string;
   images: ProductImageType[];
   category:
-  | "Car"
-  | "Properties"
-  | "Mobile"
-  | "Bike"
-  | "Electronic & Appliances"
+  | "Vehicle"
+  | "Property"
   | "Furniture"
-  | "Fashion"
+  | "Painting"
+  | "Jewellery"
+  | "Collectible"
+  | "Music"
   | "Art"
-  | "bike"
   | "Others";
   owner: "1st" | "2nd" | "3rd";
   condition: "Antique" | "New" | "Old" | "Refurbished" | "Used" | "Open Box";
@@ -81,9 +80,11 @@ export const placeBid = async (data: BidType) => {
   })
   return res;
 }
-export const getAllProduct = async (query: string) => {
+export const getAllProduct = async (cate: string,) => {
+  // url: `/api/v1/products?category=${cate}?status=${status}`,
+
   const res = await api.AXIOS({
-    url: `/api/v1/products?category=${query}`,
+    url: `/api/v1/products?category=${cate}`,
     method: 'get',
   })
 
