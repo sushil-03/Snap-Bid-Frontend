@@ -66,7 +66,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
     "Furniture",
     "Fashion",
     "Art",
-    "Other",
+    "Others",
   ];
   const owners = ["1st", "2nd", "3rd"];
   const conditions = [
@@ -152,7 +152,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
           {selectedfile.map((data) => {
             const { _id, filename, fileimage } = data;
             return (
-              <div className="flex gap-4 mt-2" key={_id}>
+              <div className="flex flex-wrap gap-4 mt-2" key={_id}>
                 <div className="">
                   <Image
                     src={fileimage}

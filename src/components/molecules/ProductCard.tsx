@@ -51,15 +51,18 @@ const ProductCard: FC<CurrProductType> = ({
 
   if (!productData) return <div></div>;
   const getTime = () => {
-    const now = Date.now();
     const start = new Date(productData.starting!);
     const end = new Date(productData.ending!);
-    console.log("start", start.getTime());
 
-    console.log("now", now);
-    console.log("end", end.getTime());
+    console.log("start", Date.parse(start.toISOString()));
 
-    if (now > end.getTime()) {
+    // console.log("now", now);
+    console.log("end");
+
+    const now = Date.parse(new Date().toISOString());
+    const endStamp = Date.parse(end.toISOString());
+    const startStamp = Date.parse(start.toISOString());
+    if (now > endStamp) {
       return (
         <>
           <p
@@ -74,18 +77,18 @@ const ProductCard: FC<CurrProductType> = ({
         </>
       );
     }
-    if (now < start.getTime()) {
+    if (now < startStamp) {
       return (
         <>
           <p className="text-xs ">Start on</p>
           <p className="textxl font-orbitron">
-            {formatDuration(start.getTime() - now)}
+            {formatDuration(startStamp - now)}
           </p>
         </>
       );
     }
 
-    const result = end.getTime() - now;
+    const result = endStamp - now;
     console.log("result", result);
     const remainingTime = formatDuration(result);
 
@@ -97,12 +100,60 @@ const ProductCard: FC<CurrProductType> = ({
       </>
     );
   };
+  // const getTime = () => {
+  //   const now = Date.now();
+  //   const start = new Date(productData.starting!);
+  //   const end = new Date(productData.ending!);
+
+  //   console.log("start", Date.parse(start.toISOString()));
+
+  //   console.log("now", now);
+  //   console.log("end",  Date.parse(end.toISOString()));
+
+  //   if (now > end.getTime()) {
+  //     return (
+  //       <>
+  //         <p
+  //           className={`text-lg ${
+  //             productData.status === "Expired"
+  //               ? "text-red-600"
+  //               : "text-green-600"
+  //           }  font-obitron font-OrbitronMedium`}
+  //         >
+  //           {productData.status}
+  //         </p>
+  //       </>
+  //     );
+  //   }
+  //   if (now < start.getTime()) {
+  //     return (
+  //       <>
+  //         <p className="text-xs ">Start on</p>
+  //         <p className="textxl font-orbitron">
+  //           {formatDuration(start.getTime() - now)}
+  //         </p>
+  //       </>
+  //     );
+  //   }
+
+  //   const result = end.getTime() - now;
+  //   console.log("result", result);
+  //   const remainingTime = formatDuration(result);
+
+  //   // return remainingTime;
+  //   return (
+  //     <>
+  //       <p className="text-xs ">Time Left</p>
+  //       <p className="textxl font-orbitron">{remainingTime}</p>
+  //     </>
+  //   );
+  // };
   return (
     <Fragment>
       <div
-        className={` relative items-center inline-block  mb-10  rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.)] z-20 overflow-hidden ${classname}`}
+        className={` relative items-center inline-block  mb-10  rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.)] z-20 overflow-hidden  sm:w-full w-4/5 ${classname}`}
       >
-        <div className="relative overflow-hidden">
+        <div className="relative ">
           <Link href={`/product/${productData._id}`}>
             <div className="relative ">
               {/* profile */}

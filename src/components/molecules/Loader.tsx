@@ -1,7 +1,7 @@
 import React from "react";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
-const Loader = ({ height = "500px", width = "500px" }) => {
+const Loader = ({ height = "450px", width = "450px" }) => {
   return (
     <div className="mt-32">
       <Player

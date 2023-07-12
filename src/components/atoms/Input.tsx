@@ -20,7 +20,6 @@ const Input: FC<InputProps> = ({
   const fullWidthStyle = fullWidth ? "w-full" : "";
   return (
     <div className="relative">
-      {/* <span className="absolute h-full pr-2 border-r-2 left-3 md:top-5 top-4 border-violet-700"> */}
       <div className="absolute top-0 bottom-0 h-full pr-2 border-r-2 left-3 border-violet-700">
         <p className="my-3 align-middle md:my-5 item-center">{icon}</p>
       </div>

@@ -83,7 +83,7 @@ const ProductBidder = ({ product }: any) => {
   }
   const data = product.allBidder;
   return (
-    <div className="mx-6 my-4 md:mx-12">
+    <div className="mx-0 my-4 sm:mx-6 md:mx-12">
       <p className="pb-2 text-sm text-gray-600">
         Payment is done after you won the bid!
       </p>
@@ -92,7 +92,7 @@ const ProductBidder = ({ product }: any) => {
       >
         {data.length === 0 && (
           <div>
-            <div className="flex items-center justify-center p-6 mx-4 mt-4 bg-white rounded-md">
+            <div className="flex items-center justify-center px-3 mx-4 mt-4 bg-white rounded-md sm:p-6">
               <p className="text-2xl font-baiMedium">No Bids Yet</p>
               <Player
                 autoplay
@@ -165,7 +165,7 @@ const ProductBidder = ({ product }: any) => {
                 ) : (
                   <Button
                     variant="tertiary"
-                    className={`right-0 px-6 py-0 bg-sky-300 absolut xl:px-8 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 hover:bg-blue-700 shadow-black-700 shadow-md transition-colors ease-in-out duration-700`}
+                    className={`right-0 px-3 sm:px-6 py-0 bg-sky-300 absolut xl:px-8 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 hover:bg-blue-700 shadow-black-700 shadow-md transition-colors ease-in-out duration-700`}
                     // disabled={}
                     disabled={
                       item.paymentInfo.status !== "Pending" ||

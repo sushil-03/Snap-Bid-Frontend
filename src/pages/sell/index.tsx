@@ -115,7 +115,10 @@ const index = () => {
       toast.error("Please upload atleast 5  image");
       return;
     }
-    if (new Date(product.starting).getTime() < new Date().getTime()) {
+    if (
+      Date.parse(new Date(product.starting).toISOString()) <
+      Date.parse(new Date().toISOString())
+    ) {
       toast.error("Starting time should be greater than current time");
       return;
     }

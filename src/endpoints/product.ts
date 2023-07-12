@@ -51,6 +51,7 @@ export type BidType = {
 export const createProduct = async (data: ProductType) => {
   const cookie = new Cookies()
   const user = cookie.get('authorization')
+  console.log('user at create product', user);
 
   console.log('Data comes in create Product', data);
   const res = await api.AXIOS({
@@ -65,8 +66,10 @@ export const createProduct = async (data: ProductType) => {
   return res;
 }
 export const placeBid = async (data: BidType) => {
+
   const cookie = new Cookies()
   const user = cookie.get('authorization')
+  console.log('Placing bid frontend',);
 
   const res = await api.AXIOS({
     url: '/api/v1/bid',
