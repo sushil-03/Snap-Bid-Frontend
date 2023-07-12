@@ -15,6 +15,7 @@ export type CurrProductType = {
     title: string;
     totalBid: string;
     status: string;
+    maxBid: number;
     allBidder: {
       bidder: string;
       bidAmount: number;
@@ -80,8 +81,8 @@ const ProductCard: FC<CurrProductType> = ({
     if (now < startStamp) {
       return (
         <>
-          <p className="text-xs ">Start on</p>
-          <p className="textxl font-orbitron">
+          <p className="text-xs text-gray-500">Start on</p>
+          <p className="textxl font-orbitron whitespace-nowrap">
             {formatDuration(startStamp - now)}
           </p>
         </>
@@ -95,7 +96,7 @@ const ProductCard: FC<CurrProductType> = ({
     // return remainingTime;
     return (
       <>
-        <p className="text-xs ">Time Left</p>
+        <p className="text-xs text-gray-500">Time Left</p>
         <p className="textxl font-orbitron">{remainingTime}</p>
       </>
     );
@@ -151,7 +152,7 @@ const ProductCard: FC<CurrProductType> = ({
   return (
     <Fragment>
       <div
-        className={` relative items-center inline-block  mb-10  rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.)] z-20 overflow-hidden  sm:w-full w-4/5 ${classname}`}
+        className={` relative items-center inline-block  mb-10  rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.)] z-20 overflow-hidden   w-4/5 ${classname}`}
       >
         <div className="relative ">
           <Link href={`/product/${productData._id}`}>
@@ -177,12 +178,12 @@ const ProductCard: FC<CurrProductType> = ({
                   className="-z-20"
                 />
               </div>
-              <div className="absolute w-11/12 ml-3 bottom-2">
-                <div className="flex items-center justify-between overflow-hidden rounded-xl backdrop-blur-2xl backdrop-brightness-100 font-bai">
+              <div className="absolute w-11/12 ml-3 text-white/90 -bottom-5">
+                <div className="flex items-center justify-between overflow-hidden rounded-xl backdrop-blur-3xl backdrop-brightness00 backdrop-brightness-150 font-bai">
                   <div className="px-2 py-5">
-                    <p className="text-xs ">Start From</p>
-                    <p className="text-sm font-orbitron">
-                      {productData.startingBid} eth
+                    <p className="text-xs text-gray-500">Max Bid</p>
+                    <p className="text-sm font-orbitron whitespace-nowrap">
+                      {productData.maxBid} $
                     </p>
                   </div>
                   <div className="px-2 py-5">
@@ -193,9 +194,9 @@ const ProductCard: FC<CurrProductType> = ({
                 </div>
               </div>
             </div>
-            <div className="px-8 py-6 text-white rounded-b-xl bg-black-600">
-              <div className="flex text-2xl uppercase font-baiMedium">
-                <p className="flex-1"> {productData.title}</p>
+            <div className="px-6 py-6 text-white rounded-b-xl bg-black-900">
+              <div className="flex text-lg uppercase md:text-xl font-baiMedium">
+                <p className="flex-1">{productData.title}</p>
                 <Image
                   src={"/images/profile/p2.png"}
                   alt="profile"

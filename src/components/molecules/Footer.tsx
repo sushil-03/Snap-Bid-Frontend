@@ -10,7 +10,7 @@ const Footer = () => {
         </div>
         <div className="flex gap-4 sm:gap-6">
           <p>About</p>
-          <p>Privacy Policy</p>
+          <p className="hidden sm:block">Privacy Policy</p>
           <p>Resource</p>
         </div>
       </div>

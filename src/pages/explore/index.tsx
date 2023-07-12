@@ -42,12 +42,17 @@ const index = () => {
   ];
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <div className="relative">
+        <Loader />
+      </div>
+    );
   }
   // const handleSearch = (query: string) => {};
   // const searchByCategory = (category: string) => {
   //   // queryClient.fetchQuery("products", () => getAllProduct(category));
   // };
+
   if (!data) return <></>;
   return (
     <div className="min-h-screen mt-24">
@@ -197,14 +202,14 @@ const index = () => {
               className="mx-0 border-2 sm:mx-2 border-violet-800 md:pl-16"
             />{" "} */}
           </div>
-          <div className="flex flex-wrap items-center justify-center flex-grow gap-4 mt-6 md:gap-8 lg:gap-12">
+          <div className="flex flex-wrap items-center justify-center flex-grow gap-4 mt-6 md:gap-8 lg:gap-10">
             {data &&
               data.products.map((item: any, key: number) => {
                 return (
                   <ProductCard
                     key={key}
                     productData={item}
-                    classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
+                    classname="w-11/12 md:w-1/3 xl:w-3/12 sm:w-1/3 min-w-max"
                   />
                 );
               })}

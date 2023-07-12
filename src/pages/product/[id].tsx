@@ -100,7 +100,7 @@ const index = () => {
     } else if (data.product.status === "Pending") {
       return (
         <div>
-          <p className="text-sm sm:text-lg">Start on</p>
+          <p className="text-sm sm:text-lg">Starting on</p>
           <div className="text-xl lg:text-4xl md:text-2xl font-baibold">
             <p> {formatDuration(start.getTime() - now.getTime())}</p>
           </div>

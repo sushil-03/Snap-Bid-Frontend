@@ -1,14 +1,15 @@
 import React from "react";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
-const Loader = ({ height = "450px", width = "450px" }) => {
+const Loader = ({}) => {
   return (
-    <div className="mt-32">
+    <div className="inset-0 z-50 mt-32 ">
       <Player
         autoplay
         loop
         src="https://assets10.lottiefiles.com/packages/lf20_usiohiuz.json"
-        style={{ height: height, width: width, scale: 4 }}
+        // style={{ height: height, width: width, scale: 4 }}
+        className="w-1/2 h-1/2 "
       >
         <Controls
           visible={false}

@@ -111,8 +111,8 @@ const index = () => {
       }
       return true;
     });
-    if (product.images.length < 5) {
-      toast.error("Please upload atleast 5  image");
+    if (product.images.length <= 0) {
+      toast.error("Please upload atleast 1  image");
       return;
     }
     if (
