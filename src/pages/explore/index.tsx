@@ -3,7 +3,7 @@ import Loader from "@/components/molecules/Loader";
 import ProductCard from "@/components/molecules/ProductCard";
 import { getProducts } from "@/hooks/query/getProduct";
 import { useRouter } from "next/router";
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { PiPaperPlaneRightDuotone } from "react-icons/pi";
 import { categories } from "@/utils/constant";
