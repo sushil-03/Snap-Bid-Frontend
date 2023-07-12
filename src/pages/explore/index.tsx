@@ -8,15 +8,7 @@ import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { PiPaperPlaneRightDuotone } from "react-icons/pi";
 import { categories } from "@/utils/constant";
 import { Controls, Player } from "@lottiefiles/react-lottie-player";
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-} from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 // import Input from "@/components/atoms/Input";
 // import { RiSearchLine } from "react-icons/ri";
 // type FilterType={
