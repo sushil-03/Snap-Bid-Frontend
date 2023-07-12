@@ -280,7 +280,7 @@ const index = () => {
                   />
                 );
               })}
-            {data && (!data.product || data.product.length == 0) && (
+            {data && data.product && data.product.length == 0 && (
               <div>
                 <Player
                   autoplay
