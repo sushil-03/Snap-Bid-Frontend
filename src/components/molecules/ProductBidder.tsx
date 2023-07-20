@@ -6,7 +6,6 @@ import { useSelectedUser } from "@/hooks/state/useAppState";
 import { usePayBid } from "@/hooks/mutation/usePayBid";
 import Loader from "./Loader";
 import { toast } from "react-toastify";
-import { useQueryClient } from "react-query";
 export type ProductBidderType = {
   data: {
     profile: string;
@@ -18,7 +17,6 @@ export type ProductBidderType = {
 };
 import { BidType } from "@/endpoints/product";
 const ProductBidder = ({ product }: any) => {
-  // const queryClient = useQueryClient();
   const [user] = useSelectedUser();
 
   const { mutate: proposePayment, isLoading } = usePayBid();
