@@ -18,7 +18,7 @@ export type ProductBidderType = {
 };
 import { BidType } from "@/endpoints/product";
 const ProductBidder = ({ product }: any) => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const [user] = useSelectedUser();
 
   const { mutate: proposePayment, isLoading } = usePayBid();
