@@ -115,7 +115,7 @@ const index = () => {
             <h1>Explore by Category</h1>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center w-11/12 gap-4 mx-auto mt-10 lg:w-1/2 md:2/3">
+        <div className="flex flex-wrap items-center justify-center w-full gap-4 mx-auto mt-10 sm:w-11/12 lg:w-1/2 md:2/3 ">
           {categories.map((item, key) => {
             return (
               <span
@@ -143,9 +143,9 @@ const index = () => {
             return (
               <div
                 key={key}
-                className="flex flex-col w-4/5 gap-4 p-5 text-white sm:p-8 lg:w-1/5 rounded-2xl bg-black-600"
+                className="flex flex-col w-4/5 h-full gap-4 p-5 text-white md:p-3 sm:p-8 lg:w-1/5 rounded-2xl bg-black-600"
               >
-                <div className="flex items-center gap-6">
+                <div className="flex items-center h-full gap-6">
                   <Image
                     src={`/images/work/${item.link}`}
                     alt={item.name}

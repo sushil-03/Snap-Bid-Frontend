@@ -136,49 +136,10 @@ const index = () => {
         </div>
       );
     }
-
-    // // if (now.getTime() > end.getTime()) {
-    // //   return (
-    // //     <div>
-    // //       <p className="text-sm sm:text-lg">Status</p>
-    // //       <p
-    // //         className={`text-lg lg:text-2xl md:text-xl font-baibold ${
-    // //           data.status === "Completed"
-    // //             ? "text-[#0B6623]"
-    // //             : data.status === "Expired"
-    // //             ? "text-red-600"
-    // //             : ""
-    // //         }`}
-    // //       >
-    // //         {data.status}
-    // //       </p>
-    // //     </div>
-    // //   );
-    // // }
-    // // if (now.getTime() < start.getTime()) {
-    // //   return (
-    // //     <div>
-    // //       <p className="text-sm sm:text-lg">Start on</p>
-    // //       <div className="text-xl lg:text-4xl md:text-2xl font-baibold">
-    // //         <p> {formatDuration(start.getTime() - now.getTime())}</p>
-    // //       </div>
-    // //     </div>
-    // //   );
-    // // }
-
-    // // return remainingTime;
-    // return (
-    //   <>
-    //     <p className="text-sm sm:text-lg">Times left</p>
-    //     <p className="text-xl lg:text-4xl md:text-2xl font-baibold">
-    //       {remainingTime}
-    //     </p>
-    //   </>
-    // );
   };
 
-  if (!data || !data) {
-    return <div>Nothing to see</div>;
+  if (!data) {
+    return <Loader />;
   }
   return (
     <div className="min-h-screen mt-32 ">

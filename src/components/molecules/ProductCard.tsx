@@ -98,10 +98,10 @@ const ProductCard: FC<CurrProductType> = ({
   return (
     <Fragment>
       <div
-        className={` relative items-center inline-block  rounded-xl shadow-[8px_8px_30px_rgb(0,0,0,0.12)] bg-transparent z-20 overflow-hidden w-[16rem] sm:w-[18rem]  md:w-[20rem] h-[30rem] ${classname}`}
+        className={` relative items-center inline-block  rounded-xl shadow-[8px_8px_30px_rgb(0,0,0,0.12)] bg-transparent z-20 overflow-hidden w-[20rem] sm:w-[18rem]  md:w-[20rem] h-[30rem] ${classname}`}
       >
         {isLoading ? (
-          <div className="wfull h-full w-[16rem] bg-[#FFF]  relative">
+          <div className="wfull h-full w-[20rem] bg-[#FFF]  relative">
             <div className="w-full h-64 shimmerBG"></div>
             <div className="absolute w-11/12 p-12 -translate-x-1/2 bg-white left-1/2 rounded-xl bottom-28 shimmerBG"></div>
             <div className="absolute w-10 h-10 rounded-full shimmerBG bottom-16 right-5">

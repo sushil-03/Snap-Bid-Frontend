@@ -55,7 +55,7 @@ const UserBidding = ({ data }: any) => {
   return (
     <div className="flex-1 px-3 md:px-8 ">
       <div className="flex flex-col gap-4 my-8">
-        <div className="flex items-center w-full px-2 py-6 shadow-xl md:p-4 justify-evenly rounded-xl bg-stone-600">
+        <div className="flex items-center w-full px-2 py-6 shadow-xl md:p-4 justify-evenly rounded-xl bg-stone-50">
           <div className="flex flex-col items-center jus">
             <p className="text-sm font-baiMedium">Your Product</p>
             <p className="text-xl xl:text-5xl md:text-3xl font-baibold">
