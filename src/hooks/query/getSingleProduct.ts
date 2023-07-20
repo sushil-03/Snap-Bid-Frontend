@@ -1,10 +1,15 @@
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { getSingleProduct } from "@/endpoints/product";
 
 export const getProductByID = (id: string) => {
-  return useQuery(['products', id], () => getSingleProduct(id), {
-    staleTime: 1000 * 60 * 1, // 5 minutes
-    refetchInterval: 1000 * 60 * 1, // 5 minutes
+  const queryClient = useQueryClient()
+  const data: any = queryClient.getQueryData(['products', ""])
+  console.log("hello",);
+
+  return useQuery(['product', id], () => getSingleProduct(id), {
+    initialData: () => data?.products.find((product: any) => product._id === id),
+    staleTime: 1000 * 60 * 1, // 1 minutes
+    refetchInterval: 1000 * 60 * 1, //1 minutes
     refetchOnWindowFocus: true,
     enabled: true,
     refetchOnMount: false

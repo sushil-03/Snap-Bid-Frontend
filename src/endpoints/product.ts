@@ -82,11 +82,13 @@ export const placeBid = async (data: BidType) => {
 }
 export const getAllProduct = async (cate: string,) => {
   // url: `/api/v1/products?category=${cate}?status=${status}`,
-
+  // const queryClient = useQueryClient();
   const res = await api.AXIOS({
     url: `/api/v1/products?category=${cate}`,
     method: 'get',
   })
+  // console.log('Data IIIIIIII', res.products);
+  // const products = res.products;
 
   return res;
 }
@@ -95,7 +97,7 @@ export const getSingleProduct = async (id: string) => {
     url: `/api/v1/product/${id}`,
     method: 'get',
   })
-  return res;
+  return res.product;
 }
 
 export const bidPayment = async (data: BidType) => {

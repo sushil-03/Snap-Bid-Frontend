@@ -33,13 +33,13 @@ const index = () => {
       toast.error("Please login to place bid");
       return;
     }
-    if (bidAmount <= data.product.maxBid) {
+    if (bidAmount <= data.maxBid) {
       toast.error("Please enter amount greater than max bid");
       return;
     }
     const bidData = {
       amount: parseInt(bidAmount),
-      productId: data.product._id,
+      productId: data._id,
     };
     proposeBid(bidData, {
       onSuccess: () => {
@@ -55,6 +55,7 @@ const index = () => {
   };
 
   const { data, isLoading } = getProductByID((productId as string) || "");
+
   if (isLoading) {
     return <Loader />;
   }
@@ -82,13 +83,13 @@ const index = () => {
 
   const getTime = () => {
     const now = new Date(Date.now());
-    const start = new Date(data.product.starting);
-    const end = new Date(data.product.ending);
+    const start = new Date(data.starting);
+    const end = new Date(data.ending);
     const result = end.getTime() - now.getTime();
     console.log("result", result);
     const remainingTime = formatDuration(result);
 
-    if (data.product.status === "Active") {
+    if (data.status === "Active") {
       return (
         <>
           <p className="text-sm sm:text-lg">Time left</p>
@@ -97,7 +98,7 @@ const index = () => {
           </p>
         </>
       );
-    } else if (data.product.status === "Pending") {
+    } else if (data.status === "Pending") {
       return (
         <div>
           <p className="text-sm sm:text-lg">Starting on</p>
@@ -106,7 +107,7 @@ const index = () => {
           </div>
         </div>
       );
-    } else if (data.product.status === "Expired") {
+    } else if (data.status === "Expired") {
       return (
         <div>
           <p className="text-sm text-red-600 sm:text-lg">Expired on</p>
@@ -123,14 +124,14 @@ const index = () => {
           <p className="text-sm sm:text-lg">Status</p>
           <p
             className={`text-lg lg:text-2xl md:text-xl font-baibold ${
-              data.product.status === "Completed"
+              data.status === "Completed"
                 ? "text-[#0B6623]"
-                : data.product.status === "Expired"
+                : data.status === "Expired"
                 ? "text-red-600"
                 : ""
             }`}
           >
-            {data.product.status}
+            {data.status}
           </p>
         </div>
       );
@@ -142,14 +143,14 @@ const index = () => {
     // //       <p className="text-sm sm:text-lg">Status</p>
     // //       <p
     // //         className={`text-lg lg:text-2xl md:text-xl font-baibold ${
-    // //           data.product.status === "Completed"
+    // //           data.status === "Completed"
     // //             ? "text-[#0B6623]"
-    // //             : data.product.status === "Expired"
+    // //             : data.status === "Expired"
     // //             ? "text-red-600"
     // //             : ""
     // //         }`}
     // //       >
-    // //         {data.product.status}
+    // //         {data.status}
     // //       </p>
     // //     </div>
     // //   );
@@ -176,13 +177,13 @@ const index = () => {
     // );
   };
 
-  if (!data || !data.product) {
+  if (!data || !data) {
     return <div>Nothing to see</div>;
   }
   return (
     <div className="min-h-screen mt-32 ">
       <div className="">
-        <ProductCarousel data={data.product?.images} />
+        <ProductCarousel data={data?.images} />
       </div>
       <div className="flex flex-col justify-start pb-8 mx-auto mt-8 sm:flex-row sm:w-full ">
         <div className="w-full">
@@ -199,7 +200,7 @@ const index = () => {
             >
               Bidding
             </p>
-            {data.product.status === "Active" ? (
+            {data.status === "Active" ? (
               <p
                 onClick={() => setIsOpen(true)}
                 className="p-1 transition-colors duration-500 ease-in-out border-2 cursor-pointer md:p-3 border-black-600 hover:bg-black-100 hover:text-white font-baiMedium"
@@ -209,16 +210,14 @@ const index = () => {
             ) : (
               <p className="p-1 transition-colors duration-500 ease-in-out border-2 cursor-pointer md:p-3 border-black-600 hover:bg-black-100 hover:text-white font-baiMedium">
                 {" "}
-                {data.product.status === "Pending"
-                  ? "Not Started"
-                  : "Auction End"}
+                {data.status === "Pending" ? "Not Started" : "Auction End"}
               </p>
             )}
           </div>
           {showOverview && !isOpen ? (
-            <ProductDetail data={data.product} />
+            <ProductDetail data={data} />
           ) : (
-            <ProductBidder product={data.product} />
+            <ProductBidder product={data} />
           )}
           {isOpen && (
             <Dialog
@@ -237,7 +236,7 @@ const index = () => {
                     <Dialog.Title className="text-lg sm:text-xl font-baibold">
                       <div className="flex items-center justify-between mx-2">
                         <p>Place your bid</p>
-                        <p>{data.product.maxBid} bids</p>
+                        <p>{data.maxBid} bids</p>
                       </div>
                     </Dialog.Title>
                     <div className="p-1 mt-6 font-baiMedium ">
@@ -290,12 +289,12 @@ const index = () => {
           <div className="flex-1 p-4 mx-0 sm:flex-initial sm:mx-4 rounded-xl bg-stone-100 shadow-3xl">
             <p className="text-sm sm:text-lg">Current Bid</p>
             <p className="text-xl lg:text-4xl md:text-2xl font-baibold">
-              ${data.product.maxBid}
+              ${data.maxBid}
             </p>
           </div>
 
           <Link
-            href={`/profile/${data.product.createdBy._id}`}
+            href={`/profile/${data.createdBy._id}`}
             className="flex items-center justify-between p-1 mx-0 transition-all duration-500 ease-in-out shadow-xl sm:mx-4 rounded-xl bg-stone-100 hover:shadow-3xl"
           >
             <div className="flex items-center pr-12 text-base sm:gap-2 sm:text-lg font-bai">
@@ -305,22 +304,22 @@ const index = () => {
                 height={80}
                 alt=""
               ></Image>
-              <p>{data.product.createdBy.firstname}</p>
+              <p>{data.createdBy.firstname}</p>
             </div>
             <AiOutlineArrowRight size={30} className="hidden sm:block" />
           </Link>
-          {data.product.status === "Completed" && (
-            <Link href={`/profile/${data.product.bidwinner._id}`}>
+          {data.status === "Completed" && (
+            <Link href={`/profile/${data.bidwinner._id}`}>
               <div className="flex-1 p-4 mx-4 sm:flex-initial rounded-xl bg-stone-100 shadow-3xl">
                 <p className="text-sm sm:text-lg">Winner</p>
                 <p className="flex justify-between text-xl lg:text-4xl md:text-2xl font-baibold">
-                  {data.product.bidwinner.firstname}
+                  {data.bidwinner.firstname}
                   <AiOutlineArrowRight size={30} className="hidden sm:block" />
                 </p>
               </div>
             </Link>
           )}
-          {data.product.status === "Expired" && (
+          {data.status === "Expired" && (
             <div className="flex-1 p-4 mx-4 sm:flex-initial rounded-xl bg-stone-100 shadow-3xl">
               <p className="text-xl md:text-2xl font-baibold">
                 Bid ended without a winner{" "}

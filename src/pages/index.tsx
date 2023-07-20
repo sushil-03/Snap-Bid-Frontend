@@ -133,7 +133,7 @@ const index = () => {
             return (
               <div
                 key={key}
-                className="flex flex-col w-4/5 gap-4 p-5 text-white sm:p-8 md:w-1/5 rounded-2xl bg-black-600"
+                className="flex flex-col w-4/5 gap-4 p-5 text-white sm:p-8 lg:w-1/5 rounded-2xl bg-black-600"
               >
                 <div className="flex items-center gap-6">
                   <Image

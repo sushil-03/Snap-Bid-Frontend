@@ -97,7 +97,9 @@ const ProductCard: FC<CurrProductType> = ({
     return (
       <>
         <p className="text-xs text-gray-600 sm:text-sm">Time Left</p>
-        <p className="text-sm sm:text-base font-orbitron">{remainingTime}</p>
+        <p className="text-xs  sm:text-sm md:text-base font-orbitron whitespace-nowrap">
+          {remainingTime}
+        </p>
       </>
     );
   };
