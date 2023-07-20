@@ -6,6 +6,7 @@ import { useSelectedUser } from "@/hooks/state/useAppState";
 import { usePayBid } from "@/hooks/mutation/usePayBid";
 import Loader from "./Loader";
 import { toast } from "react-toastify";
+import { useQueryClient } from "react-query";
 export type ProductBidderType = {
   data: {
     profile: string;
@@ -17,6 +18,7 @@ export type ProductBidderType = {
 };
 import { BidType } from "@/endpoints/product";
 const ProductBidder = ({ product }: any) => {
+  const queryClient = useQueryClient();
   const [user] = useSelectedUser();
 
   const { mutate: proposePayment, isLoading } = usePayBid();
@@ -67,10 +69,13 @@ const ProductBidder = ({ product }: any) => {
       amount,
     };
     proposePayment(data, {
-      onSuccess(result) {
+      onSuccess(result, value) {
         console.log("PAYMENT____", result);
-        toast.success("Congratulation Product is on the way");
-        window.location.reload();
+        console.log("VALUE____", value);
+
+        toast.success("Congratulation Product is on the way,");
+        // queryClient.invalidateQueries(["product",productId]);
+        // window.location.reload();
         // router.push(`/product/${product._id}`)
       },
       onError() {
@@ -88,7 +93,7 @@ const ProductBidder = ({ product }: any) => {
         Payment is done after you won the bid!
       </p>
       <div
-        className={`flex flex-col gap-4 rounded-md  last:pb-6 bg-stone-200 `}
+        className={`flex flex-col gap-4 rounded-md  last:pb-6 bg-stone-100 `}
       >
         {data.length === 0 && (
           <div>
@@ -165,8 +170,7 @@ const ProductBidder = ({ product }: any) => {
                 ) : (
                   <Button
                     variant="tertiary"
-                    className={`right-0 px-3 sm:px-6 py-0 bg-sky-300 absolut xl:px-8 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:bg-gray-500 hover:bg-blue-700 shadow-black-700 shadow-md transition-colors ease-in-out duration-700`}
-                    // disabled={}
+                    className={`right-0 absolute top-1/2 -translate-y-1/2 px-3 sm:px-6 py-0 bg-green-700  xl:px-8 disabled:cursor-not-allowed disabled:bg-gray-600  hover:bg-green-900   transition-colors ease-in-out duration-700 shadow-none`}
                     disabled={
                       item.paymentInfo.status !== "Pending" ||
                       user._id !== item.bidder._id

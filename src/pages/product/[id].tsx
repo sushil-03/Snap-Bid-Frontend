@@ -236,7 +236,7 @@ const index = () => {
                     <Dialog.Title className="text-lg sm:text-xl font-baibold">
                       <div className="flex items-center justify-between mx-2">
                         <p>Place your bid</p>
-                        <p>{data.maxBid} bids</p>
+                        <p>{data.maxBid} $</p>
                       </div>
                     </Dialog.Title>
                     <div className="p-1 mt-6 font-baiMedium ">

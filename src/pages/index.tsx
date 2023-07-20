@@ -37,24 +37,25 @@ const index = () => {
   ];
 
   return (
-    <div className="w-11/12 h-full mx-auto mt-32 overflow-hidden md:mt-2">
-      <div className="flex flex-col items-center h-full gap-4 sm:min-h-screen md:flex-row">
-        <div className="pt-24 sm:mt-0">
-          <p className="font-piru">Digital Bid _____</p>
-          <div className="pt-10 pb-0 text-2xl font-extrabold md:pb-6 2xl:text-6xl xl:text-5xl md:text-4xl sm:text-3xl font-piru">
+    <div className="w-11/12 h-full mx-auto overflow-hidden md:mt-2">
+      <div className="flex flex-col items-center justify-center h-full gap-4 sm:min-h-screen md:flex-row">
+        <div className="pt-20 md:pt-10 sm:mt-0">
+          <p className="font-baiMedium">Digital Bid _____</p>
+          <div className="pt-10 pb-0 text-3xl font-extrabold md:pb-6 2xl:text-6xl md:text-5xl font-baiMedium">
             <p className="leading-tight whitespace-nowrap ">
               Discover, Bid, Win{" "}
             </p>
             <p>Shop, Unleash.</p>
           </div>
-          <p className="w-3/4 text-sm leading-snug text-gray-400 sm:w-2/3 uppercse md:text-lg font-baiMedium ">
+          <p className="w-3/4 text-sm leading-snug text-gray-400 md:w-5/6 uppercse md:text-lg font-baiMedium ">
             Welcome to BidConnect, your premier online bidding destination.
+            <br />
             Explore a world of exciting auctions and exclusive deals on a wide
             range of products.
           </p>
         </div>
         <div className="">
-          <Image src="/images/home.jpg" alt="Home" width={1000} height={500} />
+          <Image src="/images/home.jpg" alt="Home" width={600} height={500} />
         </div>
       </div>
 

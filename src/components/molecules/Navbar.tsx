@@ -81,7 +81,7 @@ const Navbar = () => {
               </Link>
             );
           })}
-          {user.name !== "" ? (
+          {!user || user.name !== "" ? (
             <div className="flex items-center gap-1 text-sm uppercase md:gap-8 sm:gap-4 font-baiMedium">
               <Link
                 href={`/profile/${user._id}`}
