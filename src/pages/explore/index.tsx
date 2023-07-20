@@ -66,7 +66,7 @@ const index = () => {
         </div>
 
         <div
-          className={`md:static  absolute flex flex-col w-full gap-2  md:w-1/5 transition-all ease-in-out duration-300 bg-white z-30 h-full ${
+          className={`md:static  absolute flex flex-col w-full gap-2  md:w-1/5 transition-all ease-in-out duration-300  z-30 h-full ${
             filter
               ? "translate-x-0"
               : "-translate-x-full mx-0  md:translate-x-0"
@@ -269,7 +269,7 @@ const index = () => {
               className="mx-0 border-2 sm:mx-2 border-violet-800 md:pl-16"
             />{" "} */}
           </div>
-          <div className="flex flex-wrap items-center justify-center flex-grow gap-4 mt-6 md:gap-8 lg:gap-10">
+          <div className="flex flex-wrap items-center justify-center flex-grow w-full gap-4 mt-6 md:gap-8 lg:gap-10">
             {data &&
               data.products.map((item: any, key: number) => {
                 return (

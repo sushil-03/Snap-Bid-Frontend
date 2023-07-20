@@ -3,7 +3,7 @@ import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
 const Loader = ({}) => {
   return (
-    <div className="inset-0 z-50 mt-32 ">
+    <div className="inset-0 z-50 min-h-screen mt-32">
       <Player
         autoplay
         loop

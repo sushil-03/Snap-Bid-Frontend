@@ -91,7 +91,7 @@ const ProductBidder = ({ product }: any) => {
         Payment is done after you won the bid!
       </p>
       <div
-        className={`flex flex-col gap-4 rounded-md  last:pb-6 bg-stone-100 `}
+        className={`flex flex-col gap-4 rounded-md  last:pb-6 bg-slate-200 `}
       >
         {data.length === 0 && (
           <div>

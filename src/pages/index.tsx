@@ -7,7 +7,7 @@ import { getProducts } from "@/hooks/query/getProduct";
 import { categories } from "@/utils/constant";
 import { useRouter } from "next/router";
 const index = () => {
-  const products = getProducts("");
+  const { data, isLoading } = getProducts("");
   const router = useRouter();
   const workData = [
     {
@@ -38,7 +38,7 @@ const index = () => {
 
   return (
     <div className="w-11/12 h-full mx-auto overflow-hidden md:mt-2">
-      <div className="flex flex-col items-center justify-center h-full gap-4 sm:min-h-screen md:flex-row">
+      <div className="flex flex-col items-center justify-center h-full min-h-screen gap-4 md:flex-row">
         <div className="pt-20 md:pt-10 sm:mt-0">
           <p className="font-baiMedium">Digital Bid _____</p>
           <div className="pt-10 pb-0 text-3xl font-extrabold md:pb-6 2xl:text-6xl md:text-5xl font-baiMedium">
@@ -55,14 +55,20 @@ const index = () => {
           </p>
         </div>
         <div className="">
-          <Image src="/images/home.jpg" alt="Home" width={600} height={500} />
+          <Image
+            src="/images/home.jpg"
+            alt="Home"
+            width={600}
+            height={500}
+            className="mix-blend-multiply"
+          />
         </div>
       </div>
 
       {/* Second Screen */}
-      <div className="mt-8 mb-16 md:mt-0 ">
+      <div className="min-h-screen">
         <div className="text-center ">
-          <div className="mb-8 text-2xl leading-tight md:text-5xl sm:text-3xl font-baibold">
+          <div className="mb-3 text-2xl leading-tight md:text-5xl sm:text-3xl font-baibold">
             <h1>Collect and Sell your</h1>
             <span className="relative text-red-500 ">
               awesome
@@ -83,24 +89,27 @@ const index = () => {
         <div className="flex items-center justify-center md:gap-10 gap-8 mt-10 [&>*:nth-child(2)]:mb-32 overflow-x-scroll ">
           <ProductCard
             isShowBid={true}
-            productData={products?.data?.products[0]}
+            isLoading={isLoading}
+            productData={data?.products[0]}
             classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max h-1/2"
           />
           <ProductCard
+            isLoading={isLoading}
             isShowBid={true}
-            productData={products?.data?.products[1]}
+            productData={data?.products[1]}
             classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
           />{" "}
           <ProductCard
             isShowBid={true}
-            productData={products?.data?.products[2]}
+            isLoading={isLoading}
+            productData={data?.products[2]}
             classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
           />
         </div>
       </div>
 
       {/* Third Screen */}
-      <div className="p-4 my-16 sm:p-8 ">
+      <div className="p-4 sm:p-8 ">
         <div className="text-center ">
           <div className="mb-8 text-3xl leading-tight font-baibold">
             <h1>Explore by Category</h1>
