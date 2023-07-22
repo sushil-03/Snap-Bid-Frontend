@@ -114,12 +114,12 @@ const ProductBidder = ({ product }: any) => {
         {data.map((item: any, key: number) => {
           return (
             <div
-              className={`flex items-center justify-between px-0 py-4 mx-4 mt-4  rounded-md md:py-6 md:px-2 ${
+              className={`flex items-center justify-between px-2 py-4 mx-4 mt-4  rounded-md md:py-6 md:px-2 ${
                 user._id.toString() === item.bidder._id.toString()
                   ? " bg-blue-400"
                   : "bg-white"
               }
-                ${item.paymentInfo.status === "Completed" ? " bg-red-300" : ""}
+                ${item.paymentInfo.status === "Completed" ? " !bg-red-300" : ""}
                 `}
               key={key}
             >
@@ -168,7 +168,7 @@ const ProductBidder = ({ product }: any) => {
                 ) : (
                   <Button
                     variant="tertiary"
-                    className={`right-0 absolute top-1/2 -translate-y-1/2 px-3 sm:px-6 py-0 bg-green-700  xl:px-8 disabled:cursor-not-allowed disabled:bg-gray-600  hover:bg-green-900   transition-colors ease-in-out duration-700 shadow-none`}
+                    className={`right-0 absolute top-1/2 -translate-y-1/2  sm:px-6 px-2 py-0 bg-green-700  disabled:cursor-not-allowed disabled:bg-gray-600  hover:bg-green-900   transition-colors ease-in-out duration-700 shadow-none`}
                     disabled={
                       item.paymentInfo.status !== "Pending" ||
                       user._id !== item.bidder._id

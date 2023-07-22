@@ -18,8 +18,9 @@ import { getProductByID } from "@/hooks/query/getSingleProduct";
 import { useSelectedUser } from "@/hooks/state/useAppState";
 import { toast } from "react-toastify";
 import { useBid } from "@/hooks/mutation/usePlaceBid";
-
+import { useQueryClient } from "react-query";
 const index = () => {
+  const queryClient = useQueryClient();
   const [user] = useSelectedUser();
   const router = useRouter();
   const productId = router.query.id;
@@ -42,10 +43,13 @@ const index = () => {
       productId: data._id,
     };
     proposeBid(bidData, {
-      onSuccess: () => {
+      onSuccess: (data, value) => {
         toast.success("Bid Placed Successfully");
         setIsOpen(false);
-        window.location.reload();
+        console.log("product id", productId);
+        console.log("dataa", data);
+        console.log("value", value);
+        queryClient.invalidateQueries(["product", productId?.toString()]);
       },
       onError: () => {
         toast.error("Error in placing bid");
@@ -272,7 +276,7 @@ const index = () => {
           {data.status === "Completed" && (
             <Link href={`/profile/${data.bidwinner._id}`}>
               <div className="flex-1 p-4 mx-4 sm:flex-initial rounded-xl bg-stone-100 shadow-3xl">
-                <p className="text-sm sm:text-lg">Winner</p>
+                <p className="text-sm sm:text-lg">Auction Winner</p>
                 <p className="flex justify-between text-xl lg:text-4xl md:text-2xl font-baibold">
                   {data.bidwinner.firstname}
                   <AiOutlineArrowRight size={30} className="hidden sm:block" />

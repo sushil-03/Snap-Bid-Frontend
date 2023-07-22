@@ -10,6 +10,7 @@ import Loader from "@/components/molecules/Loader";
 import { useSelectedUser } from "@/hooks/state/useAppState";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useQueryClient } from "react-query";
 
 // const initialValues: ProductType = {
 //   brand: "tesla",
@@ -52,6 +53,7 @@ const initialValues: ProductType = {
 
 const index = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const helper = (time: Date, date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -114,15 +116,13 @@ const index = () => {
     if (product.images.length <= 0) {
       toast.error("Please upload atleast 1  image");
       return;
-    }
-    if (
+    } else if (
       Date.parse(new Date(product.starting).toISOString()) <
       Date.parse(new Date().toISOString())
     ) {
       toast.error("Starting time should be greater than current time");
       return;
-    }
-    if (
+    } else if (
       new Date(product.ending).getTime() < new Date(product.starting).getTime()
     ) {
       toast.error("Ending time should be greater than starting time");
@@ -131,6 +131,7 @@ const index = () => {
     proposeCreateProduct(product, {
       onSuccess(result) {
         console.log("Evevrthing went right ", result);
+        queryClient.invalidateQueries(["products", ""]);
         router.push("/explore");
       },
       onError(error) {

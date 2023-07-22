@@ -66,7 +66,7 @@ const index = () => {
         </div>
 
         <div
-          className={`md:static  absolute flex flex-col w-full gap-2  md:w-1/5 transition-all ease-in-out duration-300  z-30 h-full ${
+          className={`md:static  absolute flex flex-col w-full gap-2  md:w-1/5 transition-all ease-in-out duration-300  z-30 bg-[#f6f6f6 min-h-screen ${
             filter
               ? "translate-x-0"
               : "-translate-x-full mx-0  md:translate-x-0"
@@ -105,20 +105,10 @@ const index = () => {
                           searchByCategory(e.target.value as string);
                         }}
                       >
-                        <MenuItem
-                          value=""
-                          // key={}
-                          // className={` font-baiMedium ${item.class} inline-block font-medium p-2 rounded-sm`}
-                        >
-                          All
-                        </MenuItem>
+                        <MenuItem value="">All</MenuItem>
                         {categories.map((item, key) => {
                           return (
-                            <MenuItem
-                              value={item.name}
-                              // className={` font-baiMedium ${item.class} inline-block font-medium p-2 rounded-sm`}
-                              key={key}
-                            >
+                            <MenuItem value={item.name} key={key}>
                               {item.name}
                             </MenuItem>
                           );
@@ -209,45 +199,6 @@ const index = () => {
                         />
                       </RadioGroup>
                     </FormControl>
-                  </div>
-                )}
-              </div>
-            </div> */}
-
-            {/* <div className="px-4 cursor-pointer">
-              <hr className="hidden my-2 sm:block" />
-              <div
-                className="flex items-center justify-between text-xl sm:text-2xl"
-                onClick={() => showRange(!range)}
-              >
-                <p className="font-baiMedium">Price</p>
-                <p>
-                  {range ? (
-                    <AiOutlineArrowDown className="" />
-                  ) : (
-                    <AiOutlineArrowUp className="" />
-                  )}
-                </p>
-              </div>
-              <div className="flex flex-row flex-wrap w-full gap-3 my-2 ml-4 font-baiMedium">
-                {range && (
-                  <div className="flex items-center justify-between w-full gap-6 md:gap-3">
-                    <input
-                      type="number"
-                      placeholder="Min"
-                      className="w-full p-2 border-2 outline-none border-black-700"
-                    />
-                    <input
-                      type="number"
-                      placeholder="Max"
-                      className="w-full p-2 border-2 outline-none border-black-700"
-                    />
-                    <Button
-                      variant="secondary"
-                      className="p-4 mr-4 rounded-sm md:p-2 hover:ring-0 hover:ring-offset-0"
-                    >
-                      Go
-                    </Button>
                   </div>
                 )}
               </div>
