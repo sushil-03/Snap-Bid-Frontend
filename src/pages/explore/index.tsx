@@ -66,7 +66,7 @@ const index = () => {
         </div>
 
         <div
-          className={`md:static  absolute flex flex-col w-full gap-2  md:w-1/5 transition-all ease-in-out duration-300  z-30 bg-[#f6f6f6 min-h-screen ${
+          className={`md:static  absolute flex flex-col w-full gap-2  md:w-1/5 transition-all ease-in-out duration-300  z-30 bg-[#f6f6f6] min-h-screen ${
             filter
               ? "translate-x-0"
               : "-translate-x-full mx-0  md:translate-x-0"
