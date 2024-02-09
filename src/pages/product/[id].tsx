@@ -147,7 +147,7 @@ const index = () => {
   }
   return (
     <div className="min-h-screen mt-32 ">
-      <div className="">
+      <div className="min-h-[300px] w-4/5 mx-auto">
         <ProductCarousel data={data?.images} />
       </div>
       <div className="flex flex-col justify-start pb-8 mx-auto mt-8 sm:flex-row sm:w-full ">

@@ -39,14 +39,21 @@ const ProductCarousel: FC<ProductCarouselType> = ({ data }) => {
         return (
           <SwiperSlide key={_key}>
             <div className="relative " key={_key}>
-              <Image
-                src={`${_item.fileimage}`}
-                alt="Image"
-                // fill
-                width={500}
-                height={500}
-                className="bg-transparent rounded-md n"
-              />
+              {_item.filename ? (
+                <Image
+                  src={`${_item.fileimage}`}
+                  alt="Image"
+                  // fill
+                  width={500}
+                  height={200}
+                  className="object-contain bg-transparent rounded-md"
+                  quality={70}
+                />
+              ) : (
+                <div className="w-[500px] h-[600px] bg-[#FFF] ">
+                  <div className="w-full h-full shimmerBG"></div>
+                </div>
+              )}
             </div>
           </SwiperSlide>
         );

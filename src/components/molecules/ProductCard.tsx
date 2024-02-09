@@ -113,8 +113,8 @@ const ProductCard: FC<CurrProductType> = ({
           </div>
         ) : (
           <div className="h-full ">
-            <div className="relative h-full ">
-              <Link href={`/product/${productData._id}`}>
+            <Link href={`/product/${productData._id}`}>
+              <div className="relative h-full ">
                 <div className="relative ">
                   {/* profile */}
                   <Image
@@ -173,20 +173,20 @@ const ProductCard: FC<CurrProductType> = ({
                     <div></div>
                   </div>
                 </div>
-              </Link>
-            </div>
-            <div
-              className={`absolute transform -translate-x-1/2 bottom-2 z-50 left-1/2  ${
-                isShowBid ? "block" : "hidden"
-              }`}
-            >
-              <Button
-                variant="tertiary"
-                className="px-8 py-[6px] bg-violet-600 hover:bg-violet-800 hover:scale-90 border-1 border-white hover:border-none transform transition-all duration-700 ease-in-out shadow-md"
+              </div>
+              <div
+                className={`absolute transform -translate-x-1/2 bottom-2 z-50 left-1/2  ${
+                  isShowBid ? "block" : "hidden"
+                }`}
               >
-                Bid
-              </Button>
-            </div>
+                <Button
+                  variant="tertiary"
+                  className="px-8 py-[6px] bg-violet-600 hover:bg-violet-800 hover:scale-90 border-1 border-white hover:border-none transform transition-all duration-700 ease-in-out shadow-md"
+                >
+                  Bid
+                </Button>
+              </div>
+            </Link>
           </div>
         )}
       </div>

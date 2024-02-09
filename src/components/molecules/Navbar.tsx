@@ -59,7 +59,7 @@ const Navbar = () => {
   return (
     <Fragment>
       <div
-        className={`fixed z-50 flex  justify-between sm:px-4  px-2  pt-4 pb-6  transform -translate-x-1/2  left-1/2   mt-4 overflow-hidden  sm:w-11/12 w-full mx-auto  backdrop-blur-2xl transition-all ease-in-out duration-600 h-24 items-center rounded-md  md:rounded-full ${
+        className={`fixed z-50 flex  justify-between sm:px-4  px-2  pt-4 pb-6  transform -translate-x-1/2  left-1/2   mt-4 overflow-hidden  sm:w-11/12 w-full mx-auto  bg-[#f6f6f6]  transition-all ease-in-out duration-600 h-24 items-center rounded-md  md:rounded-full ${
           visible ? "top-0" : "-top-36"
         } `}
       >

@@ -138,19 +138,19 @@ const index = () => {
             <h1>How it works?</h1>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center gap-6 mx-auto mt-10 md:flex-row">
+        <div className="flex flex-col items-center justify-center gap-6 mx-auto mt-10 md:flex-row lg:w-4/5">
           {workData.map((item, key) => {
             return (
               <div
                 key={key}
-                className="flex flex-col w-4/5 h-full gap-4 p-5 text-white md:p-3 sm:p-8 lg:w-1/5 rounded-2xl bg-black-600"
+                className="flex flex-col gap-4 p-5 text-white h-44 w-80 md:p-3 sm:p-8 rounded-2xl bg-black-600"
               >
-                <div className="flex items-center h-full gap-6">
+                <div className="flex items-center w-full gap-6 h-14">
                   <Image
                     src={`/images/work/${item.link}`}
                     alt={item.name}
-                    height={50}
-                    width={50}
+                    height={40}
+                    width={40}
                     className="overflow-hidden rounded-md"
                   ></Image>
                   <p className="text-lg font-baiMedium">{item.name}</p>
