@@ -201,7 +201,7 @@ const index = () => {
   if (isLoading) return <Loader />;
   return (
     <div className="w-full h-full min-h-screen mt-16 sm:mt-20 md:mt-32">
-      <div className="flex flex-col w-full gap-2 p-4 px-2 pb-16 m-6 mx-auto mt-24 bg-gray-100 sm:px-10 xl:w-4/6 rounded-xl shadow-3xl">
+      <div className="flex flex-col w-full gap-2 p-4 px-0 pb-8 m-6 mx-auto mt-24 bg-gray-100 border-2 border-red-500 md:pb-16 sm:px-2 md:px-10 xl:w-4/6 rounded-xl shadow-3xl">
         <ProductStepper activeStep={activeStep} />
         {renderComponent(activeStep)}
       </div>

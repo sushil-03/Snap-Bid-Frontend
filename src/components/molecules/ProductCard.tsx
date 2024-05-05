@@ -65,16 +65,24 @@ const ProductCard: FC<CurrProductType> = ({
           <p className="w-24 text-xs sm:w-36 sm:text-sm md:text-base font-baiMedium whitespace-nowrap">
             {/* {formatDuration(startStamp - now)} */}
             <Countdown
-              date={start}
-              renderer={({ hours, minutes, seconds, completed }) => (
-                <div>
-                  {completed
-                    ? "Bid Started"
-                    : `${hours.toString().padStart(2, "0")}h : 
-                  ${minutes.toString().padStart(2, "0")}m : 
-                  ${seconds.toString().padStart(2, "0")}s`}
-                </div>
-              )}
+              date={productData.starting}
+              renderer={({ days, hours, minutes, seconds, completed }) => {
+                const isDays = days == 0;
+                return (
+                  <div>
+                    {completed
+                      ? "Bid Started"
+                      : `${
+                          !isDays
+                            ? `${days.toString().padStart(2, "0")}d :`
+                            : ""
+                        }
+                  ${hours.toString().padStart(2, "0")}h : 
+                ${minutes.toString().padStart(2, "0")}m : 
+                ${seconds.toString().padStart(2, "0")}s`}
+                  </div>
+                );
+              }}
             ></Countdown>
           </p>
         </div>

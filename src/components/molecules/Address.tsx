@@ -313,7 +313,7 @@ const Address = ({ update = true }: { update?: boolean }) => {
                   />
                 </div>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1 sm:gap-4">
                 <div className="text-sm text-gray-400">
                   <Input
                     Icon={AiTwotonePushpin}
@@ -339,7 +339,7 @@ const Address = ({ update = true }: { update?: boolean }) => {
                   }}
                   disabled={!formik.dirty || isLoading}
                   variant="secondary"
-                  className="!py-2  text-sm !px-4 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 disabled:bg-gray-400 disabled:hover:ring-transparent "
+                  className="!py-2  text-sm !px-4 !mx-0 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 disabled:bg-gray-400 disabled:hover:ring-transparent "
                 >
                   Add
                 </Button>

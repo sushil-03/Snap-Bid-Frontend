@@ -103,7 +103,7 @@ const index = () => {
               isLoading={isLoading}
               isShowBid={true}
               productData={data?.products[1]}
-              classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]"
+              classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]  sm:block hidden"
 
               // classname="w-2/5 mx-auto xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
             />{" "}

@@ -15,10 +15,10 @@ const Navbar = () => {
   const [showAllLinks, setShowLinks] = useState(false);
 
   const navlist = [
-    {
-      name: "Home",
-      link: "/",
-    },
+    // {
+    //   name: "Home",
+    //   link: "/",
+    // },
     // {
     //   name: "Why Us",
     //   link: "/why",
@@ -42,22 +42,7 @@ const Navbar = () => {
   ];
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState<boolean>(true);
-  useEffect(() => {
-    const response = cookie.get("authorization");
-    console.log("setting begin response");
-    if (response) {
-      console.log("setting response", response);
 
-      // setUser({
-      //   name: response.user.firstname,
-      //   _id: response.user._id,
-      //   token: response.token,
-      //   avatar: response.user.avatar,
-      //   address: response.user.address,
-      //   selectedAddress: response.user.selectedAddress,
-      // });
-    }
-  }, []);
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
@@ -86,7 +71,7 @@ const Navbar = () => {
               <Link
                 href={item.link}
                 key={key}
-                className="z-40 group hover:text-red-600 rounded-t-xl"
+                className="z-40 hidden lg:block group hover:text-red-600 rounded-t-xl"
               >
                 <div className="px-2 py-2 text-xs transition duration-300 md:text-base">
                   {item.name}
@@ -97,7 +82,7 @@ const Navbar = () => {
           })}
 
           {!user || user.name !== "" ? (
-            <div className="items-center hidden gap-4 sm:flex">
+            <div className="items-center hidden gap-4 lg:flex">
               <Link
                 href={"/orders"}
                 className="z-40 group hover:text-red-600 rounded-t-xl"
@@ -152,12 +137,12 @@ const Navbar = () => {
           </Link>
           <div className="">
             {user.avatar && (
-              <div className="relative block sm:hidden">
+              <div className="relative block lg:hidden">
                 <div
-                  className="relative w-12 transition-all duration-500 ease-in-out bg-gray-200 rounded-md cursor-pointer sm:w-20 hover:bg-gray-300"
+                  className="relative transition-all duration-500 ease-in-out bg-gray-200 rounded-md cursor-pointer w-[75px] sm:w-20 hover:bg-gray-300 p-1"
                   onClick={() => setShowLinks(!showAllLinks)}
                 >
-                  <div className="relative flex w-8 h-8 sm:w-12 sm:h-12">
+                  <div className="relative flex w-10 h-10 p-2 overflow-hidden rounded-full sm:w-12 sm:h-12 ">
                     <Image
                       alt={user.name}
                       src={user.avatar}
@@ -167,7 +152,7 @@ const Navbar = () => {
                   </div>
                   <IoIosArrowDown
                     // size={20}
-                    className="absolute right-1 top-2"
+                    className="absolute right-1 top-4"
                   />
                 </div>
                 {showAllLinks && (
@@ -183,15 +168,21 @@ const Navbar = () => {
                 )}
                 {showAllLinks && (
                   <div
-                    className={`absolute right-0 z-50 mt-5  transition-all ease-out duration-300`}
+                    className={`absolute right-0 z-50 mt-4  transition-all ease-out duration-300`}
                   >
-                    <div className="flex flex-col w-[150px] gap-1 bg-slate-200 shadow-2xl px-4 py-4 rounded-md">
+                    <div className="flex flex-col w-[150px] gap-2 bg-slate-200 shadow-2xl px-4 py-4 rounded-md">
                       <Link
                         href={`/profile/${user._id}`}
                         className="cursor-pointer group"
                       >
-                        <div className="text-xs transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
+                        <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
                           Profile
+                        </div>
+                        <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
+                      </Link>
+                      <Link href={`/explore`} className="cursor-pointer group">
+                        <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
+                          Explore
                         </div>
                         <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
                       </Link>
@@ -199,13 +190,13 @@ const Navbar = () => {
                         href={user._id ? "/sell" : "/auth"}
                         className="cursor-pointer group"
                       >
-                        <div className="text-xs transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
+                        <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
                           Sell
                         </div>
                         <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
                       </Link>
                       <Link href={"/orders"} className="cursor-pointer group">
-                        <div className="text-xs transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
+                        <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
                           Orders
                         </div>
                         <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
@@ -229,7 +220,7 @@ const Navbar = () => {
                           location.reload();
                         }}
                       >
-                        <div className="text-xs transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
+                        <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
                           Logout
                         </div>
                         <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>

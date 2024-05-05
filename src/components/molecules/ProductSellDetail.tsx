@@ -136,7 +136,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
 
   return (
     <div className="flex flex-col w-full gap-6 p-4 ">
-      <div className="flex flex-row w-full gap-6 p-6 bg-white rounded-xl">
+      <div className="flex flex-row w-full gap-6 p-2 bg-white md:p-6 rounded-xl">
         <div className="flex flex-col flex-1 gap-6">
           {loading && "Loading...."}
           <TextField
@@ -174,7 +174,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
           />
         </div>
       </div>
-      <div className="flex flex-col w-full gap-6 p-6 bg-white rounded-xl">
+      <div className="flex flex-col w-full gap-6 p-2 bg-white md:p-6 rounded-xl">
         <div className="w-full ">
           {/* Image div */}
           <p className="py-1 text-gray-600 ">Upload atleast 6 images</p>
@@ -239,7 +239,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
           })}
         </div>
       </div>
-      <div className="flex flex-col w-full gap-6 p-6 bg-white rounded-xl">
+      <div className="flex flex-col w-full gap-6 p-2 bg-white md:p-6 rounded-xl">
         <div className="flex w-full gap-6 ">
           <div className="flex-1">
             <FormControl fullWidth>

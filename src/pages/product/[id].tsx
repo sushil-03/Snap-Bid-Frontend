@@ -84,15 +84,23 @@ const index = () => {
             {/* {remainingTime} */}
             <Countdown
               date={end}
-              renderer={({ hours, minutes, seconds, completed }) => (
-                <div>
-                  {completed
-                    ? "Bid Ended"
-                    : `${hours.toString().padStart(2, "0")}h : 
-                  ${minutes.toString().padStart(2, "0")}m : 
-                  ${seconds.toString().padStart(2, "0")}s`}
-                </div>
-              )}
+              renderer={({ days, hours, minutes, seconds, completed }) => {
+                const isDays = days == 0;
+                return (
+                  <div>
+                    {completed
+                      ? "Bid Started"
+                      : `${
+                          !isDays
+                            ? `${days.toString().padStart(2, "0")}d :`
+                            : ""
+                        }
+                  ${hours.toString().padStart(2, "0")}h : 
+                ${minutes.toString().padStart(2, "0")}m : 
+                ${seconds.toString().padStart(2, "0")}s`}
+                  </div>
+                );
+              }}
             />
           </p>
         </>
@@ -105,15 +113,23 @@ const index = () => {
             {/* <p> {formatDuration(start.getTime() - now.getTime())}</p> */}
             <Countdown
               date={start}
-              renderer={({ hours, minutes, seconds, completed }) => (
-                <div>
-                  {completed
-                    ? "Bid Started"
-                    : `${hours.toString().padStart(2, "0")}h : 
-                  ${minutes.toString().padStart(2, "0")}m : 
-                  ${seconds.toString().padStart(2, "0")}s`}
-                </div>
-              )}
+              renderer={({ days, hours, minutes, seconds, completed }) => {
+                const isDays = days == 0;
+                return (
+                  <div>
+                    {completed
+                      ? "Bid Started"
+                      : `${
+                          !isDays
+                            ? `${days.toString().padStart(2, "0")}d :`
+                            : ""
+                        }
+                  ${hours.toString().padStart(2, "0")}h : 
+                ${minutes.toString().padStart(2, "0")}m : 
+                ${seconds.toString().padStart(2, "0")}s`}
+                  </div>
+                );
+              }}
             />
           </div>
         </div>
@@ -263,7 +279,7 @@ const index = () => {
           )}
         </div>
 
-        <div className="flex flex-row flex-wrap w-full gap-4 mx-auto mt-6 mr-4 sm:mx-0 sm:gap-8 sm:flex-col sm:mt-28 sm:w-2/5">
+        <div className="flex flex-row flex-wrap w-full gap-4 px-2 mx-auto mt-6 mr-4 sm:mx-0 sm:gap-8 sm:flex-col sm:mt-28 sm:w-2/5">
           <div className="flex-1 p-4 mx-0 sm:flex-initial sm:mx-4 rounded-xl bg-stone-100 shadow-3xl whitespace-nowrap">
             {getTime()}
           </div>
@@ -277,10 +293,10 @@ const index = () => {
 
           <Link
             href={`/profile/${data.createdBy._id}`}
-            className="flex items-center justify-between p-1 mx-0 transition-all duration-500 ease-in-out shadow-xl sm:mx-4 rounded-xl bg-stone-100 hover:shadow-3xl"
+            className="flex items-center justify-between p-2 mx-0 transition-all duration-500 ease-in-out shadow-xl sm:mx-4 rounded-xl bg-stone-100 hover:shadow-3xl"
           >
-            <div className="flex items-center pr-12 text-base sm:gap-2 sm:text-lg font-bai">
-              <div className="relative w-16 h-16 rounded-full">
+            <div className="flex items-center gap-4 pl-2 pr-12 text-base sm:text-lg font-bai">
+              <div className="relative w-12 h-12 rounded-full md:w-16 md:h-16">
                 <Image
                   src={data.createdBy.avatar}
                   fill
