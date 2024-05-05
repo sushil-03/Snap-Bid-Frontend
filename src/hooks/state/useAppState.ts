@@ -3,11 +3,18 @@ type UserType = {
   name: string,
   _id: string,
   token: string,
+  selectedAddress: number,
+  address: any
+  avatar: string
 }
+
 const userAtom = atom<UserType>({
   name: "",
   _id: "",
-  token: ""
+  token: "",
+  avatar: "",
+  selectedAddress: -1,
+  address: []
 })
 export const useSelectedUser = () => {
   return useAtom(userAtom)

@@ -3,6 +3,7 @@ module.exports = {
   content: ["./src/**/*/*.{js,ts,jsx,tsx}"],
   theme: {
     fontSize: {
+      xxs: "0.5rem",
       xs: "0.75rem",
       sm: "0.875rem",
       base: "1rem",
@@ -15,6 +16,13 @@ module.exports = {
       "6xl": "4rem",
     },
     extend: {
+      backdropBlur: {
+        "4xl": "50px",
+      },
+      screens: {
+        xxs: "350px",
+        xs: "500px",
+      },
       margin: ["last"],
       boxShadow: {
         "3xl": "0 9px 20px rgba(13,38,76,0.19)",

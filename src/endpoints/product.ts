@@ -1,5 +1,7 @@
+import { PaymentOption } from "@/components/molecules/ProductBidder";
 import { api } from "./axios"
 import { Dayjs } from "dayjs";
+// import axios from 'axios'
 import Cookies from "universal-cookie";
 export type ProductImageType = {
   _id: string;
@@ -8,30 +10,38 @@ export type ProductImageType = {
 };
 export type ProductType = {
   brand: string;
+  bidIncrement: Number;
   title: string;
+  addressFrom: {
+    state: String,
+    city: String,
+    country: String,
+    pincode: String,
+  }
   description: string;
   images: ProductImageType[];
   category:
   | "Vehicle"
+  | "Electronic"
   | "Property"
   | "Furniture"
   | "Painting"
   | "Jewellery"
   | "Collectible"
-  | "Music"
   | "Art"
   | "Others";
   owner: "1st" | "2nd" | "3rd";
+  enable_email: Boolean
   condition: "Antique" | "New" | "Old" | "Refurbished" | "Used" | "Open Box";
-  location: string;
   startingBid: Number;
   startingDate: "";
   endingDate: "";
   startingTime: "";
   starting: Date,
+  timeToPay: Number,
   ending: Date,
   endingTime: "";
-  paymentInfo: "Online Payment" | "Cash on Delivery" | "POS on Delivery";
+  paymentOption: "online" | "offline" | "both";
   shippingInfo: "self" | "arrange";
 
 };
@@ -41,18 +51,21 @@ export type ProductSellDetailType = {
   handleSubmit: () => void;
   handleChange: (name: string | Dayjs, value: string) => void;
 };
-
-
 export type BidType = {
   amount: number;
   productId: string;
+  type?: PaymentOption
+
+}
+export type ProductGetType = {
+  category?: string;
+  search?: string;
+  page?: number
+  signal?: any
 }
 export const createProduct = async (data: ProductType) => {
   const cookie = new Cookies()
   const user = cookie.get('authorization')
-  console.log('user at create product', user);
-
-  console.log('Data comes in create Product', data);
   const res = await api.AXIOS({
     url: '/api/v1/create',
     method: 'post',
@@ -61,7 +74,6 @@ export const createProduct = async (data: ProductType) => {
     },
     data,
   })
-
   return res;
 }
 export const placeBid = async (data: BidType) => {
@@ -80,17 +92,19 @@ export const placeBid = async (data: BidType) => {
   })
   return res;
 }
-export const getAllProduct = async (cate: string,) => {
-  // url: `/api/v1/products?category=${cate}?status=${status}`,
-  // const queryClient = useQueryClient();
-  const res = await api.AXIOS({
-    url: `/api/v1/products?category=${cate}`,
-    method: 'get',
-  })
-  // console.log('Data IIIIIIII', res.products);
-  // const products = res.products;
+export const getAllProduct = async ({ category = "", search = "", page = 1, signal }: ProductGetType) => {
+  try {
+    const res = await api.AXIOS({
+      url: `/api/v1/products?category=${category}&page=${page}&search=${search}`,
+      method: 'get',
+      signal
+    })
 
-  return res;
+    return res;
+  } catch (error) {
+    console.log('Aborting req');
+    return
+  }
 }
 export const getSingleProduct = async (id: string) => {
   const res = await api.AXIOS({
@@ -104,7 +118,6 @@ export const bidPayment = async (data: BidType) => {
   const cookie = new Cookies()
   const user = cookie.get('authorization')
 
-  console.log('Data comes in  bid paymentxxz', data);
   const res = await api.AXIOS({
     url: '/api/v1/product/pay',
     method: 'post',
@@ -113,6 +126,8 @@ export const bidPayment = async (data: BidType) => {
     },
     data,
   })
+  // console.log('reponse from pay', res);
+
   return res;
 }
 export const getTopProduct = () => {

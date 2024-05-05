@@ -1,13 +1,28 @@
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { Controls, Player } from "@lottiefiles/react-lottie-player";
+import { useSelectedUser } from "@/hooks/state/useAppState";
+import { useRouter } from "next/router";
 
 const UserBidding = ({ data }: any) => {
   const [state, setState] = useState("Product");
+  const [user] = useSelectedUser();
+  const router = useRouter();
+  useEffect(() => {
+    console.log("my user", user);
+
+    if (user._id === "") {
+      router.push("/auth");
+    }
+  }, [user]);
+  if (!user._id) {
+  }
+  console.log("myy son", data);
+
   const renderNoProduct = () => {
     return (
-      <div>
+      <div className="">
         <Player
           autoplay
           loop
@@ -25,7 +40,7 @@ const UserBidding = ({ data }: any) => {
   };
   const renderProduct = (products: any) => {
     return (
-      <div className="flex w-full gap-4 mx-2 mt-8 xl:gap-8">
+      <div className="flex flex-wrap w-full gap-4 mx-2 mt-8 xl:gap-8">
         {products.map((item: any) => {
           return (
             <ProductCard
@@ -68,12 +83,14 @@ const UserBidding = ({ data }: any) => {
               {data.bidWon.length}
             </p>
           </div>
-          <div className="flex flex-col items-center">
-            <p className="text-sm font-baiMedium"> Revenue</p>
-            <p className="text-xl xl:text-5xl md:text-3xl font-baibold">
-              {data.revenue}
-            </p>
-          </div>
+          {user._id === data._id && (
+            <div className="flex flex-col items-center">
+              <p className="text-sm font-baiMedium"> Revenue</p>
+              <p className="text-xl xl:text-5xl md:text-3xl font-baibold">
+                {data.revenue}
+              </p>
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-4 my-8">
           <div className="w-full p-4 shadow-xl justify-evenly rounded-xl bg-stone-50">

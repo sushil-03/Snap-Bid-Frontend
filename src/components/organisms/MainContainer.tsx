@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Fragment } from "react";
 import { ReactNode } from "react";
 import Navbar from "../molecules/Navbar";
 import Footer from "../molecules/Footer";
 import { ThemeProvider, createTheme } from "@mui/material";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
+
+import { useSelectedUser } from "@/hooks/state/useAppState";
+import Cookies from "universal-cookie";
 
 const MainContainer = ({ children }: { children: ReactNode }) => {
+  const cookie = new Cookies();
+  const [_, setUser] = useSelectedUser();
+
+  useEffect(() => {
+    const response = cookie.get("authorization");
+    if (response) {
+      setUser({
+        name: response.user.firstname,
+        _id: response.user._id,
+        token: response.token,
+        avatar: response.user.avatar,
+        address: response.user.address,
+        selectedAddress: response.user.selectedAddress,
+      });
+    }
+  }, []);
   const theme = createTheme({
     palette: {
       primary: {
@@ -29,7 +48,9 @@ const MainContainer = ({ children }: { children: ReactNode }) => {
           <main>{children}</main>
         </div>
         <Footer />
-        <ToastContainer
+        <Toaster position="bottom-center" reverseOrder={false} />
+
+        {/* <ToastContainer
           position="top-right"
           autoClose={5000}
           hideProgressBar={false}
@@ -40,7 +61,7 @@ const MainContainer = ({ children }: { children: ReactNode }) => {
           draggable
           pauseOnHover
           theme="colored"
-        />
+        /> */}
       </ThemeProvider>
     </Fragment>
   );

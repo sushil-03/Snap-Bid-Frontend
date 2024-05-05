@@ -6,9 +6,13 @@ import { IoMdAdd } from "react-icons/io";
 import Image from "next/image";
 import { useSelectedUser } from "@/hooks/state/useAppState";
 import Cookies from "universal-cookie";
+import { IoIosArrowDown } from "react-icons/io";
+import toast from "react-hot-toast";
+
 const Navbar = () => {
   const cookie = new Cookies();
   const [user, setUser] = useSelectedUser();
+  const [showAllLinks, setShowLinks] = useState(false);
 
   const navlist = [
     {
@@ -24,6 +28,10 @@ const Navbar = () => {
       link: "/explore",
     },
     // {
+    //   name: "Orders",
+    //   link: "/orders",
+    // },
+    // {
     //   name: "How it work",
     //   link: "/work",
     // },
@@ -36,12 +44,18 @@ const Navbar = () => {
   const [visible, setVisible] = useState<boolean>(true);
   useEffect(() => {
     const response = cookie.get("authorization");
+    console.log("setting begin response");
     if (response) {
-      setUser({
-        name: response.user.firstname,
-        _id: response.user._id,
-        token: response.token,
-      });
+      console.log("setting response", response);
+
+      // setUser({
+      //   name: response.user.firstname,
+      //   _id: response.user._id,
+      //   token: response.token,
+      //   avatar: response.user.avatar,
+      //   address: response.user.address,
+      //   selectedAddress: response.user.selectedAddress,
+      // });
     }
   }, []);
   useEffect(() => {
@@ -59,8 +73,8 @@ const Navbar = () => {
   return (
     <Fragment>
       <div
-        className={`fixed z-50 flex  justify-between sm:px-4  px-2  pt-4 pb-6  transform -translate-x-1/2  left-1/2   mt-4 overflow-hidden  sm:w-11/12 w-full mx-auto  bg-[#f6f6f6]  transition-all ease-in-out duration-600 h-24 items-center rounded-md  md:rounded-full ${
-          visible ? "top-0" : "-top-36"
+        className={`fixed z-50 flex  justify-between sm:px-4  px-2  pt-4 pb-6  transform -translate-x-1/2  left-1/2   md:mt-4 mt-0 sm:w-11/12 w-full mx-auto  bg-[#f6f6f6]  transition-all ease-in-out duration-600 md:h-24 h-20 items-center rounded-md  md:rounded-full ${
+          visible ? "top-0" : "md:-top-36 "
         } `}
       >
         <Logo />
@@ -81,28 +95,37 @@ const Navbar = () => {
               </Link>
             );
           })}
+
           {!user || user.name !== "" ? (
-            <div className="flex items-center gap-1 text-sm uppercase md:gap-8 sm:gap-4 font-baiMedium">
+            <div className="items-center hidden gap-4 sm:flex">
               <Link
-                href={`/profile/${user._id}`}
-                className="w-20 md:w-40 sm:w-32"
+                href={"/orders"}
+                className="z-40 group hover:text-red-600 rounded-t-xl"
               >
-                <label
-                  htmlFor="profile2"
-                  className="flex items-center justify-between px-2 bg-white border-2 border-red-400 rounded-md cursor-pointer profile-dropdown hover:bg-red-50"
-                >
-                  <div className="flex items-center flex-1 ">
-                    <Image
-                      src="/images/profile/p1.png"
-                      height={50}
-                      width={50}
-                      alt="profile"
-                      className="hidden sm:block"
-                    />
-                    <span className="p-2 sm:p-0">{user.name}</span>
-                  </div>
-                </label>
+                <div className="px-2 py-2 text-xs transition duration-300 md:text-base">
+                  Orders
+                </div>
+                <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></span>
               </Link>
+              <div className="items-center hidden gap-1 text-sm uppercase sm:flex md:gap-8 sm:gap-4 font-baiMedium">
+                <Link
+                  href={`/profile/${user._id}`}
+                  className="w-20 md:w-40 sm:w-32"
+                >
+                  <div className="flex items-center justify-between gap-3 px-2 bg-white border-2 border-red-400 rounded-md cursor-pointer profile-dropdown hover:bg-red-50">
+                    <div className="flex items-center flex-1 gap-3 ">
+                      <Image
+                        src={user.avatar}
+                        height={50}
+                        width={50}
+                        alt="profile"
+                        className="hidden rounded-full sm:block"
+                      />
+                      <p className="p-2 sm:p-0">{user.name}</p>
+                    </div>
+                  </div>
+                </Link>
+              </div>
             </div>
           ) : (
             <Link href={"/auth"} className="cursor-pointer group">
@@ -115,10 +138,10 @@ const Navbar = () => {
 
           <Link href={"/sell"}>
             <div
-              className="w-full p-2 rounded-md text-whte bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 
+              className="sm:block hidden w-full p-2 rounded-md text-whte bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 
             hover:shadow-[0px_0px_10px_4px_rgba(239,_68,_68,_0.7)] duration-500 ease-in-out"
             >
-              <div className="flex items-center justify-between w-full h-full gap-2 px-2 py-1 bg-white rounded-md md:px-4 md:py-2">
+              <div className="flex items-center justify-between w-full h-full gap-2 px-2 py-1 bg-white rounded-md md:px-3 md:py-2">
                 <span className="hidden text-lg md:block">
                   <IoMdAdd className="text-xl font-bold" />
                 </span>
@@ -126,6 +149,94 @@ const Navbar = () => {
               </div>
             </div>
           </Link>
+          <div className="">
+            {/* hey {user.avatar} */}
+            {user.avatar && (
+              <div className="relative block sm:hidden">
+                <div
+                  className="relative w-12 transition-all duration-500 ease-in-out bg-gray-200 rounded-md cursor-pointer sm:w-20 hover:bg-gray-300"
+                  onClick={() => setShowLinks(!showAllLinks)}
+                >
+                  <div className="relative flex w-8 h-8 sm:w-12 sm:h-12">
+                    <Image
+                      alt={user.name}
+                      src={user.avatar}
+                      fill
+                      className=" object-fit"
+                    />
+                  </div>
+                  <IoIosArrowDown
+                    // size={20}
+                    className="absolute right-1 top-2"
+                  />
+                </div>
+                {showAllLinks && (
+                  <div
+                    className="fixed inset-0 w-screen h-screen "
+                    onClick={() => {
+                      console.log("called");
+
+                      setShowLinks(() => false);
+                      console.log("wha", showAllLinks);
+                    }}
+                  ></div>
+                )}
+                {showAllLinks && (
+                  <div
+                    className={`absolute right-0 z-50 mt-5  transition-all ease-out duration-300`}
+                  >
+                    <div className="flex flex-col w-[150px] gap-1 bg-slate-200 shadow-2xl px-4 py-4 rounded-md">
+                      <Link
+                        href={`/profile/${user._id}`}
+                        className="cursor-pointer group"
+                      >
+                        <div className="text-xs transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
+                          Profile
+                        </div>
+                        <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
+                      </Link>
+                      <Link href={"/sell"} className="cursor-pointer group">
+                        <div className="text-xs transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
+                          Sell
+                        </div>
+                        <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
+                      </Link>
+                      <Link href={"/orders"} className="cursor-pointer group">
+                        <div className="text-xs transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
+                          Orders
+                        </div>
+                        <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
+                      </Link>
+                      <div
+                        className="cursor-pointer group"
+                        onClick={() => {
+                          setUser({
+                            name: "",
+                            _id: "",
+                            token: "",
+                            avatar: "",
+                            selectedAddress: -1,
+                            address: [],
+                          });
+                          cookie.remove("authorization", {
+                            path: "/",
+                          });
+
+                          toast.success("User Logout Successfully");
+                          location.reload();
+                        }}
+                      >
+                        <div className="text-xs transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
+                          Logout
+                        </div>
+                        <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </Fragment>

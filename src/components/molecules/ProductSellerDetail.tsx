@@ -18,70 +18,6 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({
 }) => {
   return (
     <div className="flex flex-col w-full gap-6 px-4 pt-4 md:w-3/4">
-      {/* <div className="flex flex-col gap-6 p-4 bg-white rounded-xl">
-        <div className="flex w-full gap-6 ">
-          <TextField
-            id="outlined-basic"
-            label="Name"
-            variant="outlined"
-            color="primary"
-            fullWidth
-            value={data.sellerName}
-            style={{ padding: 2 }}
-            onChange={(e) => handleChange(e.target.value, "sellerName")}
-            className=""
-          />
-          <MuiTelInput
-            fullWidth
-            value={data.sellerPhone}
-            onChange={(newVal) => handleChange(newVal, "sellerPhone")}
-          />
-        </div>
-        <div className="flex w-full gap-6 ">
-          <TextField
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-            color="primary"
-            fullWidth
-            style={{ padding: 2 }}
-            value={data.sellerEmail}
-            onChange={(e) => handleChange(e.target.value, "sellerEmail")}
-          />
-          <TextField
-            id="outlined-basic"
-            label="City"
-            variant="outlined"
-            color="primary"
-            fullWidth
-            style={{ padding: 2 }}
-            value={data.sellerCity}
-            onChange={(e) => handleChange(e.target.value, "sellerCity")}
-          />
-        </div>
-        <div className="flex w-full gap-6">
-          <TextField
-            id="outlined-basic"
-            label="State"
-            variant="outlined"
-            color="primary"
-            fullWidth
-            style={{ padding: 2 }}
-            value={data.sellerState}
-            onChange={(e) => handleChange(e.target.value, "sellerState")}
-          />
-          <TextField
-            id="outlined-basic"
-            label="ZIP"
-            variant="outlined"
-            color="primary"
-            fullWidth
-            style={{ padding: 2 }}
-            value={data.sellerZip}
-            onChange={(e) => handleChange(e.target.value, "sellerZip")}
-          />
-        </div>
-      </div> */}
       <div className="flex flex-col gap-6 p-4 bg-white rounded-xl">
         <div className="flex w-full gap-6 ">
           <FormControl>
@@ -93,24 +29,24 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({
               aria-labelledby="demo-form-control-label-placement"
               name="position"
               defaultValue="top"
-              value={data.paymentInfo}
-              onChange={(e) => handleChange(e.target.value, "paymentInfo")}
+              value={data.paymentOption}
+              onChange={(e) => handleChange(e.target.value, "paymentOption")}
             >
               <FormControlLabel
                 label="Online Payment"
                 control={<Radio />}
-                value="Online Payment"
+                value="online"
                 className="p-3"
               />
               <FormControlLabel
                 label="Cash on Delivery"
                 control={<Radio />}
-                value="Cash on Delivery"
+                value="offline"
               />
               <FormControlLabel
-                label="POS on Delivery"
+                label="Both"
                 control={<Radio />}
-                value="POS on Delivery"
+                value="both"
                 // label="End"
               />
             </RadioGroup>
@@ -138,7 +74,7 @@ const ProductSellerDetail: FC<ProductSellDetailType> = ({
                 className="p-3"
               />
               <FormControlLabel
-                label="Arrange Pickup(+10$)"
+                label="Arrange Pickup(+500₹)"
                 control={<Radio />}
                 value="arrange"
               />

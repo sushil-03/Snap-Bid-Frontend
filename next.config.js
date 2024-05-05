@@ -24,5 +24,5 @@ module.exports = withBundleAnalyzer({
     dangerouslyAllowSVG: true,
     domains: ["res.cloudinary.com", "picsum.photos"],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
 });

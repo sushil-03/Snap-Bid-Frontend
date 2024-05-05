@@ -1,8 +1,4 @@
 import React from "react";
-import { CgProfile } from "react-icons/cg";
-import { ImLocation } from "react-icons/im";
-import { BsFillCalendarDateFill } from "react-icons/bs";
-
 const ProductDetail = ({ data }: any) => {
   return (
     <div className="flex flex-col items-center justify-start flex-1 gap-8 ">
@@ -22,33 +18,29 @@ const ProductDetail = ({ data }: any) => {
         </p>
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div className="flex items-center justify-center gap-2 p-2 md:gap-4 md:p-4 ">
-            <div>
-              <CgProfile size={30} />
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Owner</p>
-              <p className="text-lg md:text-2xl font-baibold">{data.owner}</p>
+            <div className="">
+              <div className="flex gap-2">
+                <div className="text-sm text-gray-600">Owner</div>
+              </div>
+              <p className="text-base md:text-lg lg:text-2xl font-baibold">
+                {data.owner}
+              </p>
             </div>
           </div>
 
           <div className="flex items-center justify-center gap-2 p-2 md:gap-4 md:p-4">
             <div>
-              <ImLocation size={30} />
-            </div>
-            <div>
               <p className="text-sm text-gray-600">Location</p>
-              <p className="text-lg md:text-2xl font-baibold">
-                {data.location}
+              <p className="text-base md:text-lg lg:text-2xl font-baibold">
+                {data.addressFrom.country},{data.addressFrom.city},
+                {data.addressFrom.state}
               </p>
             </div>
           </div>
           <div className="flex items-center justify-center gap-2 p-2 md:gap-4 md:p-4">
             <div>
-              <BsFillCalendarDateFill size={30} />
-            </div>
-            <div>
               <p className="text-sm text-gray-600">Posting date</p>
-              <p className="text-lg md:text-2xl font-baibold">
+              <p className="text-base md:text-lg lg:text-2xl font-baibold">
                 {new Date(data.createdAt).toDateString().slice(4)}
               </p>
             </div>

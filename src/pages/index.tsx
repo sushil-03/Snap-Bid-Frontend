@@ -7,7 +7,9 @@ import { getProducts } from "@/hooks/query/getProduct";
 import { categories } from "@/utils/constant";
 import { useRouter } from "next/router";
 const index = () => {
-  const { data, isLoading } = getProducts("");
+  const { data, isLoading } = getProducts({});
+  // const data = null;
+  // const isLoading = true;
   const router = useRouter();
   const workData = [
     {
@@ -35,11 +37,13 @@ const index = () => {
         "List your products, set prices, and attract potential buyers through our platform",
     },
   ];
+  // NEXT_STRIPE_PUBLISABLE_KEY
+  // console.log("data", data);
 
   return (
-    <div className="w-11/12 h-full mx-auto overflow-hidden md:mt-2">
-      <div className="flex flex-col items-center justify-center h-full min-h-screen gap-4 md:flex-row">
-        <div className="pt-20 md:pt-10 sm:mt-0">
+    <div className="w-full h-full mx-auto overflow-hidden lg:w-11/12 md:mt-2 ">
+      <div className="flex flex-col items-center justify-center h-full min-h-screen gap-4 mx-4 md:flex-row">
+        <div className="pt-5 md:pt-10 sm:mt-0">
           <p className="font-baiMedium">Digital Bid _____</p>
           <div className="pt-10 pb-0 text-3xl font-extrabold md:pb-6 2xl:text-6xl md:text-5xl font-baiMedium">
             <p className="leading-tight whitespace-nowrap ">
@@ -66,7 +70,7 @@ const index = () => {
       </div>
 
       {/* Second Screen */}
-      <div className="min-h-screen">
+      <div className=" lg:min-h-screen">
         <div className="text-center ">
           <div className="mb-3 text-2xl leading-tight md:text-5xl sm:text-3xl font-baibold">
             <h1>Collect and Sell your</h1>
@@ -86,32 +90,40 @@ const index = () => {
             <Button variant="secondary">Explore now</Button>
           </Link>
         </div>
-        <div className="flex items-center justify-center md:gap-10 gap-8 mt-10 [&>*:nth-child(2)]:mb-32 overflow-x-scroll ">
-          <ProductCard
-            isShowBid={true}
-            isLoading={isLoading}
-            productData={data?.products[0]}
-            classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max h-1/2"
-          />
-          <ProductCard
-            isLoading={isLoading}
-            isShowBid={true}
-            productData={data?.products[1]}
-            classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
-          />{" "}
-          <ProductCard
-            isShowBid={true}
-            isLoading={isLoading}
-            productData={data?.products[2]}
-            classname="w-2/5 xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
-          />
-        </div>
+        {data && data.products.length > 2 && (
+          <div className="flex items-center w-full  align-bottom    mt-10 [&>*:nth-child(2)]:mb-20 lg:[&>*:nth-child(2)]:mb-32 overflow-x-scroll  2xl:w-4/5 lg:w-5/6 sm:gap-2 gap-1 lg:px-0 sm:px-4 xs:px-2 xxs:px-1  mx-auto  ">
+            <ProductCard
+              isShowBid={true}
+              isLoading={isLoading}
+              productData={data?.products[0]}
+              // classname="w-2/5 mx-auto xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/2 min-w-max h-1/2"
+              classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]"
+            />
+            <ProductCard
+              isLoading={isLoading}
+              isShowBid={true}
+              productData={data?.products[1]}
+              classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]"
+
+              // classname="w-2/5 mx-auto xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
+            />{" "}
+            <ProductCard
+              isShowBid={true}
+              isLoading={isLoading}
+              productData={data?.products[2]}
+              classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]"
+
+              // classname="w-2/5 mx-auto xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
+              // classname="!h-[35rem]"
+            />
+          </div>
+        )}
       </div>
 
       {/* Third Screen */}
       <div className="p-4 sm:p-8 ">
         <div className="text-center ">
-          <div className="mb-8 text-3xl leading-tight font-baibold">
+          <div className="mb-8 text-lg leading-tight md:text-3xl sm:text-2xl font-baibold">
             <h1>Explore by Category</h1>
           </div>
         </div>
@@ -120,7 +132,7 @@ const index = () => {
             return (
               <span
                 key={key}
-                className={`${item.class} px-6 py-2 rounded-md cursor-pointer`}
+                className={`${item.class} md:px-6 sm:px-4 px-3 md:py-2 py-1 rounded-md cursor-pointer sm:text-base text-sm`}
                 onClick={() => {
                   router.push(`/explore?cate=${item.name}`);
                 }}
@@ -143,20 +155,21 @@ const index = () => {
             return (
               <div
                 key={key}
-                className="flex flex-col gap-4 p-5 text-white h-44 w-80 md:p-3 sm:p-8 rounded-2xl bg-black-600"
+                className="flex flex-col h-32 gap-2 p-2 text-white lg:gap-4 lg:h-44 w-80 md:p-3 sm:p-5 rounded-2xl bg-black-600"
               >
                 <div className="flex items-center w-full gap-6 h-14">
-                  <Image
-                    src={`/images/work/${item.link}`}
-                    alt={item.name}
-                    height={40}
-                    width={40}
-                    className="overflow-hidden rounded-md"
-                  ></Image>
+                  <div className="relative w-10 h-10 ">
+                    <Image
+                      src={`/images/work/${item.link}`}
+                      alt={item.name}
+                      fill
+                      className="object-contain overflow-hidden rounded-md"
+                    ></Image>
+                  </div>
                   <p className="text-lg font-baiMedium">{item.name}</p>
                 </div>
                 <div>
-                  <p className="text-base text-gray-400 font-bai">
+                  <p className="text-xs text-gray-400 md:text-sm lg:text-base font-bai">
                     {item.detail}
                   </p>
                 </div>

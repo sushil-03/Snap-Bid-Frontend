@@ -4,12 +4,11 @@ import { ImMail3 } from "react-icons/im";
 import { RiLockPasswordLine } from "react-icons/ri";
 import * as Yup from "yup";
 import Input from "@/components/atoms/Input";
-import React from "react";
 import Button from "@/components/atoms/Button";
 import { useLogin } from "@/hooks/mutation/useLogin";
 import { useRouter } from "next/router";
-import Loader from "./Loader";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+
 import { useSelectedUser } from "@/hooks/state/useAppState";
 
 import Cookies from "universal-cookie";
@@ -40,10 +39,15 @@ const Login = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
     proposeLogin(values, {
       onSuccess(result) {
         toast.success("User logged in ");
+        console.log("result", result);
+
         setUser({
           name: result.user.firstname,
           _id: result.user._id,
           token: result.token,
+          address: result.user.address,
+          avatar: result.user.avatar,
+          selectedAddress: result.user.selectedAddress,
         });
         const decoded: DecodedType = jwt(result.token);
         cookie.set("authorization", result, {
@@ -67,68 +71,61 @@ const Login = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
     >
       {(formik) => {
         return (
-          <Form className="w-full px-4 sm:px-8 md:w-2/5 md:px-0 ">
+          <Form className="w-full px-4 py-10 sm:px-8 lg:w-2/5 md:px-0">
             <div className="flex flex-col flex-1 gap-6 rounded-md xl:p-8 ">
-              <p className="text-2xl text-center text-transparent md:text-4xl bg-gradient-to-r from-violet-600 to-orange-600 bg-clip-text font-baibold">
+              <p className="text-2xl text-center md:text-4xl font-baibold">
                 Welcome Back
               </p>
               <div className="flex flex-col gap-4 ">
                 <div className="flex flex-col">
-                  <label htmlFor="Email" className="text-violet-600">
+                  {/* <label htmlFor="Email" className="text-violet-600">
                     Email
-                  </label>
+                  </label> */}
                   <Input
-                    icon={
-                      <ImMail3 size={20} className="mr-1 text-violet-800" />
-                    }
+                    Icon={ImMail3}
                     {...formik.getFieldProps("email")}
                     placeholder="@mail"
                     fullWidth
-                    className={` ${
+                    className={`lg:pl-10 md:pl-8 ${
                       formik.errors.email && formik.touched.email
-                        ? "border-red-600 border-2 hover:ring-transparent"
-                        : "border-violet-800 border-2"
+                        ? "!border-red-600 hover:ring-transparent"
+                        : ""
                     } `}
                     type="text"
                   />
+                  <p className="mt-1 text-xs text-red-700 text-end">
+                    {formik.touched.email ? formik.errors.email : ""}
+                  </p>
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="password" className="text-violet-600">
+                  {/* <label htmlFor="password" className="text-violet-600">
                     Password
-                  </label>
+                  </label> */}
                   <Input
-                    icon={
-                      <RiLockPasswordLine
-                        size={23}
-                        className="text-violet-800"
-                      />
-                    }
+                    Icon={RiLockPasswordLine}
                     {...formik.getFieldProps("password")}
                     placeholder="Password"
                     type="password"
                     fullWidth
-                    className={`py-4 ${
+                    className={` lg:pl-10 md:pl-8 ${
                       formik.errors.password && formik.touched.password
-                        ? "border-red-600 border-2 hover:ring-transparent"
-                        : "border-violet-800 border-2"
+                        ? "!border-red-600 !border-2 hover:ring-transparent"
+                        : ""
                     } `}
                   />
+                  <p className="mt-1 text-xs text-red-800 text-end">
+                    {formik.touched.password ? formik.errors.password : ""}
+                  </p>
                 </div>
               </div>
               <div>
                 <Button
                   type="submit"
                   variant="secondary"
-                  className={`mb-2 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 disabled:bg-gray-400 disabled:hover:ring-transparent `}
+                  className={`mb-2 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 disabled:bg-gray-400 disabled:hover:ring-transparent !py-2 `}
                   disabled={isLoginLoading}
                 >
-                  {isLoginLoading ? (
-                    <div className="absolute inset-0 bottom-0 w-screen h-screen pt-20 bg-violet-600">
-                      <Loader />
-                    </div>
-                  ) : (
-                    "Log in"
-                  )}
+                  Log in
                 </Button>
                 <span className="text-sm">Don't have a account </span>
                 <span

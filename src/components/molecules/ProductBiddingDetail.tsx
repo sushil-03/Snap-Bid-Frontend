@@ -4,7 +4,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 import {
+  Checkbox,
   FormControl,
+  FormControlLabel,
+  FormGroup,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -13,13 +16,20 @@ import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 import { ProductType } from "@/endpoints/product";
 type ProductBidType = Pick<
   ProductType,
-  "startingBid" | "startingDate" | "startingTime" | "endingDate" | "endingTime"
+  | "startingBid"
+  | "startingDate"
+  | "startingTime"
+  | "endingDate"
+  | "endingTime"
+  | "timeToPay"
+  | "enable_email"
+  | "bidIncrement"
 >;
 
 type ProductSellDetailType = {
   product: ProductBidType;
   setActiveStep: (value: number) => void;
-  handleChange: (name: string | Date | Dayjs, value: string) => void;
+  handleChange: (name: string | Date | Dayjs | Boolean, value: string) => void;
 };
 
 const ProductBiddingDetail: FC<ProductSellDetailType> = ({
@@ -28,8 +38,8 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
   handleChange,
 }) => {
   return (
-    <div className="flex flex-col w-full gap-4 p-4 md:w-2/3 ">
-      <div className="flex flex-col gap-4 p-4 bg-white rounded-xl">
+    <div className="flex flex-col w-full gap-4 p-2 md:p-4 lg:w-2/3 md:w-4/5">
+      <div className="flex flex-col gap-6 p-2 bg-white md:p-4 rounded-xl">
         <div className="flex w-full gap-6 ">
           <FormControl fullWidth sx={{ m: 1 }}>
             <InputLabel htmlFor="outlined-adornment-amount">
@@ -41,17 +51,22 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
               onChange={(e) => handleChange(e.target.value, "startingBid")}
               id="outlined-adornment-amount"
               startAdornment={
-                <InputAdornment position="start">$</InputAdornment>
+                <InputAdornment position="start">₹</InputAdornment>
               }
               label="Starting Bid"
             />
+            <p className="text-xs text-gray-500">
+              Note: Incase of stripe payment bidding will contain 2% processing
+              fee and tax
+            </p>
           </FormControl>
         </div>
-        <div className="flex justify-between w-full px-2">
+        <div className="flex justify-between w-full gap-3 px-2 md:gap-10 ">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label={"Starting Date"}
               views={["day"]}
+              className="flex-1"
               format="DD/MM/YYYY"
               value={dayjs(data.startingDate!)}
               onChange={(newValue) => {
@@ -62,6 +77,7 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
             />
 
             <TimePicker
+              className="flex-1"
               label={"Starting Time"}
               value={dayjs(data.startingTime!)}
               onChange={(newValue) => {
@@ -75,7 +91,7 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
             />
           </LocalizationProvider>
         </div>
-        <div className="flex justify-between px-2">
+        <div className="flex justify-between gap-3 px-2 md:gap-10 ">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label={"Ending Date"}
@@ -83,6 +99,7 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
               value={dayjs(data.endingDate)}
               // defaultValue={}
               format="DD/MM/YYYY"
+              className="flex-1"
               onChange={(newValue) => {
                 if (!newValue) return;
                 handleChange(newValue, "endingDate");
@@ -92,6 +109,7 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
             <TimePicker
               label={"Ending Time"}
               value={dayjs(data.endingTime)}
+              className="flex-1"
               onChange={(newValue) => {
                 if (!newValue) return;
                 console.log("Ending TImmme");
@@ -100,6 +118,64 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
               }}
             />
           </LocalizationProvider>
+        </div>
+        <div className="flex flex-row justify-between w-full gap-3 mx-1 md:gap-10 ">
+          <div className="flex-1">
+            <FormControl fullWidth>
+              <InputLabel htmlFor="outlined-adornment-amount">
+                Time to pay
+              </InputLabel>
+              <OutlinedInput
+                value={data.timeToPay}
+                type="number"
+                onChange={(e) => handleChange(e.target.value, "timeToPay")}
+                id="outlined-adornment-amount"
+                startAdornment={
+                  <InputAdornment position="start">min</InputAdornment>
+                }
+                label="Time to pay"
+              />
+            </FormControl>
+            <p className="pl-1 text-xs text-gray-500">
+              Bidder payment timeframe for each user.
+            </p>
+          </div>
+          <div className="flex-1">
+            <FormControl fullWidth>
+              <InputLabel htmlFor="outlined-adornment-amount">
+                Bid Increment
+              </InputLabel>
+              <OutlinedInput
+                value={data.bidIncrement}
+                type="number"
+                onChange={(e) => handleChange(e.target.value, "bidIncrement")}
+                id="outlined-adornment-amount"
+                startAdornment={
+                  <InputAdornment position="start">₹</InputAdornment>
+                }
+                label="Bid Increment"
+              />
+            </FormControl>
+            <p className="pl-1 text-xs text-gray-500">
+              Note: Minimum Bid increment
+            </p>
+          </div>
+        </div>
+        <div className="px-2">
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={Boolean(data.enable_email)}
+                  onChange={(e) => {
+                    handleChange(e.target.checked, "enable_email");
+                    // console.log(e.target.checked);
+                  }}
+                />
+              }
+              label="Enable sending email to bidder"
+            />
+          </FormGroup>
         </div>
       </div>
       <div className="flex justify-between px-2">

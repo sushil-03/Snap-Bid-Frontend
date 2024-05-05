@@ -4,6 +4,10 @@ export const categories = [
     class: "bg-yellow-400 text-yellow-600",
   },
   {
+    name: "Electronic",
+    class: "bg-yellow-400 text-yellow-600",
+  },
+  {
     name: "Vehicle",
     class: "bg-green-400 text-green-600",
   },
@@ -27,10 +31,7 @@ export const categories = [
     name: "Collectible",
     class: "bg-teal-400 text-teal-600",
   },
-  {
-    name: "Music",
-    class: " bg-violet-400 text-violet-600",
-  },
+
   {
     name: "Others",
     class: "bg-green-400 text-green-600",

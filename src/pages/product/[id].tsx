@@ -1,12 +1,9 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/navigation";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { IoStarOutline } from "react-icons/io5";
-
+import Countdown from "react-countdown";
 import ProductDetail from "@/components/molecules/ProductDetail";
 import ProductCarousel from "@/components/molecules/ProductCarousel";
 import ProductBidder from "@/components/molecules/ProductBidder";
@@ -16,9 +13,12 @@ import { useRouter } from "next/router";
 import Loader from "@/components/molecules/Loader";
 import { getProductByID } from "@/hooks/query/getSingleProduct";
 import { useSelectedUser } from "@/hooks/state/useAppState";
-import { toast } from "react-toastify";
 import { useBid } from "@/hooks/mutation/usePlaceBid";
 import { useQueryClient } from "react-query";
+import toast from "react-hot-toast";
+
+// import Button from '@mui/material/Button';
+
 const index = () => {
   const queryClient = useQueryClient();
   const [user] = useSelectedUser();
@@ -34,8 +34,12 @@ const index = () => {
       toast.error("Please login to place bid");
       return;
     }
-    if (bidAmount <= data.maxBid) {
+    if (parseInt(bidAmount) <= parseInt(data.maxBid)) {
       toast.error("Please enter amount greater than max bid");
+      return;
+    }
+    if (parseInt(bidAmount) - data.maxBid < data.bidIncrement) {
+      toast.error(`Minimum bid increment is ₹${data.bidIncrement}`);
       return;
     }
     const bidData = {
@@ -45,14 +49,17 @@ const index = () => {
     proposeBid(bidData, {
       onSuccess: (data, value) => {
         toast.success("Bid Placed Successfully");
+        setBid("");
         setIsOpen(false);
         console.log("product id", productId);
         console.log("dataa", data);
         console.log("value", value);
         queryClient.invalidateQueries(["product", productId?.toString()]);
       },
-      onError: () => {
-        toast.error("Error in placing bid");
+      onError: (error: any) => {
+        console.log("error", error);
+
+        toast.error(error?.message || "");
       },
     });
     console.log("placing Biddddddd...........");
@@ -63,42 +70,30 @@ const index = () => {
   if (isLoading) {
     return <Loader />;
   }
-  const formatDuration = (timeDifferenceMs: number) => {
-    const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDifferenceMs / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((timeDifferenceMs / (1000 * 60)) % 60);
-    const second = Math.floor((timeDifferenceMs / 1000) % 60);
-
-    let formattedTimeDifference = `${days
-      .toString()
-      .padStart(2, "0")}d : ${hours.toString().padStart(2, "0")}h : ${minutes
-      .toString()
-      .padStart(2, "0")}m`;
-    if (days === 0) {
-      formattedTimeDifference =
-        formattedTimeDifference.slice(6) +
-        " : " +
-        second.toString().padStart(2, "0") +
-        "s";
-    }
-
-    return formattedTimeDifference;
-  };
 
   const getTime = () => {
-    const now = new Date(Date.now());
+    // const now = new Date(Date.now());
     const start = new Date(data.starting);
     const end = new Date(data.ending);
-    const result = end.getTime() - now.getTime();
-    console.log("result", result);
-    const remainingTime = formatDuration(result);
 
     if (data.status === "Active") {
       return (
         <>
           <p className="text-sm sm:text-lg">Time left</p>
           <p className="text-xl lg:text-4xl md:text-2xl font-baibold">
-            {remainingTime}
+            {/* {remainingTime} */}
+            <Countdown
+              date={end}
+              renderer={({ hours, minutes, seconds, completed }) => (
+                <div>
+                  {completed
+                    ? "Bid Ended"
+                    : `${hours.toString().padStart(2, "0")}h : 
+                  ${minutes.toString().padStart(2, "0")}m : 
+                  ${seconds.toString().padStart(2, "0")}s`}
+                </div>
+              )}
+            />
           </p>
         </>
       );
@@ -107,7 +102,19 @@ const index = () => {
         <div>
           <p className="text-sm sm:text-lg">Starting on</p>
           <div className="text-xl lg:text-4xl md:text-2xl font-baibold">
-            <p> {formatDuration(start.getTime() - now.getTime())}</p>
+            {/* <p> {formatDuration(start.getTime() - now.getTime())}</p> */}
+            <Countdown
+              date={start}
+              renderer={({ hours, minutes, seconds, completed }) => (
+                <div>
+                  {completed
+                    ? "Bid Started"
+                    : `${hours.toString().padStart(2, "0")}h : 
+                  ${minutes.toString().padStart(2, "0")}m : 
+                  ${seconds.toString().padStart(2, "0")}s`}
+                </div>
+              )}
+            />
           </div>
         </div>
       );
@@ -132,10 +139,14 @@ const index = () => {
                 ? "text-[#0B6623]"
                 : data.status === "Expired"
                 ? "text-red-600"
+                : data.status === "PaymentOnDelivery"
+                ? "!text-blue-800"
                 : ""
             }`}
           >
-            {data.status}
+            {data.status === "PaymentOnDelivery"
+              ? "Cash on Delivery"
+              : data.status}
           </p>
         </div>
       );
@@ -150,6 +161,7 @@ const index = () => {
       <div className="min-h-[300px] w-4/5 mx-auto">
         <ProductCarousel data={data?.images} />
       </div>
+
       <div className="flex flex-col justify-start pb-8 mx-auto mt-8 sm:flex-row sm:w-full ">
         <div className="w-full">
           <div className="flex gap-2 p-4 my-4 lg:gap-8 md:gap-4">
@@ -157,7 +169,7 @@ const index = () => {
               onClick={() => setShow(true)}
               className="p-1 transition-colors duration-500 ease-in-out border-2 cursor-pointer md:p-3 border-black-600 hover:bg-black-100 hover:text-white font-baiMedium"
             >
-              Oveview
+              Overview
             </p>
             <p
               onClick={() => setShow(false)}
@@ -179,7 +191,12 @@ const index = () => {
               </p>
             )}
           </div>
-          {showOverview && !isOpen ? (
+          {/* {showOverview && !isOpen ? (
+            <ProductDetail data={data} />
+          ) : (
+            <ProductBidder product={data} />
+          )} */}
+          {showOverview ? (
             <ProductDetail data={data} />
           ) : (
             <ProductBidder product={data} />
@@ -201,7 +218,7 @@ const index = () => {
                     <Dialog.Title className="text-lg sm:text-xl font-baibold">
                       <div className="flex items-center justify-between mx-2">
                         <p>Place your bid</p>
-                        <p>{data.maxBid} $</p>
+                        <p>{data.maxBid} ₹</p>
                       </div>
                     </Dialog.Title>
                     <div className="p-1 mt-6 font-baiMedium ">
@@ -246,7 +263,7 @@ const index = () => {
           )}
         </div>
 
-        <div className="flex flex-row flex-wrap w-11/12 gap-4 mx-auto mt-6 mr-4 sm:mx-0 sm:gap-8 sm:flex-col sm:mt-28 sm:w-2/5">
+        <div className="flex flex-row flex-wrap w-full gap-4 mx-auto mt-6 mr-4 sm:mx-0 sm:gap-8 sm:flex-col sm:mt-28 sm:w-2/5">
           <div className="flex-1 p-4 mx-0 sm:flex-initial sm:mx-4 rounded-xl bg-stone-100 shadow-3xl whitespace-nowrap">
             {getTime()}
           </div>
@@ -254,7 +271,7 @@ const index = () => {
           <div className="flex-1 p-4 mx-0 sm:flex-initial sm:mx-4 rounded-xl bg-stone-100 shadow-3xl">
             <p className="text-sm sm:text-lg">Current Bid</p>
             <p className="text-xl lg:text-4xl md:text-2xl font-baibold">
-              ${data.maxBid}
+              ₹{data.maxBid}
             </p>
           </div>
 
@@ -263,12 +280,14 @@ const index = () => {
             className="flex items-center justify-between p-1 mx-0 transition-all duration-500 ease-in-out shadow-xl sm:mx-4 rounded-xl bg-stone-100 hover:shadow-3xl"
           >
             <div className="flex items-center pr-12 text-base sm:gap-2 sm:text-lg font-bai">
-              <Image
-                src={`/images/profile/p1.png`}
-                width={80}
-                height={80}
-                alt=""
-              ></Image>
+              <div className="relative w-16 h-16 rounded-full">
+                <Image
+                  src={data.createdBy.avatar}
+                  fill
+                  className="object-cover rounded-full"
+                  alt=""
+                ></Image>
+              </div>
               <p>{data.createdBy.firstname}</p>
             </div>
             <AiOutlineArrowRight size={30} className="hidden sm:block" />

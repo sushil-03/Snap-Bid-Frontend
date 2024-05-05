@@ -1,4 +1,4 @@
-import React, { useState, useRef, FC } from "react";
+import React, { useState, useRef, FC, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { MdCloudUpload } from "react-icons/md";
 import shortid from "shortid";
@@ -7,9 +7,15 @@ import Button from "@/components/atoms/Button";
 import Image from "next/image";
 import { ProductType, ProductImageType } from "@/endpoints/product";
 import { categories } from "@/utils/constant";
+import axios from "axios";
+import { useSelectedUser } from "@/hooks/state/useAppState";
+import { useRouter } from "next/router";
+
+import Address from "./Address";
 
 type ProductSellDetailType = {
   product: Partial<ProductType>;
+  // images: string[];
   setActiveStep: (value: number) => void;
   handleChange: (name: string, value: string) => void;
   handleImageChange: (data: ProductImageType) => void;
@@ -17,35 +23,82 @@ type ProductSellDetailType = {
 
 const ProductSellDetail: FC<ProductSellDetailType> = ({
   product: data,
+  // images,
   setActiveStep,
   handleChange,
   handleImageChange,
 }) => {
+  const router = useRouter();
   const imageRef = useRef<HTMLInputElement>(null);
+  const [fileUploadedCount, setFileUploadedCount] = useState<number>(
+    data?.images?.length || 0
+  );
+  const [loading, setLoading] = useState<boolean>(false);
   const [selectedfile, SetSelectedFile] = useState<ProductImageType[]>(
     data.images || []
   );
+  const [user, _] = useSelectedUser();
 
+  useEffect(() => {
+    if (fileUploadedCount === selectedfile.length) {
+      setLoading(false);
+    }
+  }, [fileUploadedCount]);
+
+  const handleNext = () => {
+    console.log("selected file upload", selectedfile.length, fileUploadedCount);
+    console.log("user", user);
+
+    if (user._id === "") {
+      router.push("/auth");
+    }
+    if (selectedfile.length != fileUploadedCount) {
+      setLoading(true);
+      return;
+    }
+    setActiveStep(1);
+    window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
   const InputChange = (e: any) => {
     for (let i = 0; i < e.target.files.length; i++) {
       let reader = new FileReader();
       let file = e.target.files[i];
-      reader.onloadend = () => {
-        SetSelectedFile((preValue) => {
-          return [
-            ...preValue,
-            {
-              _id: shortid.generate(),
-              filename: e.target.files[i].name,
-              fileimage: reader.result as string,
-            },
-          ];
-        });
-        handleImageChange({
-          _id: shortid.generate(),
-          filename: e.target.files[i].name,
-          fileimage: reader.result as string,
-        });
+      reader.onloadend = async () => {
+        const form = new FormData();
+        form.append("file", file);
+        form.append("upload_preset", "pqjqtcae");
+        try {
+          SetSelectedFile((preValue) => {
+            return [
+              ...preValue,
+              {
+                _id: shortid.generate(),
+                filename: e.target.files[i].name,
+                fileimage: reader.result as string,
+              },
+            ];
+          });
+
+          const res = await axios.post(
+            "https://api.cloudinary.com/v1_1/dlv5hu0eq/image/upload",
+            form
+          );
+          console.log("res came", res);
+          // const uploaded = fileUploadedCount + 1;
+          setFileUploadedCount((count) => count + 1);
+          handleImageChange({
+            _id: shortid.generate(),
+            filename: e.target.files[i].name,
+            fileimage: res.data.secure_url,
+          });
+          // handleImageChange({
+          //   _id: shortid.generate(),
+          //   filename: e.target.files[i].name,
+          //   fileimage: res.data.secure_url,
+          // });
+        } catch (error) {
+          console.log("went wrong", error);
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -55,6 +108,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
     const result = selectedfile.filter((data) => data._id !== id);
     SetSelectedFile(result);
     data.images = result;
+    setFileUploadedCount((count) => count - 1);
   };
 
   // Data
@@ -79,10 +133,12 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
     "Open Box",
     "Old",
   ];
+
   return (
     <div className="flex flex-col w-full gap-6 p-4 ">
       <div className="flex flex-row w-full gap-6 p-6 bg-white rounded-xl">
         <div className="flex flex-col flex-1 gap-6">
+          {loading && "Loading...."}
           <TextField
             id="outlined-basic"
             label="Brand"
@@ -136,7 +192,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
                 ref={imageRef}
                 onChange={InputChange}
                 multiple
-                // hidden
+                accept="image/png, image/gif, image/jpeg" // hidden
                 className="w-2/3 opacity-0 input-field"
               />
               <MdCloudUpload
@@ -150,11 +206,11 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 ">
           {selectedfile.map((data) => {
             const { _id, filename, fileimage } = data;
             return (
-              <div className="flex flex-wrap gap-4 mt-2" key={_id}>
+              <div className="flex gap-4 mt-2" key={_id}>
                 <div className="">
                   <Image
                     src={fileimage}
@@ -165,7 +221,7 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
                   />
                 </div>
                 <div className="file-detail">
-                  <p className="font-semibold text-gray-600 font-baiMedium ">
+                  <p className="overflow-hidden font-semibold text-gray-600 font-baiMedium text-ellipsis ">
                     {filename}
                   </p>
                   <div className="file-actions">
@@ -257,31 +313,28 @@ const ProductSellDetail: FC<ProductSellDetailType> = ({
           </div>
         </div>
 
-        <div>
-          <TextField
-            id="outlined-multiline-static"
-            label="Location"
-            fullWidth
-            value={data.location}
-            onChange={(e) => handleChange(e.target.value, "location")}
-            variant="outlined"
-            color="primary"
-            className=""
-          />
-        </div>
+        <Address update={false} />
       </div>
 
-      <div className="flex justify-end">
-        <Button
-          variant="secondary"
-          className="mb-2 rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 hover:ring-transparent"
-          onClick={() => {
-            setActiveStep(1);
-            window?.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-          }}
-        >
-          Next
-        </Button>{" "}
+      <div className="flex flex-col justify-end">
+        <div className="flex justify-end ">
+          <Button
+            variant="secondary"
+            className="rounded-md bg-violet-800 hover:bg-violet-600 ring-violet-800 hover:ring-transparent"
+            onClick={handleNext}
+            disabled={loading}
+          >
+            {loading ? "Please wait ..." : "Next"}
+          </Button>{" "}
+        </div>
+        {loading && (
+          <div className="flex items-end justify-end ">
+            <p className="text-sm">
+              Images are being processed: {fileUploadedCount}/
+              {selectedfile.length}{" "}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

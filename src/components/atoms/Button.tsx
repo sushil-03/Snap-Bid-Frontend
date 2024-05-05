@@ -39,7 +39,7 @@ const Button: FC<ButtonProps> = ({
         return "duration-700  hover:bg-black-600 hover:text-white";
       }
       case "secondary": {
-        return "shadow-md hover:bg-red-600 duration-700 ring-red-500  hover:ring-4 hover:ring-offset-4 hover:shadow-red-100";
+        return "shadow-md hover:bg-red-600 duration-700 ring-red-500  hover:ring-2 hover:ring-offset-2 hover:shadow-red-100";
       }
       case "tertiary": {
         return "";
@@ -53,7 +53,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <div>
       <button
-        className={`${getVariant()} ${getAnimation()}  ${fullStyleWidth}  font-baiMedium shadow-red-100 shadow ease-in-out transition-all ${className} `}
+        className={`${getVariant()} ${getAnimation()}  ${fullStyleWidth}  font-baiMedium shadow-red-100 shadow ease-in-out transition-all ${className}`}
         {...buttonProps}
       >
         {children}

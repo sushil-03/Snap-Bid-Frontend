@@ -7,74 +7,94 @@ import { Dayjs } from "dayjs";
 import { ProductType, ProductImageType } from "@/endpoints/product";
 import { useCreateProduct } from "@/hooks/mutation/useAddProduct";
 import Loader from "@/components/molecules/Loader";
-import { useSelectedUser } from "@/hooks/state/useAppState";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+
 import { useRouter } from "next/router";
 import { useQueryClient } from "react-query";
+import { useSelectedUser } from "@/hooks/state/useAppState";
 
 // const initialValues: ProductType = {
 //   brand: "tesla",
 //   title: "carrrrrrr",
 //   description: "this is description",
+//   timeToPay: 30,
 //   images: [],
-//   category: "Other",
+//   bidIncrement: 0,
+//   enable_email: false,
+//   category: "Others",
 //   owner: "3rd",
 //   condition: "Old",
-//   location: "Dehradun",
 //   startingBid: 2000,
 //   startingDate: "",
 //   endingDate: "",
 //   startingTime: "",
 //   endingTime: "",
-//   paymentInfo: "POS on Delivery",
+//   paymentOption: "online",
 //   shippingInfo: "self",
 //   starting: new Date(),
 //   ending: new Date(),
+//   addressFrom: {
+//     state: "",
+//     city: "",
+//     country: "",
+//     pincode: "",
+//   },
 // };
 const initialValues: ProductType = {
   brand: "",
   title: "",
   description: "",
   images: [],
+  timeToPay: 30,
   category: "Others",
   owner: "1st",
   condition: "New",
-  location: "",
   startingBid: 0,
   startingDate: "",
   endingDate: "",
   startingTime: "",
   endingTime: "",
-  paymentInfo: "Online Payment",
+  paymentOption: "online",
   shippingInfo: "self",
   starting: new Date(),
   ending: new Date(),
+  addressFrom: {
+    state: "",
+    city: "",
+    country: "",
+    pincode: "",
+  },
+  bidIncrement: 0,
+  enable_email: false,
 };
 
+const combineDateTime = (time: Date, date: Date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  // Extract the time components from the reference time
+  const hours = time.getHours();
+  const minutes = time.getMinutes();
+  const seconds = time.getSeconds();
+
+  // Create a new date by combining the extracted date and time components
+  const newDate = new Date(year, month, day, hours, minutes, seconds);
+  return newDate;
+};
 const index = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const helper = (time: Date, date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const day = date.getDate();
-
-    // Extract the time components from the reference time
-    const hours = time.getHours();
-    const minutes = time.getMinutes();
-    const seconds = time.getSeconds();
-
-    // Create a new date by combining the extracted date and time components
-    const newDate = new Date(year, month, day, hours, minutes, seconds);
-    return newDate;
-  };
 
   const [activeStep, setActiveStep] = useState<number>(0);
   const [user] = useSelectedUser();
   // images
   const [product, setProduct] = useState<ProductType>(initialValues);
 
-  const handleChange = (value: string | Dayjs | Date, name: string) => {
+  const handleChange = (
+    value: string | Dayjs | Date | Boolean,
+    name: string
+  ) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
       [name]: value,
@@ -91,20 +111,17 @@ const index = () => {
   const { mutate: proposeCreateProduct, isLoading } = useCreateProduct();
 
   const handleSubmit = () => {
-    if (user.name === "") {
-      toast.error("Please login to continue");
-      return;
-    } else {
-      console.log("user", user);
-    }
-    product.starting = helper(
+    product.starting = combineDateTime(
       new Date(product.startingTime),
       new Date(product.startingDate)
     );
-    product.ending = helper(
+    product.starting.setSeconds(0);
+
+    product.ending = combineDateTime(
       new Date(product.endingTime),
       new Date(product.endingDate)
     );
+    product.ending.setSeconds(0);
     console.log("____PRODUCT", product);
     Object.values(product).every((value) => {
       if (value === "") {
@@ -127,7 +144,20 @@ const index = () => {
     ) {
       toast.error("Ending time should be greater than starting time");
       return;
+    } else if (user.selectedAddress === -1) {
+      toast.error("Address not selected");
+      return;
     }
+    const selectedAddress = user.address[user.selectedAddress];
+    product.addressFrom = {
+      city: selectedAddress.city,
+      country: selectedAddress.country,
+      state: selectedAddress.state,
+      pincode: selectedAddress.pincode,
+    };
+
+    console.log("product", product);
+
     proposeCreateProduct(product, {
       onSuccess(result) {
         console.log("Evevrthing went right ", result);
@@ -144,6 +174,7 @@ const index = () => {
       return (
         <ProductSellDetail
           product={product}
+          // images={images}
           handleImageChange={handleImageChange}
           setActiveStep={setActiveStep}
           handleChange={handleChange}
@@ -169,7 +200,7 @@ const index = () => {
   };
   if (isLoading) return <Loader />;
   return (
-    <div className="w-full h-full min-h-screen mt-32">
+    <div className="w-full h-full min-h-screen mt-16 sm:mt-20 md:mt-32">
       <div className="flex flex-col w-full gap-2 p-4 px-2 pb-16 m-6 mx-auto mt-24 bg-gray-100 sm:px-10 xl:w-4/6 rounded-xl shadow-3xl">
         <ProductStepper activeStep={activeStep} />
         {renderComponent(activeStep)}

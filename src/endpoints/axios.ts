@@ -1,15 +1,12 @@
 import axios, { AxiosRequestConfig } from 'axios'
 
 const axiosInstance = axios.create({
-  // baseURL: "http://ec2-3-110-85-217.ap-south-1.compute.amazonaws.com:3001/",
-  // baseURL: "https://btv2g6l5y8.execute-api.ap-south-1.amazonaws.com/dev",
-  // baseURL: "https://2hxwnkd96i.execute-api.ap-south-1.amazonaws.com/dev",
-
-  // baseURL: "https://snapbid-backend.onrender.com",
-  baseURL: "https://snap-bid-backend.vercel.app",
+  baseURL: "https://snapbid-backend.onrender.com",
+  // baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
   },
+
   withCredentials: false,
 })
 
@@ -35,6 +32,8 @@ axiosInstance.interceptors.response.use(
   }
 );
 export const AXIOS = async (config: AxiosRequestConfig) => {
+  console.log('myconfig', config);
+
   const getRes = await axiosInstance(config);
   return getRes.data
 }

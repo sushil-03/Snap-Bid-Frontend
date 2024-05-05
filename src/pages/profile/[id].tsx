@@ -4,7 +4,8 @@ import { CgProfile } from "react-icons/cg";
 import UserBidding from "@/components/molecules/UserBidding";
 import UserProfile from "@/components/molecules/UserProfile";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+
 import { useSelectedUser } from "@/hooks/state/useAppState";
 import Cookies from "universal-cookie";
 import { getUserById } from "@/hooks/query/getUserById";
@@ -30,17 +31,19 @@ const ProfileDetails = [
   },
 ];
 const ProfileDetail = () => {
-  const userId = useRouter().query.id;
-  console.log(userId);
+  const router = useRouter();
+  const userId = router.query.id || "";
 
   const cookie = new Cookies();
   const [user, setUser] = useSelectedUser();
-  const { data, isLoading } = getUserById(userId);
+
+  const { data, isLoading } = getUserById(userId.toString());
+
+  console.log("data", data, userId);
 
   const [active, setActive] = useState(1);
-  const router = useRouter();
   const renderComponent = () => {
-    if (active == 1) {
+    if (active == 1 && data) {
       return <UserProfile data={data.user} />;
     } else if (active == 2) {
       return <UserBidding data={data.user} />;
@@ -53,10 +56,10 @@ const ProfileDetail = () => {
   }
   return (
     <div className="min-h-screen pt-32 bg-stone-100">
-      <div className="w-full p-6 mx-auto rounded-md sm:w-11/12 ">
+      <div className="w-full p-3 mx-auto rounded-md lg:p-6 lg:w-11/12 ">
         <p className="mb-4 text-2xl font-baiMedium">Account Settings</p>
-        <div className="flex flex-col gap-0 bg-white rounded-md sm:gap-4 md:gap-8 sm:flex-row ">
-          <div className="flex flex-col gap-2 p-3 pr-2 m-3 text-gray-500 border-b-2 sm:border-r-2 md:pr-6 ">
+        <div className="flex flex-col gap-0 bg-white rounded-md lg:gap-8 sm:flex-row">
+          <div className="flex flex-col gap-2 md:p-2 p-0  md:m-3 m-0 text-gray-500 border-b-2 sm:border-r-2   sm:w-[200px] w-full">
             <List>
               {ProfileDetails.map((item) => {
                 return (
@@ -73,26 +76,31 @@ const ProfileDetail = () => {
                 );
               })}
             </List>
-            {user._id.toString() === data.user._id.toString() && (
-              <span
-                className={`p-4 rounded-md cursor-pointer text-red-600`}
-                onClick={() => {
-                  setUser({
-                    name: "",
-                    _id: "",
-                    token: "",
-                  });
-                  cookie.remove("authorization", {
-                    path: "/",
-                  });
+            {data &&
+              data.user &&
+              user._id.toString() === data.user._id.toString() && (
+                <span
+                  className={`p-2 rounded-md cursor-pointer text-red-600`}
+                  onClick={() => {
+                    setUser({
+                      name: "",
+                      _id: "",
+                      token: "",
+                      avatar: "",
+                      selectedAddress: -1,
+                      address: [],
+                    });
+                    cookie.remove("authorization", {
+                      path: "/",
+                    });
 
-                  toast.success("User Logout Successfully");
-                  router.push("/");
-                }}
-              >
-                Logout
-              </span>
-            )}
+                    router.push("/");
+                    toast.success("User Logout Successfully");
+                  }}
+                >
+                  Logout
+                </span>
+              )}
           </div>
           {renderComponent()}
         </div>

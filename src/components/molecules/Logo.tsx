@@ -3,15 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 const Logo = () => {
   return (
-    <Link href={"/"}>
-      <Image
-        src="/images/logi.png"
-        height={200}
-        width={200}
-        alt="logo"
-        className="bg-transparent"
-      />
-    </Link>
+    <div className="relative h-16 md:w-56 md:h-20 w-36">
+      <Link href={"/"}>
+        <Image
+          src="/images/logi.png"
+          fill
+          alt="logo"
+          className="object-contain bg-transparent"
+        />
+      </Link>
+    </div>
   );
 };
 
