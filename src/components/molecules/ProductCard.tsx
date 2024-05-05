@@ -62,7 +62,7 @@ const ProductCard: FC<CurrProductType> = ({
           <p className="hidden text-xs text-white/60 sm:text-sm sm:block">
             Start on
           </p>
-          <p className="w-24 text-xs sm:w-36 sm:text-sm md:text-base font-baiMedium whitespace-nowrap">
+          <p className="text-lg w-36 sm:w-36 sm:text-sm md:text-base font-baiMedium whitespace-nowrap">
             {/* {formatDuration(startStamp - now)} */}
             <Countdown
               date={productData.starting}
@@ -99,17 +99,25 @@ const ProductCard: FC<CurrProductType> = ({
         <p className="hidden w-20 text-xs text-white/60 sm:text-sm sm:block">
           Time Left
         </p>
-        <div className="w-24 text-xs sm:w-36 sm:text-sm md:text-base font-baiMedium whitespace-nowrap">
+        <div className="w-40 !text-lg sm:w-36 sm:text-sm md:text-base font-baiMedium whitespace-nowrap">
           {/* {remainingTime} */}
           <Countdown
             date={end}
-            renderer={(props) => (
-              <div className="text-xs md:text-base">
-                {props.hours.toString().padStart(2, "0")}h :{" "}
-                {props.minutes.toString().padStart(2, "0")}m :{" "}
-                {props.seconds.toString().padStart(2, "0")}s
-              </div>
-            )}
+            renderer={({ days, hours, minutes, seconds, completed }) => {
+              const isDays = days == 0;
+              return (
+                <div>
+                  {completed
+                    ? "Bid Started"
+                    : `${
+                        !isDays ? `${days.toString().padStart(2, "0")}d :` : ""
+                      }
+                ${hours.toString().padStart(2, "0")}h : 
+              ${minutes.toString().padStart(2, "0")}m : 
+              ${seconds.toString().padStart(2, "0")}s`}
+                </div>
+              );
+            }}
           />
         </div>
       </div>

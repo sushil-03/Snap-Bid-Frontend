@@ -171,15 +171,6 @@ const Navbar = () => {
                     className={`absolute right-0 z-50 mt-4  transition-all ease-out duration-300`}
                   >
                     <div className="flex flex-col w-[150px] gap-2 bg-slate-200 shadow-2xl px-4 py-4 rounded-md">
-                      <Link
-                        href={`/profile/${user._id}`}
-                        className="cursor-pointer group"
-                      >
-                        <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
-                          Profile
-                        </div>
-                        <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
-                      </Link>
                       <Link href={`/explore`} className="cursor-pointer group">
                         <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
                           Explore
@@ -198,6 +189,15 @@ const Navbar = () => {
                       <Link href={"/orders"} className="cursor-pointer group">
                         <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
                           Orders
+                        </div>
+                        <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
+                      </Link>
+                      <Link
+                        href={`/profile/${user._id}`}
+                        className="cursor-pointer group"
+                      >
+                        <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
+                          Profile
                         </div>
                         <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
                       </Link>
