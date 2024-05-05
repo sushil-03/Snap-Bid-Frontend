@@ -25,4 +25,8 @@ module.exports = withBundleAnalyzer({
     domains: ["res.cloudinary.com", "picsum.photos"],
   },
   reactStrictMode: false,
+  env: {
+    NEXT_PUBLIC_STRIPE_PUBLISABLE_KEY:
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISABLE_KEY,
+  },
 });
