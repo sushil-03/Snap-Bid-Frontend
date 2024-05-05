@@ -29,29 +29,6 @@ const ProductCard: FC<CurrProductType> = ({
   productData,
   isLoading,
 }) => {
-  // const formatDuration = (timeDifferenceMs: number) => {
-  //   const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
-  //   const hours = Math.floor((timeDifferenceMs / (1000 * 60 * 60)) % 24);
-  //   const minutes = Math.floor((timeDifferenceMs / (1000 * 60)) % 60);
-  //   const second = Math.floor((timeDifferenceMs / 1000) % 60);
-
-  //   let formattedTimeDifference = `${days
-  //     .toString()
-  //     .padStart(2, "0")}d : ${hours.toString().padStart(2, "0")}h : ${minutes
-  //     .toString()
-  //     .padStart(2, "0")}m`;
-  //   if (days === 0) {
-  //     formattedTimeDifference =
-  //       formattedTimeDifference.slice(6) +
-  //       " : " +
-  //       second.toString().padStart(2, "0") +
-  //       "s";
-  //   }
-
-  //   return formattedTimeDifference;
-  // };
-
-  // if (!productData) return <div></div>;
   const getTime = () => {
     const start = new Date(productData.starting!);
     const end = new Date(productData.ending!);

@@ -114,13 +114,14 @@ const Navbar = () => {
                 >
                   <div className="flex items-center justify-between gap-3 px-2 bg-white border-2 border-red-400 rounded-md cursor-pointer profile-dropdown hover:bg-red-50">
                     <div className="flex items-center flex-1 gap-3 ">
-                      <Image
-                        src={user.avatar}
-                        height={50}
-                        width={50}
-                        alt="profile"
-                        className="hidden rounded-full sm:block"
-                      />
+                      <div className="relative w-12 h-12 rounded-full">
+                        <Image
+                          src={user.avatar}
+                          fill
+                          alt="profile"
+                          className="hidden rounded-full sm:block"
+                        />
+                      </div>
                       <p className="p-2 sm:p-0">{user.name}</p>
                     </div>
                   </div>
@@ -136,7 +137,7 @@ const Navbar = () => {
             </Link>
           )}
 
-          <Link href={"/sell"}>
+          <Link href={user._id ? "/sell" : "/auth"}>
             <div
               className="sm:block hidden w-full p-2 rounded-md text-whte bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 
             hover:shadow-[0px_0px_10px_4px_rgba(239,_68,_68,_0.7)] duration-500 ease-in-out"
@@ -150,7 +151,6 @@ const Navbar = () => {
             </div>
           </Link>
           <div className="">
-            {/* hey {user.avatar} */}
             {user.avatar && (
               <div className="relative block sm:hidden">
                 <div
@@ -195,7 +195,10 @@ const Navbar = () => {
                         </div>
                         <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
                       </Link>
-                      <Link href={"/sell"} className="cursor-pointer group">
+                      <Link
+                        href={user._id ? "/sell" : "/auth"}
+                        className="cursor-pointer group"
+                      >
                         <div className="text-xs transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
                           Sell
                         </div>
