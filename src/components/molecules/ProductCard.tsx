@@ -38,7 +38,7 @@ const ProductCard: FC<CurrProductType> = ({
     if (now > endStamp) {
       return (
         <p
-          className={`md:text-lg sm:text-sm text-xs ${
+          className={`md:text-md sm:text-sm text-xs ${
             productData.status === "Expired"
               ? "text-rose-600"
               : productData.status === "Completed"
@@ -59,13 +59,49 @@ const ProductCard: FC<CurrProductType> = ({
     if (now < startStamp) {
       return (
         <div className="">
-          <p className="hidden text-xs text-white/60 sm:text-sm sm:block">
+          <p className="hidden w-20 text-xs text-white/60 sm:text-sm md:block">
             Start on
           </p>
-          <p className="text-lg w-36 sm:w-36 sm:text-sm md:text-base font-baiMedium whitespace-nowrap">
-            {/* {formatDuration(startStamp - now)} */}
+          <div className="w-full text-[12px] xxs:text-[14px] xs:text-lg sm:text-base font-baiMedium whitespace-nowrap">
+            <div className="w-full md:w-32 ">
+              <Countdown
+                date={productData.starting}
+                renderer={({ days, hours, minutes, seconds, completed }) => {
+                  const isDays = days == 0;
+                  return (
+                    <div>
+                      {completed
+                        ? "Bid Started"
+                        : `${
+                            !isDays
+                              ? `${days.toString().padStart(2, "0")}d :`
+                              : ""
+                          }
+                  ${hours.toString().padStart(2, "0")}h : 
+                ${minutes.toString().padStart(2, "0")}m : 
+                ${seconds.toString().padStart(2, "0")}s`}
+                    </div>
+                  );
+                }}
+              ></Countdown>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    // const remainingTime = formatDuration(result);
+
+    // return remainingTime;
+    return (
+      <div>
+        <p className="hidden text-xs text-white/60 sm:text-sm md:block">
+          Time Left
+        </p>
+        <div className="w-full  md:w-36 text-[12px]   xs:text-lg sm:text-base font-baiMedium whitespace-nowrap">
+          {/* {remainingTime} */}
+          <div className="flex items-center justify-center w-full xs:w-28 sm:w-32">
             <Countdown
-              date={productData.starting}
+              date={end}
               renderer={({ days, hours, minutes, seconds, completed }) => {
                 const isDays = days == 0;
                 return (
@@ -84,41 +120,7 @@ const ProductCard: FC<CurrProductType> = ({
                 );
               }}
             ></Countdown>
-          </p>
-        </div>
-      );
-    }
-
-    const result = endStamp - now;
-    console.log("result", result);
-    // const remainingTime = formatDuration(result);
-
-    // return remainingTime;
-    return (
-      <div>
-        <p className="hidden w-20 text-xs text-white/60 sm:text-sm sm:block">
-          Time Left
-        </p>
-        <div className="w-40 !text-lg sm:w-36 sm:text-sm md:text-base font-baiMedium whitespace-nowrap">
-          {/* {remainingTime} */}
-          <Countdown
-            date={end}
-            renderer={({ days, hours, minutes, seconds, completed }) => {
-              const isDays = days == 0;
-              return (
-                <div>
-                  {completed
-                    ? "Bid Started"
-                    : `${
-                        !isDays ? `${days.toString().padStart(2, "0")}d :` : ""
-                      }
-                ${hours.toString().padStart(2, "0")}h : 
-              ${minutes.toString().padStart(2, "0")}m : 
-              ${seconds.toString().padStart(2, "0")}s`}
-                </div>
-              );
-            }}
-          />
+          </div>
         </div>
       </div>
     );
@@ -126,9 +128,9 @@ const ProductCard: FC<CurrProductType> = ({
 
   return (
     <div
-      className={` relative items-center inline-block rounded-md  sm:rounded-xl shadow-[8px_8px_30px_rgb(0,0,0,0.12)] bg-transparent z-20 overflow-hidden w-full  xs:h-[18rem] sm:h-[28rem] h-[16rem] ${classname}   `}
+      className={` relative items-center inline-block rounded-md  sm:rounded-xl shadow-[8px_8px_30px_rgb(0,0,0,0.12)] bg-transparent z-20 overflow-hidden w-full h-[21rem] xxs:h-[20rem] md:h-[25rem] lg:h-[30rem] sm:h-[24rem] xs:h-[23rem] ${classname}   `}
     >
-      {/* <span className="sm:bg-blue-500 xs:bg-red-500 xxs:bg-purple-800 bigMobile:bg-black-800 mobile:bg-yellow-800">
+      {/* <span className="md:bg-orange-600 lg:bg-fuchsia-800 sm:bg-blue-500 xs:bg-red-800 xxs:bg-purple-800 bigMobile:bg-black-800 mobile:bg-yellow-800">
         COlor
       </span> */}
       {isLoading ? (
@@ -150,7 +152,7 @@ const ProductCard: FC<CurrProductType> = ({
                 {/* profile */}
 
                 {/* Product Image */}
-                <div className="relative flex items-center w-full h-40 sm:h-80 xs:h-40 xxs:h-30 ">
+                <div className="relative flex items-center w-full h-40 xs:h-56 md:h-60 lg:h-80 ">
                   <Image
                     src={
                       productData.images && productData.images[0]
@@ -161,7 +163,7 @@ const ProductCard: FC<CurrProductType> = ({
                     fill
                     className="object-cover -z-20"
                   />
-                  <div className="absolute right-0 top-1 xs:top-3 sm:right-4 sm:left-0 left-1">
+                  <div className="absolute right-0 hidden top-1 xs:top-3 sm:right-4 sm:left-0 left-1 md:block">
                     <Image
                       src="/images/profile/p1.png"
                       alt=""
@@ -171,28 +173,29 @@ const ProductCard: FC<CurrProductType> = ({
                     />
                   </div>
                 </div>
-                <div className="absolute hidden w-11/12 ml-3 text-white/90 -bottom-5 sm:block">
+                <div className="absolute  lg:w-11/12 w-[96%] lg:ml-3 ml-1 text-white/90 -bottom-5 block">
                   {/* <div className="flex items-center justify-between px-2 overflow-hidden bg-gradient-to-tr from-gray-700 via-gray-900 to-black rounded-xl backdrop-brightness00 backdrop-brightness-150 font-bai"> */}
                   {/* <div className="flex items-center justify-between px-2 overflow-hidden bg-gradient-to-t    from-gray-900    from-50% via-gray-900 to-gray-700 to-100% rounded-xl backdrop-brightness00 backdrop-brightness-150 font-bai"> */}
-                  <div className="flex items-center justify-between px-2 overflow-hidden bg-gradient-to-t    from-gray-900    from-50% via-gray-900 to-gray-700 to-100% rounded-xl backdrop-brightness00 backdrop-brightness-150 font-bai">
-                    <div className="px-2 py-5">
-                      <p className="text-xs text-white/60 sm:text-sm">
+                  <div className="xs:flex md:flex-row flex-col hidden items-center justify-between md:px-2  overflow-hidden bg-gradient-to-t    from-gray-900    from-50% via-gray-900 to-gray-700 to-100% rounded-xl backdrop-brightness00 backdrop-brightness-150    px-1 py-2">
+                    <div className="flex flex-row items-center justify-between w-11/12 px-2 md:w-auto md:flex-col xxs:py-2 sm:py-1 md:py-5 md:gap-0">
+                      <p className="text-[10px] xxs:text-xs text-white/60 sm:text-sm">
                         Max Bid
                       </p>
-                      <p className="text-xs sm:text-sm font-baiMedium whitespace-nowrap">
-                        {productData.maxBid} ₹
+                      <p className="text-[12px] xxs:text-[14px] sm:text-base font-baiMedium whitespace-nowrap">
+                        ₹{productData.maxBid}
                       </p>
                     </div>
-                    <div className="px-1 py-5 lg:px-2">{getTime()}</div>
+                    <div className="px-2 sm:py-1 md:py-5">{getTime()}</div>
                   </div>
                 </div>
               </div>
-              <div className="w-full h-full px-2 pt-3 text-gray-200 sm:pt-6 sm:px-6 rounded-b-xl bg-black-900">
+              {/* px-2 pt-6 pb-10 text-gray-200 xs:pt-10 md:py-5 lg:pt-3 sm:px-6 */}
+              <div className="w-full h-full p-2 text-gray-200 rounded-b-xl bg-black-900 xs:p-6">
                 <div className="flex items-center justify-between text-lg uppercase md:text-xl font-baiMedium">
-                  <p className="overflow-hidden text-xxs xxs:text-xs sm:text-sm sm:flex-1 md:text-base whitespace-nowrap text-ellipsis">
+                  <p className="overflow-hidden text-sm sm:flex-1 xs:text-base whitespace-nowrap text-ellipsis">
                     {productData.title}
                   </p>
-                  <div className="relative w-10 h-7">
+                  <div className="relative hidden w-10 h-7 xs:block">
                     <Image
                       src={"/images/profile/p2.png"}
                       alt="profile"
@@ -202,21 +205,21 @@ const ProductCard: FC<CurrProductType> = ({
                   </div>
                 </div>
                 <div
-                  className={`flex  items-center justify-between mt-1  sm:hidden ${
-                    isShowBid ? "xs:flex-col" : "xs:flex-col"
+                  className={`flex  items-center justify-between mt-1  xs:hidden ${
+                    isShowBid ? "flex-col" : "flex-col"
                   }`}
                 >
                   <p className="text-sm font-semibold xs:text-xs ">
-                    ${productData.maxBid}{" "}
+                    ₹{productData.maxBid}{" "}
                   </p>
                   <p className="!text-xs">{getTime()}</p>
                 </div>
                 <div
-                  className={`items-center justify-between  mt-1  xs:mt-3 sm:mt-0 ${
-                    isShowBid ? "sm:block hidden " : "xxs:flex hidden"
+                  className={`items-center justify-between  mt-1  xs:mt-3 sm:mt-0  ${
+                    isShowBid ? "block  " : "flex"
                   }`}
                 >
-                  <div className="flex gap-2 pb-4 sm:block">
+                  <div className="flex flex-col gap-0 pb-4">
                     <p className="text-xs text-gray-500 font-baiMedium">
                       Total Bidders
                     </p>
@@ -236,7 +239,7 @@ const ProductCard: FC<CurrProductType> = ({
               <Button
                 variant="tertiary"
                 className="px-3 !py-1 sm:text-base xxs:text-sm text-xs sm:px-8 sm:py-[6px] bg-violet-600 hover:bg-violet-800 hover:scale-90 border-1 border-white hover:border-none transform transition-all duration-700 ease-in-out shadow-md disabled:bg-gray-800"
-                disabled={productData.status !== "Pending"}
+                disabled={productData.status === "Pending"}
               >
                 Bid
               </Button>

@@ -4,6 +4,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { getOrders } from "@/hooks/query/getOrder";
 import { useSelectedUser } from "@/hooks/state/useAppState";
 import Table from "@/components/molecules/Table";
+import Loader from "@/components/molecules/Loader";
 
 const index = () => {
   const [userType, setUserType] = useState("buyer");
@@ -21,7 +22,7 @@ const index = () => {
   return (
     <div className="w-full h-full min-h-screen mt-16 sm:mt-20 md:mt-32">
       <div className="flex flex-col w-full gap-2 p-2 pb-16 mx-auto mt-24 bg-gray-100 sm:px-10 rounded-xl shadow-3xl">
-        {isLoading && <div>Loading..</div>}
+        {isLoading && <Loader />}
         {isUser && !isLoading ? (
           <div>
             <div>
