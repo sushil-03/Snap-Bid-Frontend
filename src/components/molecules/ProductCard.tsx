@@ -16,6 +16,9 @@ export type CurrProductType = {
     totalBid: string;
     status: string;
     maxBid: number;
+    createdBy: {
+      avatar: string;
+    };
     allBidder: {
       bidder: string;
       bidAmount: number;
@@ -59,7 +62,7 @@ const ProductCard: FC<CurrProductType> = ({
     if (now < startStamp) {
       return (
         <div className="">
-          <p className="hidden w-20 text-xs text-white/60 sm:text-sm md:block">
+          <p className="hidden w-20 text-xs text-white/60 sm:text-sm md:block ">
             Start on
           </p>
           <div className="w-full text-[12px] xxs:text-[14px] xs:text-lg sm:text-base font-baiMedium whitespace-nowrap">
@@ -128,7 +131,7 @@ const ProductCard: FC<CurrProductType> = ({
 
   return (
     <div
-      className={` relative items-center inline-block rounded-md  sm:rounded-xl shadow-[8px_8px_30px_rgb(0,0,0,0.12)] bg-transparent z-20 overflow-hidden w-full h-[21rem] xxs:h-[20rem] md:h-[25rem] lg:h-[30rem] sm:h-[24rem] xs:h-[23rem] ${classname}   `}
+      className={` relative items-center inline-block rounded-md  sm:rounded-xl shadow-[8px_8px_30px_rgb(0,0,0,0.12)] bg-transparent z-20 overflow-hidden w-full h-[20rem] xxs:h-[19rem] md:h-[26rem] lg:h-[28rem] sm:h-[23rem] xs:h-[22rem] ${classname}   `}
     >
       {/* <span className="md:bg-orange-600 lg:bg-fuchsia-800 sm:bg-blue-500 xs:bg-red-800 xxs:bg-purple-800 bigMobile:bg-black-800 mobile:bg-yellow-800">
         COlor
@@ -152,7 +155,7 @@ const ProductCard: FC<CurrProductType> = ({
                 {/* profile */}
 
                 {/* Product Image */}
-                <div className="relative flex items-center w-full h-40 xs:h-56 md:h-60 lg:h-80 ">
+                <div className="relative flex items-center w-full h-44 xs:h-60 md:h-72 lg:h-80 ">
                   <Image
                     src={
                       productData.images && productData.images[0]
@@ -163,21 +166,22 @@ const ProductCard: FC<CurrProductType> = ({
                     fill
                     className="object-cover -z-20"
                   />
-                  <div className="absolute right-0 hidden top-1 xs:top-3 sm:right-4 sm:left-0 left-1 md:block">
-                    <Image
-                      src="/images/profile/p1.png"
-                      alt=""
-                      height={300}
-                      width={40}
-                      className="object-contain overflow-hidden "
-                    />
+                  <div className="absolute right-0 hidden top-1 xs:top-3 sm:right-4 sm:left-2 left-1 xxs:block">
+                    <div className="relative w-8 h-8 overflow-hidden bg-white rounded-full md:w-10 md:h-10">
+                      <Image
+                        src={productData.createdBy.avatar}
+                        alt=""
+                        fill
+                        className="object-contain overflowhidden"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="absolute  lg:w-11/12 w-[96%] lg:ml-3 ml-1 text-white/90 -bottom-5 block">
                   {/* <div className="flex items-center justify-between px-2 overflow-hidden bg-gradient-to-tr from-gray-700 via-gray-900 to-black rounded-xl backdrop-brightness00 backdrop-brightness-150 font-bai"> */}
                   {/* <div className="flex items-center justify-between px-2 overflow-hidden bg-gradient-to-t    from-gray-900    from-50% via-gray-900 to-gray-700 to-100% rounded-xl backdrop-brightness00 backdrop-brightness-150 font-bai"> */}
                   <div className="xs:flex md:flex-row flex-col hidden items-center justify-between md:px-2  overflow-hidden bg-gradient-to-t    from-gray-900    from-50% via-gray-900 to-gray-700 to-100% rounded-xl backdrop-brightness00 backdrop-brightness-150    px-1 py-2">
-                    <div className="flex flex-row items-center justify-between w-11/12 px-2 md:w-auto md:flex-col xxs:py-2 sm:py-1 md:py-5 md:gap-0">
+                    <div className="flex flex-row items-center justify-between w-11/12 px-2 py-0 md:w-auto md:flex-col sm:py-1 md:py-5 md:gap-0">
                       <p className="text-[10px] xxs:text-xs text-white/60 sm:text-sm">
                         Max Bid
                       </p>
@@ -185,7 +189,7 @@ const ProductCard: FC<CurrProductType> = ({
                         ₹{productData.maxBid}
                       </p>
                     </div>
-                    <div className="px-2 sm:py-1 md:py-5">{getTime()}</div>
+                    <div className="px-2 py-0 sm:py-1 md:py-5">{getTime()}</div>
                   </div>
                 </div>
               </div>
@@ -198,6 +202,7 @@ const ProductCard: FC<CurrProductType> = ({
                   <div className="relative hidden w-10 h-7 xs:block">
                     <Image
                       src={"/images/profile/p2.png"}
+                      // src={productData.allBidder.length==0? "/images/profile/p2.png":productData.allBidder}
                       alt="profile"
                       fill
                       className="hidden object-contain xxs:block"

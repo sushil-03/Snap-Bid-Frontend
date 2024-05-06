@@ -62,6 +62,7 @@ export type ProductGetType = {
   search?: string;
   page?: number
   signal?: any
+  status?: string;
 }
 export const createProduct = async (data: ProductType) => {
   const cookie = new Cookies()
@@ -92,10 +93,10 @@ export const placeBid = async (data: BidType) => {
   })
   return res;
 }
-export const getAllProduct = async ({ category = "", search = "", page = 1, signal }: ProductGetType) => {
+export const getAllProduct = async ({ category = "", search = "", page = 1, signal, status = "" }: ProductGetType) => {
   try {
     const res = await api.AXIOS({
-      url: `/api/v1/products?category=${category}&page=${page}&search=${search}`,
+      url: `/api/v1/products?category=${category}&page=${page}&search=${search}&status=${status}`,
       method: 'get',
       signal
     })

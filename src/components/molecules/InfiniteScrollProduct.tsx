@@ -6,15 +6,7 @@ import { getAllProduct } from "@/endpoints/product";
 import { Controls, Player } from "@lottiefiles/react-lottie-player";
 import axios from "axios";
 import { useRouter } from "next/router";
-const InfiniteScrollProduct = ({
-  data,
-  count,
-}: {
-  data: any;
-  count: number;
-}) => {
-  console.log("cc", count);
-
+const InfiniteScrollProduct = ({ data }: { data: any }) => {
   const queryClient = new QueryClient();
   const router = useRouter();
   const category = (router.query.cate as string) || "";

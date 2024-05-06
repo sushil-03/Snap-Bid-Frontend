@@ -139,7 +139,7 @@ const Navbar = () => {
             {user.avatar && (
               <div className="relative block lg:hidden">
                 <div
-                  className="relative transition-all duration-500 ease-in-out bg-gray-200 rounded-md cursor-pointer w-[75px] sm:w-20 hover:bg-gray-300 p-1"
+                  className="relative transition-all duration-500 ease-in-out bg-gray-200 rounded-md cursor-pointer w-[95px] sm:w-20 hover:bg-gray-300 p-1"
                   onClick={() => setShowLinks(!showAllLinks)}
                 >
                   <div className="relative flex w-10 h-10 p-2 overflow-hidden rounded-full sm:w-12 sm:h-12 ">
@@ -147,11 +147,11 @@ const Navbar = () => {
                       alt={user.name}
                       src={user.avatar}
                       fill
-                      className=" object-fit"
+                      className="object-contain "
                     />
                   </div>
                   <IoIosArrowDown
-                    // size={20}
+                    size={20}
                     className="absolute right-1 top-4"
                   />
                 </div>

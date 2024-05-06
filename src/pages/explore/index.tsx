@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { BsFillSendFill } from "react-icons/bs";
 
 import { PiPaperPlaneRightDuotone } from "react-icons/pi";
-import { categories } from "@/utils/constant";
+import { categories, statusList } from "@/utils/constant";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import Input from "@/components/atoms/Input";
 import { ImSearch } from "react-icons/im";
@@ -21,39 +21,56 @@ const index = () => {
   const router = useRouter();
   const [text, setText] = useState("");
   const [query] = useDebounce(text, 750);
-  const [count, setCount] = useState<number>(0);
   const category = router.query.cate as string;
+  const status = router.query.status as string;
   const { data, isLoading } = getProducts({
     category: (category as string) || "",
     search: query || "",
     page: 1,
+    status: status || "",
   });
   // useEffect(() => {
   //   setMyda(data);
   // }, [data]);
   // console.log("myyyyyyyyyyyy", myda);
 
-  useEffect(() => {
-    if (query) {
-      if (category) {
-        router.push(`/explore?cate=${category}&search=${query}`, {});
-      } else {
-        router.push(`/explore?search=${query}`);
-      }
-    } else {
-      console.log("qer", query, category);
-      if (category) {
-        setCount((count) => count + 1);
-        router.push(`/explore?cate=${category}`);
-      } else {
-        setCount((count) => count + 1);
-        router.push(`/explore`);
-        // refetch({ queryKey: ["products", "", "", 1] });
-      }
-    }
-  }, [query, category]);
-  // const [isStatus, showStatus] = useState(false);
-  // const status = router.query.status as string;
+  // useEffect(() => {
+  //   if (query) {
+  //     if (category) {
+  //       if (status) {
+  //         router.push(
+  //           `/explore?cate=${category}&search=${query}&status=${status}`,
+  //           {}
+  //         );
+  //       } else {
+  //         router.push(`/explore?cate=${category}&search=${query}`, {});
+  //       }
+  //     } else {
+  //       if (status) {
+  //         router.push(`/explore?search=${query}&status=${status}`, {});
+  //       } else {
+  //         router.push(`/explore?search=${query}`, {});
+  //       }
+  //     }
+  //   } else if (category) {
+  //     if (status) {
+  //       router.push(`/explore?cate=${category}&status=${status}`, {});
+  //     } else {
+  //       router.push(`/explore?cate=${category}`, {});
+  //     }
+  //   } else {
+  //     console.log("statu", status);
+
+  //     if (status) {
+  //       router.push(`/explore?status=${status}`, {});
+  //     } else {
+  //       router.push(`/explore`, {});
+  //     }
+  //     // setCount((count) => count + 1);
+  //     // router.push(`/explore`);
+  //     // refetch({ queryKey: ["products", "", "", 1] });
+  //   }
+  // }, [query, category, status]);
 
   const [filter, showFilter] = useState(false);
   console.log("Checking data", data);
@@ -68,10 +85,37 @@ const index = () => {
   // const handleSearch = (query: string) => {};
   const searchByCategory = (category: string) => {
     showFilter(false);
-    if (category === "") {
-      router.push("/explore");
+    if (!category || category === "") {
+      if (!status || status === "") {
+        router.push("/explore");
+      } else {
+        router.push(`/explore?status=${status}`);
+      }
     } else {
-      router.push(`/explore?cate=${category}`);
+      if (!status || status === "") {
+        router.push(`/explore?cate=${category}`);
+      } else {
+        router.push(`/explore?cate=${category}&status=${status}`);
+      }
+    }
+  };
+  const searchByStatus = (status: string) => {
+    showFilter(false);
+    console.log("statul", status);
+
+    if (!status || status === "") {
+      if (!category || category === "") {
+        router.push("/explore");
+      } else {
+        router.push(`/explore?cate=${category}`);
+      }
+    } else {
+      if (!category || category === "") {
+        console.log("11");
+        router.push(`/explore?status=${status}`);
+      } else {
+        router.push(`/explore?cate=${category}&status=${status}`);
+      }
     }
   };
   // const searchByFilter:FC<FilterType> = ({category="", status=""}) => {
@@ -108,7 +152,7 @@ const index = () => {
           }`}
         >
           <p className="px-4 mt-12 mb-2 text-4xl font-baibold">Filter</p>
-          <div className="flex flex-col justify-center gap-8 ">
+          <div className="flex flex-col justify-center gap-4 ">
             <div className="flex-col cursor-pointer sm:flex-row">
               <div className="w-full">
                 <div className="flex flex-row flex-wrap w-full gap-3 ">
@@ -139,6 +183,36 @@ const index = () => {
                 </div>
               </div>
             </div>
+            <div className="flex-col cursor-pointer sm:flex-row">
+              <div className="w-full">
+                <div className="flex flex-row flex-wrap w-full gap-3 ">
+                  <FormControl sx={{ m: 1 }} className="w-full ">
+                    <InputLabel id="demo-simple-select-helper-label">
+                      Status
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-helper-label"
+                      id="demo-simple-select-helper"
+                      value={status}
+                      label="Status"
+                      onChange={(e) => {
+                        // searchByFilter({category:e.target.value});
+                        searchByStatus(e.target.value as string);
+                      }}
+                    >
+                      <MenuItem value="">All</MenuItem>
+                      {statusList.map((item, key) => {
+                        return (
+                          <MenuItem value={item} key={key}>
+                            {item == "Pending" ? "Not Started" : item}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+            </div>
             <div className="px-2 cursor-pointer ">
               {/* <hr className="hidden my-2 sm:block" />
               <div
@@ -154,7 +228,7 @@ const index = () => {
                   )}
                 </p>
               </div> */}
-              <div className="flex flex-row flex-wrap w-full gap-3 ">
+              {/* <div className="flex flex-row flex-wrap w-full gap-3 ">
                 <div className="relative flex flex-row items-center justify-between flex-1 w-full gap-1 font-baiMedium">
                   <input
                     type="text"
@@ -165,7 +239,7 @@ const index = () => {
                     <BsFillSendFill color="white" />
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* <div className="px-4 cursor-pointer">
@@ -224,7 +298,7 @@ const index = () => {
         <div className="flex-1 mx-2 mt-12 mb-6">
           <div className="flex flex-row items-center justify-between">
             <p className="pl-2 text-lg sm:pl-4 sm:text-2xl xs:text-xl md:text-4xl font-baibold">
-              Top Gallery
+              Top Gallery {status}
             </p>
             <Input
               // icon={<RiSearchLine className="ml-2 text-violet-600" />}
@@ -241,7 +315,7 @@ const index = () => {
           </div>
           {/* <div className="flex flex-wrap items-center justify-center flex-grow w-full gap-4 mt-6 md:gap-8 lg:gap-10"> */}
           <div className="items-center w-full mx-auto">
-            {data && <InfiniteScrollProduct data={data} count={count} />}
+            {data && <InfiniteScrollProduct data={data} />}
           </div>
         </div>
       </div>

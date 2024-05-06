@@ -37,3 +37,11 @@ export const categories = [
     class: "bg-green-400 text-green-600",
   },
 ];
+
+export const statusList = [
+  "Pending",
+  "Active",
+  "Transaction",
+  "Completed",
+  "Expired",
+];
