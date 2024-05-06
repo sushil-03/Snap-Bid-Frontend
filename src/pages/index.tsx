@@ -90,34 +90,32 @@ const index = () => {
             <Button variant="secondary">Explore now</Button>
           </Link>
         </div>
-        {data && data.products.length > 2 && (
-          <div className="flex items-center w-full  align-bottom    mt-10 [&>*:nth-child(2)]:mb-20 lg:[&>*:nth-child(2)]:mb-32 overflow-x-scroll  2xl:w-4/5 lg:w-5/6 sm:gap-2 gap-1 lg:px-0 sm:px-4 xs:px-2 xxs:px-1  mx-auto  ">
-            <ProductCard
-              isShowBid={true}
-              isLoading={isLoading}
-              productData={data?.products[0]}
-              // classname="w-2/5 mx-auto xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/2 min-w-max h-1/2"
-              classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]"
-            />
-            <ProductCard
-              isLoading={isLoading}
-              isShowBid={true}
-              productData={data?.products[1]}
-              classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]  sm:block hidden"
+        <div className="flex items-center w-full  align-bottom    mt-10 [&>*:nth-child(2)]:mb-20 lg:[&>*:nth-child(2)]:mb-32 overflow-x-scroll  2xl:w-4/5 lg:w-5/6 sm:gap-2 gap-1 lg:px-0 sm:px-4 xs:px-2 xxs:px-1  mx-auto  ">
+          <ProductCard
+            isShowBid={true}
+            isLoading={isLoading}
+            productData={data?.products[0]}
+            // classname="w-2/5 mx-auto xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/2 min-w-max h-1/2"
+            classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]"
+          />
+          <ProductCard
+            isLoading={isLoading}
+            isShowBid={true}
+            productData={data?.products[1]}
+            classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]  sm:block hidden"
 
-              // classname="w-2/5 mx-auto xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
-            />{" "}
-            <ProductCard
-              isShowBid={true}
-              isLoading={isLoading}
-              productData={data?.products[2]}
-              classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]"
+            // classname="w-2/5 mx-auto xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
+          />{" "}
+          <ProductCard
+            isShowBid={true}
+            isLoading={isLoading}
+            productData={data?.products[2]}
+            classname="xs:h-[20rem] sm:h-[28rem] md:h-[30rem] xxs:h-[17rem] h-[16rem]"
 
-              // classname="w-2/5 mx-auto xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
-              // classname="!h-[35rem]"
-            />
-          </div>
-        )}
+            // classname="w-2/5 mx-auto xl:w-1/5 lg:w-1/3 md:w-1/3 sm:w-1/3 min-w-max"
+            // classname="!h-[35rem]"
+          />
+        </div>
       </div>
 
       {/* Third Screen */}
