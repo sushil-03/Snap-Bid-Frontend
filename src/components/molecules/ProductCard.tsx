@@ -97,7 +97,7 @@ const ProductCard: FC<CurrProductType> = ({
     // return remainingTime;
     return (
       <div>
-        <p className="hidden text-xs text-white/60 sm:text-sm md:block">
+        <p className="hidden w-20 text-xs text-white/60 sm:text-sm md:block">
           Time Left
         </p>
         <div className="w-full  md:w-36 text-[12px]   xs:text-lg sm:text-base font-baiMedium whitespace-nowrap">

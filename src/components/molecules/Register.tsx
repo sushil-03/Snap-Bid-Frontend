@@ -64,7 +64,9 @@ const Register = ({ setLogin }: { setLogin: (data: boolean) => void }) => {
     registerInitialValues
   );
   const [avatarLoading, setAvatarLoading] = useState(false);
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(
+    "https://res.cloudinary.com/dlv5hu0eq/image/upload/v1714206020/e9o6pmmm1dm6fuq6unrd.png"
+  );
   const callSubmitAPI = async () => {
     proposeRegister(registerData, {
       onSuccess(result) {
