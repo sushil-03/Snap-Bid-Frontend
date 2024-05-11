@@ -17,8 +17,6 @@ import { useBid } from "@/hooks/mutation/usePlaceBid";
 import { useQueryClient } from "react-query";
 import toast from "react-hot-toast";
 
-// import Button from '@mui/material/Button';
-
 const index = () => {
   const queryClient = useQueryClient();
   const [user] = useSelectedUser();
@@ -30,6 +28,10 @@ const index = () => {
   const { mutate: proposeBid, isLoading: isBidLoading } = useBid();
 
   const placeBid = () => {
+    if (bidAmount === "") {
+      toast.error("Please enter amount");
+      return;
+    }
     if (user.name === "") {
       toast.error("Please login to place bid");
       return;
@@ -87,7 +89,7 @@ const index = () => {
               renderer={({ days, hours, minutes, seconds, completed }) => {
                 const isDays = days == 0;
                 return (
-                  <div>
+                  <div className="w-64">
                     {completed
                       ? "Bid Started"
                       : `${
@@ -116,7 +118,7 @@ const index = () => {
               renderer={({ days, hours, minutes, seconds, completed }) => {
                 const isDays = days == 0;
                 return (
-                  <div>
+                  <div className="w-64 ">
                     {completed
                       ? "Bid Started"
                       : `${
@@ -221,7 +223,7 @@ const index = () => {
             <Dialog
               open={isOpen}
               onClose={() => setIsOpen(false)}
-              className="relative z-50 p-16 bg-black-100 text-black-600"
+              className="relative z-50 w-full p-16 bg-black-100 text-black-600"
             >
               <div
                 className="fixed inset-0 bg-black-900/30"
@@ -230,11 +232,11 @@ const index = () => {
 
               <div className="fixed inset-0 overflow-y-auto">
                 <div className="flex items-center justify-center min-h-full p-4 ">
-                  <Dialog.Panel className="w-full max-w-sm p-4 mx-auto bg-white rounded h-1/4">
+                  <Dialog.Panel className=" w-[95%] sm:w-5/6 p-4 mx-auto bg-white md:w-2/5 h-1/4 !rounded-md">
                     <Dialog.Title className="text-lg sm:text-xl font-baibold">
                       <div className="flex items-center justify-between mx-2">
                         <p>Place your bid</p>
-                        <p>{data.maxBid} ₹</p>
+                        <p>Max: ₹{data.maxBid}</p>
                       </div>
                     </Dialog.Title>
                     <div className="p-1 mt-6 font-baiMedium ">
@@ -261,8 +263,11 @@ const index = () => {
                         </Button>
                       </div>
                       <div className="text-gray-600 font-baiMedium">
-                        <p className="my-1 text-sm text-center ">
+                        <p className="my-1 text-sm ">
                           Bid should be more than current bid
+                        </p>
+                        <p className="my-1 text-sm ">
+                          Minimum bid increment : ₹{data.bidIncrement}
                         </p>
                         <p className="mt-8">Sales tax : 7.50%</p>
                         <p>GST(Goods and Services Tax) : 10%</p>

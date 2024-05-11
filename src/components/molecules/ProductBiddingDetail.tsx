@@ -131,7 +131,7 @@ const ProductBiddingDetail: FC<ProductSellDetailType> = ({
                 onChange={(e) => handleChange(e.target.value, "timeToPay")}
                 id="outlined-adornment-amount"
                 startAdornment={
-                  <InputAdornment position="start">min</InputAdornment>
+                  <InputAdornment position="start">hour</InputAdornment>
                 }
                 label="Time to pay"
               />

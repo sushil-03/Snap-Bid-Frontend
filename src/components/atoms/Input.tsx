@@ -8,6 +8,7 @@ import { FaEyeSlash } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
 
 type InputProps = {
+  iconClass?: string;
   label?: string;
   fullWidth?: boolean;
   Icon?: IconType;
@@ -18,6 +19,7 @@ const Input: FC<InputProps> = ({
   fullWidth = false,
   className,
   Icon,
+  iconClass = "",
   type,
   ...inputProps
 }) => {
@@ -39,7 +41,9 @@ const Input: FC<InputProps> = ({
     <div className="relative">
       {Icon && (
         // <div className="absolute top-0 bottom-0 h-full pr-2 border-r-2 border-gray-300 left-3">
-        <div className="absolute top-0 bottom-0 hidden my-auto left-3 sm:block">
+        <div
+          className={`absolute top-0 bottom-0 hidden my-auto left-3 sm:block ${iconClass}`}
+        >
           <p className="my-3 align-middle item-center">
             <Icon size={20} className="text-slate-700 " />
           </p>

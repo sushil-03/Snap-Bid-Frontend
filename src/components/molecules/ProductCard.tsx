@@ -131,13 +131,13 @@ const ProductCard: FC<CurrProductType> = ({
 
   return (
     <div
-      className={` relative items-center inline-block rounded-md  sm:rounded-xl shadow-[8px_8px_30px_rgb(0,0,0,0.12)] bg-transparent z-20 overflow-hidden w-full h-[20rem] xxs:h-[19rem] md:h-[26rem] lg:h-[28rem] sm:h-[23rem] xs:h-[22rem] ${classname}   `}
+      className={` relative items-center inline-block rounded-md  sm:rounded-xl shadow-[8px_8px_30px_rgb(0,0,0,0.12)] bg-transparent z-20 overflow-hidden w-full h-[20rem] xxs:h-[19rem] md:h-[26rem] lg:h-[32rem] sm:h-[23rem] xs:h-[22rem] ${classname}   `}
     >
       {/* <span className="md:bg-orange-600 lg:bg-fuchsia-800 sm:bg-blue-500 xs:bg-red-800 xxs:bg-purple-800 bigMobile:bg-black-800 mobile:bg-yellow-800">
         COlor
       </span> */}
-      {isLoading ? (
-        <div className="wfull h-full w-[20rem] bg-[#FFF]  relative">
+      {isLoading || !productData ? (
+        <div className="w-full h-[20rem] xxs:h-[19rem] md:h-[26rem] lg:h-[32rem] sm:h-[23rem] xs:h-[22rem] bg-[#FFF]   relative">
           <div className="w-full h-64 shimmerBG"></div>
           <div className="absolute w-11/12 p-12 -translate-x-1/2 bg-white left-1/2 rounded-xl bottom-28 shimmerBG"></div>
           <div className="absolute w-10 h-10 rounded-full shimmerBG bottom-16 right-5">
@@ -155,7 +155,7 @@ const ProductCard: FC<CurrProductType> = ({
                 {/* profile */}
 
                 {/* Product Image */}
-                <div className="relative flex items-center w-full h-44 xs:h-60 md:h-72 lg:h-80 ">
+                <div className="relative flex items-center w-full h-44 xs:h-60 md:h-72 lg:h-96 ">
                   <Image
                     src={
                       productData.images && productData.images[0]
@@ -166,16 +166,18 @@ const ProductCard: FC<CurrProductType> = ({
                     fill
                     className="object-cover -z-20"
                   />
-                  <div className="absolute right-0 hidden top-1 xs:top-3 sm:right-4 sm:left-2 left-1 xxs:block">
-                    <div className="relative w-8 h-8 overflow-hidden bg-white rounded-full md:w-10 md:h-10">
-                      <Image
-                        src={productData.createdBy.avatar}
-                        alt=""
-                        fill
-                        className="object-contain overflowhidden"
-                      />
+                  {productData.createdBy.avatar && (
+                    <div className="absolute right-0 hidden top-1 xs:top-3 sm:right-4 sm:left-2 left-1 xxs:block">
+                      <div className="relative w-8 h-8 overflow-hidden bg-white rounded-full md:w-10 md:h-10">
+                        <Image
+                          src={productData.createdBy.avatar}
+                          alt=""
+                          fill
+                          className="object-contain overflowhidden"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
                 <div className="absolute  lg:w-11/12 w-[96%] lg:ml-3 ml-1 text-white/90 -bottom-5 block">
                   {/* <div className="flex items-center justify-between px-2 overflow-hidden bg-gradient-to-tr from-gray-700 via-gray-900 to-black rounded-xl backdrop-brightness00 backdrop-brightness-150 font-bai"> */}

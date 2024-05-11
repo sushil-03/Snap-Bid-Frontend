@@ -7,7 +7,6 @@ export const getProductByID = (id: string) => {
   console.log("hello",);
 
   return useQuery(['product', id], () => getSingleProduct(id), {
-    // initialData: () => data?.products.find((product: any) => product._id === id),
     staleTime: 1000 * 60 * 1, // 1 minutes
     refetchInterval: 1000 * 60 * 1, //1 minutes
     refetchOnWindowFocus: true,

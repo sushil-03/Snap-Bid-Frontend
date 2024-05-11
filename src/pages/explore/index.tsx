@@ -5,7 +5,7 @@ import React, { useState } from "react";
 // import { BsFillSendFill } from "react-icons/bs";
 
 import { PiPaperPlaneRightDuotone } from "react-icons/pi";
-import { categories, statusList } from "@/utils/constant";
+import { categories, statusList } from "utils/constant";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import Input from "@/components/atoms/Input";
 import { ImSearch } from "react-icons/im";
@@ -125,12 +125,12 @@ const index = () => {
 
   if (!data) return <></>;
   return (
-    <div className="min-h-screen lg:mt-24 md:mt-16 mt-14">
+    <div className="min-h-screen mt-10 lg:mt-20 md:mt-14">
       <div className="flex flex-col sm:flex-row">
         {/* Categories */}
         <div>
           <button
-            className="fixed z-50 p-2 text-white md:p-4 bg-black-300 xl:hidden"
+            className="fixed z-50 p-2 mt-24 text-white md:p-4 bg-black-300 xl:hidden"
             onClick={() => {
               showFilter(!filter);
               window.scrollTo({
@@ -213,85 +213,6 @@ const index = () => {
                 </div>
               </div>
             </div>
-            <div className="px-2 cursor-pointer ">
-              {/* <hr className="hidden my-2 sm:block" />
-              <div
-                className="flex items-center justify-between text-xl sm:text-2xl"
-                onClick={() => showLocation(!location)}
-              >
-                <p className=" font-baiMedium">Location</p>
-                <p>
-                  {location ? (
-                    <AiOutlineArrowDown className="" />
-                  ) : (
-                    <AiOutlineArrowUp className="" />
-                  )}
-                </p>
-              </div> */}
-              {/* <div className="flex flex-row flex-wrap w-full gap-3 ">
-                <div className="relative flex flex-row items-center justify-between flex-1 w-full gap-1 font-baiMedium">
-                  <input
-                    type="text"
-                    placeholder="location"
-                    className="w-full px-1 !pr-10  text-sm border border-[#bdbdbd] outline-none sm:p-4"
-                  />
-                  <button className="absolute right-0 h-full px-6 transition-all duration-500 ease-in-out bg-blue-900 rounded-sm hover:bg-blue-800 md:p-2 ">
-                    <BsFillSendFill color="white" />
-                  </button>
-                </div>
-              </div> */}
-            </div>
-
-            {/* <div className="px-4 cursor-pointer">
-              <hr className="hidden sm:block" />
-              <div
-                className="flex items-center justify-between text-xl sm:text-2xl"
-                onClick={() => showStatus(!isStatus)}
-              >
-                <p className="font-baiMedium">Status</p>
-                <p>
-                  {isStatus ? (
-                    <AiOutlineArrowDown className="" />
-                  ) : (
-                    <AiOutlineArrowUp className="" />
-                  )}
-                </p>
-              </div>
-              <div className="flex flex-row flex-wrap w-full gap-3 my-2 ml-4 font-baiMedium">
-                {isStatus && (
-                  <div className="flex items-center justify-between w-full gap-6 md:gap-3">
-                    <FormControl>
-                      <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="All"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="pending"
-                          control={<Radio />}
-                          label="Pending"
-                        />
-                        <FormControlLabel
-                          value="active"
-                          control={<Radio />}
-                          label="Active"
-                        />
-                        <FormControlLabel
-                          value="trasaction"
-                          control={<Radio />}
-                          label="Transaction"
-                        />
-                        <FormControlLabel
-                          value="expired"
-                          control={<Radio />}
-                          label="Expired"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-                  </div>
-                )}
-              </div>
-            </div> */}
           </div>
         </div>
         {/* Product */}
@@ -303,6 +224,7 @@ const index = () => {
             <Input
               // icon={<RiSearchLine className="ml-2 text-violet-600" />}
               Icon={ImSearch}
+              iconClass="!block"
               type="text"
               value={text}
               onChange={(e) => {

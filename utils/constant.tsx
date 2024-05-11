@@ -1,11 +1,11 @@
 export const categories = [
   {
     name: "Abstract",
-    class: "bg-yellow-400 text-yellow-600",
+    class: "bg-lime-400 text-lime-600",
   },
   {
     name: "Electronic",
-    class: "bg-yellow-400 text-yellow-600",
+    class: "bg-teal-400 text-teal-600",
   },
   {
     name: "Vehicle",
@@ -16,13 +16,14 @@ export const categories = [
     class: "bg-yellow-400 text-yellow-600",
   },
   {
-    name: "Furniture",
-    class: "bg-teal-400 text-teal-600",
-  },
-  {
     name: "Painting",
     class: " bg-violet-400 text-violet-600",
   },
+  {
+    name: "Furniture",
+    class: "bg-yellow-400 text-yellow-600",
+  },
+
   {
     name: "Jewellery",
     class: " bg-red-400  text-red-600",

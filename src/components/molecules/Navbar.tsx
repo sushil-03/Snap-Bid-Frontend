@@ -58,7 +58,7 @@ const Navbar = () => {
   return (
     <Fragment>
       <div
-        className={`fixed z-50 flex  justify-between sm:px-4  px-2  pt-4 pb-6  transform -translate-x-1/2  left-1/2   md:mt-4 mt-0 sm:w-11/12 w-full mx-auto  bg-[#f6f6f6]  transition-all ease-in-out duration-600 md:h-24 h-20 items-center rounded-md  md:rounded-full ${
+        className={`fixed z-50 flex  justify-between sm:px-4  px-2  pt-4 pb-6  transform -translate-x-1/2  left-1/2    mt-0 sm:w-11/12 w-full mx-auto  bg-[#f6f6f6]  transition-all ease-in-out duration-600 md:h-24 h-20 items-center rounded-md  md:rounded-full ${
           visible ? "top-0" : "md:-top-36 "
         } `}
       >
@@ -97,14 +97,14 @@ const Navbar = () => {
                   href={`/profile/${user._id}`}
                   className="w-20 md:w-40 sm:w-32"
                 >
-                  <div className="flex items-center justify-between gap-3 px-2 bg-white border-2 border-red-400 rounded-md cursor-pointer profile-dropdown hover:bg-red-50">
+                  <div className="flex items-center justify-between gap-3 px-2 py-[2px] bg-white border-2 border-red-400 rounded-md cursor-pointer profile-dropdown hover:bg-red-50">
                     <div className="flex items-center flex-1 gap-3 ">
-                      <div className="relative w-12 h-12 rounded-full">
+                      <div className="relative w-12 h-12 py-1 rounded-full">
                         <Image
                           src={user.avatar}
                           fill
                           alt="profile"
-                          className="hidden rounded-full sm:block"
+                          className="hidden object-cover rounded-full sm:block"
                         />
                       </div>
                       <p className="p-2 sm:p-0">{user.name}</p>

@@ -42,26 +42,13 @@ const MainContainer = ({ children }: { children: ReactNode }) => {
   return (
     <Fragment>
       <ThemeProvider theme={theme}>
-        <title>Bid Connect</title>
+        <title>Snapbid</title>
         <div className="relative w-full pb-8 mx-auto overflow-hidden bg-[#f6f6f6]">
           <Navbar />
           <main>{children}</main>
         </div>
         <Footer />
         <Toaster position="bottom-center" reverseOrder={false} />
-
-        {/* <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-        /> */}
       </ThemeProvider>
     </Fragment>
   );

@@ -33,12 +33,12 @@ export type ProductType = {
   owner: "1st" | "2nd" | "3rd";
   enable_email: Boolean
   condition: "Antique" | "New" | "Old" | "Refurbished" | "Used" | "Open Box";
-  startingBid: Number;
+  startingBid: number;
   startingDate: "";
   endingDate: "";
   startingTime: "";
   starting: Date,
-  timeToPay: Number,
+  timeToPay: number,
   ending: Date,
   endingTime: "";
   paymentOption: "online" | "offline" | "both";

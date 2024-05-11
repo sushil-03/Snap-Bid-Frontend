@@ -78,7 +78,7 @@ const MyProfile = ({ data }: any) => {
               <span className="text-sm">
                 <Rating
                   name="read-only"
-                  value={3}
+                  value={4}
                   readOnly
                   className="text-lg smxt-sm"
                 />

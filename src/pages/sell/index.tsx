@@ -45,7 +45,7 @@ const initialValues: ProductType = {
   title: "",
   description: "",
   images: [],
-  timeToPay: 30,
+  timeToPay: 2,
   category: "Others",
   owner: "1st",
   condition: "New",
@@ -116,7 +116,7 @@ const index = () => {
       new Date(product.startingDate)
     );
     product.starting.setSeconds(0);
-
+    product.timeToPay = product.timeToPay * 60;
     product.ending = combineDateTime(
       new Date(product.endingTime),
       new Date(product.endingDate)

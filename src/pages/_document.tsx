@@ -1,6 +1,6 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
 
-import { AppConfig } from "@/utils/AppConfig";
+import { AppConfig } from "utils/AppConfig";
 
 // Need to create a custom _document because i18n support is not compatible with `next export`.
 class MyDocument extends Document {
@@ -8,7 +8,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang={AppConfig.locale}>
-        <Head></Head>
+        <Head>
+          <link rel="icon" href="/images/image.png" sizes="any" />
+        </Head>
         <body>
           <Main />
           <NextScript />

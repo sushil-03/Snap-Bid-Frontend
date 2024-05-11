@@ -40,12 +40,13 @@ const UserBidding = ({ data }: any) => {
   };
   const renderProduct = (products: any) => {
     return (
-      <div className="flex flex-wrap w-full gap-4 mx-2 mt-8 xl:gap-8">
+      // <div className="flex flex-wrap w-full gap-4 mx-2 mt-8 xl:gap-4">
+      <div className="grid grid-cols-1 mt-8 lg:grid-cols-3 md:grid-cols-2 gap-x-4 gap-y-6">
         {products.map((item: any) => {
           return (
             <ProductCard
               productData={item.product}
-              classname="w-5/6 md:w-8/12 lg:w-1/2 2xl:w-1/4 xl:w-1/3 min-w-max"
+              // classname="w-5/6 md:w-8/12 lg:w-1/2 2xl:w-1/4 xl:w-1/3 min-w-max"
             />
           );
         })}

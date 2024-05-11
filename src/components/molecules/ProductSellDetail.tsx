@@ -6,7 +6,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Button from "@/components/atoms/Button";
 import Image from "next/image";
 import { ProductType, ProductImageType } from "@/endpoints/product";
-import { categories } from "@/utils/constant";
+import { categories } from "utils/constant";
 import axios from "axios";
 import { useSelectedUser } from "@/hooks/state/useAppState";
 import { useRouter } from "next/router";
