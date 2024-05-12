@@ -173,7 +173,7 @@ export const Header = () => {
       <h1 className="text-2xl font-bold md:text-6xl ">
         From Bids to Riches <br /> Your Path to Success!
       </h1>
-      <p className="max-w-2xl mt-8 text-base md:text-xl dark:text-neutral-200">
+      <p className="max-w-2xl mt-8 text-base text-gray-800 md:text-xl">
         Welcome to Snapbid, your premier online bidding destination. Explore a
         world of exciting auctions and exclusive deals on a wide range of
         products.
