@@ -11,6 +11,7 @@ import Input from "@/components/atoms/Input";
 import { ImSearch } from "react-icons/im";
 import InfiniteScrollProduct from "@/components/molecules/InfiniteScrollProduct";
 import { useDebounce } from "use-debounce";
+import FilterDropdownMenu from "./filter-dropdown-menu";
 
 // type FilterType = {
 //   category?: string | "";
@@ -82,42 +83,7 @@ const index = () => {
       </div>
     );
   }
-  // const handleSearch = (query: string) => {};
-  const searchByCategory = (category: string) => {
-    showFilter(false);
-    if (!category || category === "") {
-      if (!status || status === "") {
-        router.push("/explore");
-      } else {
-        router.push(`/explore?status=${status}`);
-      }
-    } else {
-      if (!status || status === "") {
-        router.push(`/explore?cate=${category}`);
-      } else {
-        router.push(`/explore?cate=${category}&status=${status}`);
-      }
-    }
-  };
-  const searchByStatus = (status: string) => {
-    showFilter(false);
-    console.log("statul", status);
 
-    if (!status || status === "") {
-      if (!category || category === "") {
-        router.push("/explore");
-      } else {
-        router.push(`/explore?cate=${category}`);
-      }
-    } else {
-      if (!category || category === "") {
-        console.log("11");
-        router.push(`/explore?status=${status}`);
-      } else {
-        router.push(`/explore?cate=${category}&status=${status}`);
-      }
-    }
-  };
   // const searchByFilter:FC<FilterType> = ({category="", status=""}) => {
   // showFilter(false);
   // router.push(`/explore?cate=${category}?status=${status}`);
@@ -128,7 +94,7 @@ const index = () => {
     <div className="min-h-screen mt-10 lg:mt-20 md:mt-14">
       <div className="flex flex-col sm:flex-row">
         {/* Categories */}
-        <div>
+        {/* <div>
           <button
             className="fixed z-50 p-2 mt-24 text-white md:p-4 bg-black-300 xl:hidden"
             onClick={() => {
@@ -142,85 +108,17 @@ const index = () => {
           >
             <PiPaperPlaneRightDuotone className="z-50 text-xl" />
           </button>
-        </div>
+        </div> */}
 
-        <div
-          className={`xl:static   absolute flex flex-col w-full gap-2 xl:w-[200px] transition-all ease-in-out duration-300  z-30 bg-[#f6f6f6] min-h-screen ${
-            filter
-              ? "translate-x-0"
-              : "-translate-x-full mx-0  xl:translate-x-0"
-          }`}
-        >
-          <p className="px-4 mt-12 mb-2 text-4xl font-baibold">Filter</p>
-          <div className="flex flex-col justify-center gap-4 ">
-            <div className="flex-col cursor-pointer sm:flex-row">
-              <div className="w-full">
-                <div className="flex flex-row flex-wrap w-full gap-3 ">
-                  <FormControl sx={{ m: 1 }} className="w-full ">
-                    <InputLabel id="demo-simple-select-helper-label">
-                      Category
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-helper-label"
-                      id="demo-simple-select-helper"
-                      value={category}
-                      label="Product"
-                      onChange={(e) => {
-                        // searchByFilter({category:e.target.value});
-                        searchByCategory(e.target.value as string);
-                      }}
-                    >
-                      <MenuItem value="">All</MenuItem>
-                      {categories.map((item, key) => {
-                        return (
-                          <MenuItem value={item.name} key={key}>
-                            {item.name}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </FormControl>
-                </div>
-              </div>
-            </div>
-            <div className="flex-col cursor-pointer sm:flex-row">
-              <div className="w-full">
-                <div className="flex flex-row flex-wrap w-full gap-3 ">
-                  <FormControl sx={{ m: 1 }} className="w-full ">
-                    <InputLabel id="demo-simple-select-helper-label">
-                      Status
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-helper-label"
-                      id="demo-simple-select-helper"
-                      value={status}
-                      label="Status"
-                      onChange={(e) => {
-                        // searchByFilter({category:e.target.value});
-                        searchByStatus(e.target.value as string);
-                      }}
-                    >
-                      <MenuItem value="">All</MenuItem>
-                      {statusList.map((item, key) => {
-                        return (
-                          <MenuItem value={item} key={key}>
-                            {item == "Pending" ? "Not Started" : item}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </FormControl>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         {/* Product */}
         <div className="flex-1 mx-2 mt-12 mb-6">
           <div className="flex flex-row items-center justify-between">
-            <p className="pl-2 text-lg sm:pl-4 sm:text-2xl xs:text-xl md:text-4xl font-baibold">
-              Top Gallery {status}
-            </p>
+            <div className="flex flex-row items-center gap-0 ">
+              <p className="pl-2 text-lg sm:pl-4 sm:text-2xl xs:text-xl md:text-4xl font-baibold">
+                Top Gallery
+              </p>
+              <FilterDropdownMenu />
+            </div>
             <Input
               // icon={<RiSearchLine className="ml-2 text-violet-600" />}
               Icon={ImSearch}

@@ -5,7 +5,7 @@ export const getProducts = ({ category = "", search = "", page = 1, status }: Pr
     staleTime: 1000 * 60 * 10, // 5 minutes
     refetchInterval: 1000 * 60 * 10, // 5 minutes
     enabled: true,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
     refetchOnMount: false,
 
   });

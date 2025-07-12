@@ -64,6 +64,7 @@ module.exports = {
       },
       animation: {
         loader: "loader 0.6s infinite alternate",
+        gradient: "gradient 15s ease infinite",
       },
       keyframes: {
         loader: {

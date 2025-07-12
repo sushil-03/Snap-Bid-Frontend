@@ -8,10 +8,12 @@ import { useSelectedUser } from "@/hooks/state/useAppState";
 import Cookies from "universal-cookie";
 import { IoIosArrowDown } from "react-icons/io";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const cookie = new Cookies();
   const [user, setUser] = useSelectedUser();
+  const router = useRouter();
   const [showAllLinks, setShowLinks] = useState(false);
 
   const navlist = [
@@ -40,6 +42,16 @@ const Navbar = () => {
     //   link: "/about",
     // },
   ];
+  const handleSell = () => {
+    if (user._id) {
+      router.push("/sell");
+    } else {
+      toast.error("Please login to sell");
+      setTimeout(() => {
+        router.push("/auth");
+      }, 100);
+    }
+  };
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState<boolean>(true);
 
@@ -93,13 +105,10 @@ const Navbar = () => {
                 <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></span>
               </Link>
               <div className="items-center hidden gap-1 text-sm uppercase sm:flex md:gap-8 sm:gap-4 font-baiMedium">
-                <Link
-                  href={`/profile/${user._id}`}
-                  className="w-20 md:w-40 sm:w-32"
-                >
+                <Link href={`/profile/${user._id}`} className="w-20  sm:w-32">
                   <div className="flex items-center justify-between gap-3 px-2 py-[2px] bg-white border-2 border-red-400 rounded-md cursor-pointer profile-dropdown hover:bg-red-50">
                     <div className="flex items-center flex-1 gap-3 ">
-                      <div className="relative w-12 h-12 py-1 rounded-full">
+                      <div className="relative w-8 h-8 py-1 rounded-full">
                         <Image
                           src={user.avatar}
                           fill
@@ -122,19 +131,19 @@ const Navbar = () => {
             </Link>
           )}
 
-          <Link href={user._id ? "/sell" : "/auth"}>
+          <div onClick={handleSell}>
             <div
-              className="sm:block hidden w-full p-2 rounded-md text-whte bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 
-            hover:shadow-[0px_0px_10px_4px_rgba(239,_68,_68,_0.7)] duration-500 ease-in-out"
+              className="sm:block hidden w-full p-[5px] rounded-md text-whte bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 
+            animate-gradient hover:shadow-[0px_0px_10px_4px_rgba(239,_68,_68,_0.7)] duration-500 ease-in-out cursor-pointer"
             >
-              <div className="flex items-center justify-between w-full h-full gap-2 px-2 py-1 bg-white rounded-md md:px-3 md:py-2">
+              <div className="flex items-center justify-between w-full h-full gap-2 px-2 py-0.5 bg-white rounded-md md:px-3 md:py-1">
                 <span className="hidden text-lg md:block">
                   <IoMdAdd className="text-xl font-bold" />
                 </span>
                 Sell
               </div>
             </div>
-          </Link>
+          </div>
           <div className="">
             {user.avatar && (
               <div className="relative block lg:hidden">
@@ -177,15 +186,15 @@ const Navbar = () => {
                         </div>
                         <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
                       </Link>
-                      <Link
-                        href={user._id ? "/sell" : "/auth"}
+                      <div
+                        onClick={handleSell}
                         className="cursor-pointer group"
                       >
                         <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
                           Sell
                         </div>
                         <p className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-red-600 origin-bottom-left after:origin-right"></p>
-                      </Link>
+                      </div>
                       <Link href={"/orders"} className="cursor-pointer group">
                         <div className="text-sm transition duration-300 md:text-base hover:text-red-600 rounded-t-xl">
                           Orders

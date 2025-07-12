@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios'
 
 const axiosInstance = axios.create({
-  baseURL: "https://snapbid-backend.100xsushil.xyz/",
-  // baseURL: "https://snapbid-backend.onrender.com",
+  // baseURL: "https://snapbid-backend.100xsushil.xyz/",
+  baseURL: "https://snapbid-backend.onrender.com",
   // baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
