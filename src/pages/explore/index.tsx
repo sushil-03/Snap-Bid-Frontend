@@ -4,9 +4,6 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 // import { BsFillSendFill } from "react-icons/bs";
 
-import { PiPaperPlaneRightDuotone } from "react-icons/pi";
-import { categories, statusList } from "utils/constant";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import Input from "@/components/atoms/Input";
 import { ImSearch } from "react-icons/im";
 import InfiniteScrollProduct from "@/components/molecules/InfiniteScrollProduct";
@@ -73,7 +70,6 @@ const index = () => {
   //   }
   // }, [query, category, status]);
 
-  const [filter, showFilter] = useState(false);
   console.log("Checking data", data);
 
   if (isLoading) {
@@ -120,7 +116,6 @@ const index = () => {
               <FilterDropdownMenu />
             </div>
             <Input
-              // icon={<RiSearchLine className="ml-2 text-violet-600" />}
               Icon={ImSearch}
               iconClass="!block"
               type="text"

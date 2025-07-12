@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Button, Menu, MenuItem, Box, Typography, Paper } from "@mui/material";
+import { Button, Menu, MenuItem, Typography } from "@mui/material";
 import { MdFilterList, MdChevronRight } from "react-icons/md";
 import { useRouter } from "next/router";
 import { categories, statusList } from "utils/constant";
